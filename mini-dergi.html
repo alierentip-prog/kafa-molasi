@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #f6f3ee, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .back-link {
+      font-size: 0.8rem;
+      color: #4f46e5;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 10px 20px rgba(148,163,184,0.7);
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #4b5563;
+      max-width: 640px;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .issue-card {
+      position: relative;
+      border-radius: 22px;
+      padding: 16px 14px 16px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 14px 28px rgba(148,163,184,0.75);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .issue-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(148,163,184,0.9);
+      background: #ffffff;
+    }
+
+    .issue-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      gap: 10px;
+    }
+
+    .issue-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+    }
+
+    .issue-pill {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .issue-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-desc {
+      font-size: 0.82rem;
+      color: #6b7280;
+      line-height: 1.5;
+      min-height: 3.2em;
+    }
+
+    .issue-footer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .issue-footer span.icon {
+      font-size: 1.1rem;
+    }
+
+    .issue-badge {
+      position: absolute;
+      right: 10px;
+      bottom: 12px;
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.06);
+      color: #6b7280;
+    }
+
+    .issue-accent {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      filter: blur(60px);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .accent-1 { top: -60px; left: -50px; background: rgba(244,114,182,0.8); }
+    .accent-2 { top: -60px; left: -50px; background: rgba(56,189,248,0.8); }
+    .accent-3 { top: -60px; left: -50px; background: rgba(52,211,153,0.8); }
+    .accent-4 { top: -60px; left: -50px; background: rgba(251,191,36,0.8); }
+    .accent-5 { top: -60px; left: -50px; background: rgba(129,140,248,0.8); }
+    .accent-6 { top: -60px; left: -50px; background: rgba(248,113,113,0.8); }
+    .accent-7 { top: -60px; left: -50px; background: rgba(96,165,250,0.8); }
+    .accent-8 { top: -60px; left: -50px; background: rgba(45,212,191,0.8); }
+    .accent-9 { top: -60px; left: -50px; background: rgba(252,165,165,0.8); }
+    .accent-10{ top: -60px; left: -50px; background: rgba(190,242,100,0.8); }
+    .accent-11{ top: -60px; left: -50px; background: rgba(196,181,253,0.8); }
+    .accent-12{ top: -60px; left: -50px; background: rgba(251,207,232,0.8); }
+
+    @media (max-width: 600px) {
+      .logo-text h1 {
+        font-size: 1.15rem;
+      }
+      .subtitle {
+        font-size: 0.85rem;
+      }
+      .issue-title {
+        font-size: 0.94rem;
+      }
+      .issue-desc {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="header-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kısa molalara uzun cümleler</span>
+          </div>
+        </div>
+
+        <a href="menu.html" class="back-link">
+          ← Ana menüye dön
+        </a>
+      </div>
+
+      <p class="subtitle">
+        Burası, kafa dağıtırken kalbe de dokunan yazıların köşesi.  
+        Her sayı, başka bir ruh hâline yazılmış küçük bir dergi gibi.  
+        Aşağıdan bir kapağı seç; sayfanın içinde uzun uzun dertleşelim. ☕
+      </p>
+
+      <div class="badge-row">
+        <div class="chip">📚 12 sayılık mini seri</div>
+        <div class="chip">💭 Empatik, samimi, biz diliyle</div>
+        <div class="chip">⏳ Her sayı: 3–5 dakikalık mola</div>
+      </div>
+
+      <section class="grid">
+
+        <!-- 1 -->
+        <a href="dergi-01.html" class="issue-card">
+          <div class="issue-accent accent-1"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 1</div>
+            <div class="issue-pill">🌿 Sessizlik</div>
+          </div>
+          <div class="issue-title">Sessizlik Hakkı</div>
+          <div class="issue-desc">
+            Hiçbir şey üretmediğin günlerde, insan olma hakkını savunan bir sayı.
+          </div>
+          <div class="issue-footer">
+            <span>“Durmak da ilerlemektir.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Uzun okuma</div>
+        </a>
+
+        <!-- 2 -->
+        <a href="dergi-02.html" class="issue-card">
+          <div class="issue-accent accent-2"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 2</div>
+            <div class="issue-pill">💔 Yorgunluk</div>
+          </div>
+          <div class="issue-title">Yorgun Kalpler Kulübü</div>
+          <div class="issue-desc">
+            Güçlü görünmekten yorulmuş ama hâlâ nazik kalmaya çalışan kalpler için.
+          </div>
+          <div class="issue-footer">
+            <span>“Yorgunsun diye zayıf değilsin.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Uzun okuma</div>
+        </a>
+
+        <!-- 3 -->
+        <a href="dergi-03.html" class="issue-card">
+          <div class="issue-accent accent-3"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 3</div>
+            <div class="issue-pill">🕯️ Şükür</div>
+          </div>
+          <div class="issue-title">Küçük Şükürler Defteri</div>
+          <div class="issue-desc">
+            Büyük mucize beklemeden, küçük şeylere “iyi ki” diyebilenler için.
+          </div>
+          <div class="issue-footer">
+            <span>“Hayat detaylarda saklı.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Uzun okuma</div>
+        </a>
+
+        <!-- 4 -->
+        <a href="dergi-04.html" class="issue-card">
+          <div class="issue-accent accent-4"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 4</div>
+            <div class="issue-pill">🌅 Sabah</div>
+          </div>
+          <div class="issue-title">Sabahın Sessiz Masası</div>
+          <div class="issue-desc">
+            Herkes uyanmadan önceki o kısa, sessiz zamanın değerine dair.
+          </div>
+          <div class="issue-footer">
+            <span>“Güne herkesle değil, kendinle başla.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Huzurlu</div>
+        </a>
+
+        <!-- 5 -->
+        <a href="dergi-05.html" class="issue-card">
+          <div class="issue-accent accent-5"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 5</div>
+            <div class="issue-pill">💭 Kendilik</div>
+          </div>
+          <div class="issue-title">Kendine İyi Davranmayı Öğrenirken</div>
+          <div class="issue-desc">
+            Kendine kızmaktan yorulup, kendine sarılmayı denemek isteyenler için.
+          </div>
+          <div class="issue-footer">
+            <span>“En zor ilişki: kendinle olan.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Derin</div>
+        </a>
+
+        <!-- 6 -->
+        <a href="dergi-06.html" class="issue-card">
+          <div class="issue-accent accent-6"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 6</div>
+            <div class="issue-pill">🌙 Yalnızlık</div>
+          </div>
+          <div class="issue-title">Yalnız Ama Eksik Değil</div>
+          <div class="issue-desc">
+            Yalnızlığın her zaman “eksik olmak” demek olmadığını hatırlatan satırlar.
+          </div>
+          <div class="issue-footer">
+            <span>“Tek başınalık ≠ yalnızlık.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Sakin</div>
+        </a>
+
+        <!-- 7 -->
+        <a href="dergi-07.html" class="issue-card">
+          <div class="issue-accent accent-7"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 7</div>
+            <div class="issue-pill">🐢 Yavaşlık</div>
+          </div>
+          <div class="issue-title">Yavaş Yaşa Kulübü</div>
+          <div class="issue-desc">
+            Her şeyin hızlı olmasının övüldüğü bir dünyada, yavaş kalmayı seçenler için.
+          </div>
+          <div class="issue-footer">
+            <span>“Yavaş olan da varır.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Molalık</div>
+        </a>
+
+        <!-- 8 -->
+        <a href="dergi-08.html" class="issue-card">
+          <div class="issue-accent accent-8"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 8</div>
+            <div class="issue-pill">🤣 Mizah</div>
+          </div>
+          <div class="issue-title">Gülerken İçten İçe Düşünenler</div>
+          <div class="issue-desc">
+            Şaka yaparken bile kafasında bin tane düşünce dönen beyinler için.
+          </div>
+          <div class="issue-footer">
+            <span>“Hem goygoy, hem derinlik.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Karışık</div>
+        </a>
+
+        <!-- 9 -->
+        <a href="dergi-09.html" class="issue-card">
+          <div class="issue-accent accent-9"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 9</div>
+            <div class="issue-pill">🪫 Tükeniş</div>
+          </div>
+          <div class="issue-title">Bitmiş Gibi Hissedip Hâlâ Devam Edenler</div>
+          <div class="issue-desc">
+            İçinden “bittim” deyip yine de bir şekilde kalkabilenlerin sessiz hikâyesi.
+          </div>
+          <div class="issue-footer">
+            <span>“Bittim sananlar kulübü.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Ağlak hafif</div>
+        </a>
+
+        <!-- 10 -->
+        <a href="dergi-10.html" class="issue-card">
+          <div class="issue-accent accent-10"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 10</div>
+            <div class="issue-pill">🤍 Şefkat</div>
+          </div>
+          <div class="issue-title">Şefkatli Yorgunlar</div>
+          <div class="issue-desc">
+            Herkese iyi davranıp kendini hep sona bırakan nazik ruhlar için.
+          </div>
+          <div class="issue-footer">
+            <span>“Kendine de yer kalsın.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Yumuşak</div>
+        </a>
+
+        <!-- 11 -->
+        <a href="dergi-11.html" class="issue-card">
+          <div class="issue-accent accent-11"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 11</div>
+            <div class="issue-pill">🧠 İç Ses</div>
+          </div>
+          <div class="issue-title">İçine Atanlar Derneği</div>
+          <div class="issue-desc">
+            Konuşmak yerine susup, sonra kendi kendini yiyen zihinler için yazılmış bir sayı.
+          </div>
+          <div class="issue-footer">
+            <span>“Konuşmasan da hissediyorsun.”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Dertleşme</div>
+        </a>
+
+        <!-- 12 -->
+        <a href="dergi-12.html" class="issue-card">
+          <div class="issue-accent accent-12"></div>
+          <div class="issue-top">
+            <div class="issue-tag">Sayı 12</div>
+            <div class="issue-pill">⌛ Devam</div>
+          </div>
+          <div class="issue-title">Kalbinle Konuşma Saati</div>
+          <div class="issue-desc">
+            “Gerçekten ne istiyorum?” sorusunu erteleyip erteleyip sonunda soranlar için.
+          </div>
+          <div class="issue-footer">
+            <span>“Moladan sonra ne olsun?”</span>
+            <span class="icon">➡️</span>
+          </div>
+          <div class="issue-badge">Final sayısı</div>
+        </a>
+
+      </section>
+    </div>
+  </div>
+</body>
+  </html>
