@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 8: Gülerken İçten İçe Düşünenler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #fefce8, #fef2f2);
+      color: #0f172a;
+    }
+
+    .wrapper { width: 100%; padding: 26px 14px 34px; }
+    .container { max-width: 880px; margin: 0 auto; }
+
+    .top-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+
+    .logo-row { display: flex; align-items: center; gap: 10px; }
+
+    .logo-circle {
+      width: 46px; height: 46px; border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+    .logo-text h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .logo-text span { font-size: 0.8rem; color: #6b7280; }
+
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill-link {
+      font-size: 0.78rem; color: #4f46e5; text-decoration: none;
+      padding: 6px 11px; border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill-link:hover { text-decoration: underline; }
+
+    .card {
+      margin-top: 8px; background: rgba(255,255,255,0.96);
+      border-radius: 26px; box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px; position: relative; overflow: hidden;
+    }
+
+    .glow-1, .glow-2 {
+      position: absolute; width: 240px; height: 240px;
+      border-radius: 999px; filter: blur(70px);
+      opacity: 0.8; z-index: -1;
+    }
+
+    .glow-1 { top: -90px; left: -80px; background: rgba(254,240,138,0.7); }
+    .glow-2 { bottom: -90px; right: -80px; background: rgba(254,202,202,0.7); }
+
+    .issue-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-radius: 999px;
+      background: #fef9c3; color: #92400e;
+      font-size: 0.8rem; margin-bottom: 10px;
+    }
+
+    .issue-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+    .issue-subtitle { font-size: 0.94rem; color: #6b7280; margin-bottom: 18px; line-height: 1.5; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: #9ca3af; margin-bottom: 12px; }
+
+    .text { font-size: 0.94rem; color: #374151; line-height: 1.8; white-space: pre-line; }
+    .text p { margin-bottom: 10px; }
+    .text em { font-style: normal; font-weight: 500; }
+
+    .closing-block { margin-top: 18px; padding-top: 12px; border-top: 1px dashed rgba(148,163,184,0.7); font-size: 0.9rem; color: #4b5563; }
+    .closing-quote { font-size: 0.96rem; font-weight: 500; margin-top: 6px; }
+
+    .nav-bottom { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-size: 0.8rem; color: #9ca3af; }
+    .nav-bottom a { color: #4f46e5; text-decoration: none; }
+    .nav-bottom a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 8</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 8</span>
+          <span>• Gülerken İçten İçe Düşünenler</span>
+        </div>
+
+        <h2 class="issue-title">Gülerken İçten İçe Düşünenler</h2>
+        <p class="issue-subtitle">
+          Kahkaha atarken bile içinden “bu da geçer” diyen güzel yorgun ruhlara.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 4–7 dakikalık okuma</span>
+          <span>🌷 Tema: Maskeli neşe & içsel derinlik</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Herkes seni “neşeli insan” olarak biliyor.  
+            Gülüyorsun, sohbetlerde ortamı toparlıyorsun,  
+            sessizlik çöktüğünde bir espriyle dağıtıyorsun.  
+            Ama kimse bilmiyor: o esprilerin arasında  
+            bazen içinden sadece sessizce “keşke biri anlasaydı” diyorsun.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz</em>, gülmek kolay bir maske.  
+            Çünkü gülersen kimse sormuyor, “iyi misin?” diye.  
+            Oysa bazen o kahkahanın içinde  
+            bir parça yorgunluk, bir tutam özlem,  
+            belki de biraz hayal kırıklığı var.
+          </p>
+
+          <p>
+            Herkesin gözünde güçlü görünmek istiyorsun.  
+            Çünkü “iyi misin?” sorusuna “değilim” demek  
+            çoğu zaman insanı daha çok yoruyor.  
+            Anlatmak da dert, anlatmamak da.  
+            İşte o yüzden hep gülüyorsun —  
+            ama içten içe hep düşünüyorsun.
+          </p>
+
+          <p>
+            Bazen kalabalıklarda kahkahalar atarken  
+            bir anda aklına bambaşka bir şey geliyor:  
+            biri, bir anı, bir yarım kalan konuşma.  
+            Ve gülüşünün ortasında boğazına düğümlenen  
+            o görünmez duyguyu kimse fark etmiyor.
+          </p>
+
+          <p>
+            Bu yazı, tam da senin gibiler için:  
+            Gülerken bile düşünenler,  
+            herkesin eğlendiği yerde derin düşünenler,  
+            içini dışına dökemeyen ama kimseyi kırmamaya çalışanlar…
+          </p>
+
+          <p>
+            Hayatta en sessiz kahramanlar,  
+            başkalarını güldürüp kendine iyi davranmayı unutanlardır.  
+            Oysa o kadar inceliklisindir ki,  
+            başkalarının üzüntüsünü hemen fark eder,  
+            ama kendi kalbini hep “sonra”ya bırakırsın.
+          </p>
+
+          <p>
+            Belki çocukken de böyledin.  
+            Evde biri üzülmesin diye gülerdin,  
+            ortalığı yumuşatırdın.  
+            Yani “iyi olmak” senin karakterin değil,  
+            hayatta kalma biçimin olmuş olabilir.
+          </p>
+
+          <p>
+            Ama artık biraz kendini de güldürme zamanı.  
+            Başkalarına verdiğin o anlayıştan  
+            biraz da kendine ver.  
+            Gül, ama kendine.  
+            Çünkü senin kahkahan, sadece başkalarına değil  
+            sana da iyi gelmeli.
+          </p>
+
+          <p>
+            Düşünmek kötü bir şey değil.  
+            Derin olmak, ağır olmak değil.  
+            Herkesten farklı bir ritmin var sadece.  
+            Ve bazen en parlak gülüşlerin arkasında  
+            en anlamlı sessizlikler gizlidir.
+          </p>
+
+          <p>
+            Bu sayfayı okurken belki hafifçe gülümsedin.  
+            Belki “evet, ben de öyleyim.” dedin içinden.  
+            İşte tam o anda, yalnız olmadığını hatırla.  
+            Çünkü senin gibi insanlar az ama var:  
+            Gülerken bile içten içe düşünen,  
+            kendi sessizliğini duyan insanlar.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Bazı kahkahalar, kalbin ağlamamak için bulduğu yoldur.”</em>
+          </p>
+
+          <p>
+            Ama artık biraz dinlen, güzel insan.  
+            Her şeyi çözmek zorunda değilsin.  
+            Her zaman güçlü görünmek zorunda değilsin.  
+            Bazen sadece sessizce oturmak,  
+            içinden geçenleri izlemek yeter.
+          </p>
+
+          <p>
+            Çünkü bazen en derin düşünenler,  
+            en güzel gülümseyenlerdir.  
+            Ve sen, her iki tarafın da ustasısın:  
+            Hayatın hem hüznünü, hem ışığını taşıyorsun.  
+            Sessizce, ama çok zarif bir şekilde.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>🌷 Gülerken İçten İçe Düşünenler • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-07.html">← Önceki sayı: Yavaş Yaşa Kulübü</a> •
+            <a href="dergi-09.html">Sonraki sayı → Kırgın Kalplere Bir Mektup</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
