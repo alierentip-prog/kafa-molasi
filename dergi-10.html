@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 10: Hayata Yeniden Başlamak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #e0f2fe, #fee2e2);
+      color: #0f172a;
+    }
+
+    .wrapper { width: 100%; padding: 26px 14px 34px; }
+    .container { max-width: 880px; margin: 0 auto; }
+
+    .top-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+
+    .logo-row { display: flex; align-items: center; gap: 10px; }
+
+    .logo-circle {
+      width: 46px; height: 46px; border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+    .logo-text h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .logo-text span { font-size: 0.8rem; color: #6b7280; }
+
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill-link {
+      font-size: 0.78rem; color: #4f46e5; text-decoration: none;
+      padding: 6px 11px; border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill-link:hover { text-decoration: underline; }
+
+    .card {
+      margin-top: 8px; background: rgba(255,255,255,0.96);
+      border-radius: 26px; box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px; position: relative; overflow: hidden;
+    }
+
+    .glow-1, .glow-2 {
+      position: absolute; width: 240px; height: 240px;
+      border-radius: 999px; filter: blur(70px);
+      opacity: 0.8; z-index: -1;
+    }
+
+    .glow-1 { top: -90px; left: -80px; background: rgba(129,230,217,0.7); }
+    .glow-2 { bottom: -90px; right: -80px; background: rgba(254,202,202,0.7); }
+
+    .issue-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-radius: 999px;
+      background: #fee2b3; color: #92400e;
+      font-size: 0.8rem; margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .issue-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+    .issue-subtitle { font-size: 0.94rem; color: #6b7280; margin-bottom: 18px; line-height: 1.5; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: #9ca3af; margin-bottom: 12px; }
+
+    .meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .text { font-size: 0.94rem; color: #374151; line-height: 1.8; white-space: pre-line; }
+    .text p { margin-bottom: 10px; }
+    .text em { font-style: normal; font-weight: 500; }
+
+    .quote-block {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+      margin: 16px 0 10px;
+    }
+
+    .quote-block p { margin-bottom: 8px; }
+    .quote-line {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p { margin-bottom: 8px; }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+    .nav-bottom a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .card { padding: 18px 14px 20px; border-radius: 22px; }
+      .issue-title { font-size: 1.25rem; }
+      .issue-subtitle { font-size: 0.86rem; }
+      .text { font-size: 0.9rem; }
+      .logo-text h1 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 10</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 10</span>
+          <span>• Hayata Yeniden Başlamak</span>
+        </div>
+
+        <h2 class="issue-title">Hayata Yeniden Başlamak</h2>
+        <p class="issue-subtitle">
+          Bazen her şey dağıldı sandığında, aslında sessizce yeniden kuruluyorsun.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 7–10 dakikalık okuma</span>
+          <span>🌅 Tema: Yeniden başlama & içten yeniden doğuş</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Bu sayfa, “bitti” sanıp hâlâ devam etmeye çalışan kalplere yazıldı.
+            Belki sen de onlardan birisin.  
+            Günlerdir yorgunsun, kafan dolu, içinden hiçbir şey gelmiyor…
+            Ama yine de buradasın. Okuyorsun, düşünüyorsun, nefes alıyorsun.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz</em>:  
+            Hayata yeniden başlamak çoğu zaman büyük bir sahne değil.
+            Alkışlar, konfeti, dev kararlar yok.  
+            Bazen sadece yataktan biraz daha erken kalkmak,
+            mesajlara ilk defa içten bir “bu aralar iyi değilim” yazmak,
+            ya da uzun zamandır ertelediğin bir “kendine dönme” hâli.
+          </p>
+
+          <p>
+            Bazen öyle bir gün geliyor ki,  
+            eski senin sana dar geldiğini fark ediyorsun.
+            Aynı şeylere aynı tepkileri veremiyorsun,
+            aynı kalabalıklara aynı heyecanı duyamıyorsun.
+            İçinden usulca bir cümle yükseliyor:
+            “Sanırım ben değiştim.”
+          </p>
+
+          <p>
+            İşte tam orası, yeniden başlangıcın eşiği.
+            Korkutucu çünkü bildiğin her şey eski seni üzerine kurulu.
+            Ama aynı zamanda huzurlu, çünkü artık kendine daha dürüstsün.
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“Yeniden başlamak, her şeyi silmek değil;  
+              bu kez kendini kaybetmeden devam etmeyi seçmektir.”</em>
+            </p>
+            <p>
+              Bugün belki hayatını komple değiştirecek büyük bir karar almayacaksın.
+              Ama belki yıllardır ertelediğin küçük bir cümleyi söyleyeceksin:
+              “Artık kendimi de düşüneceğim.”
+            </p>
+          </div>
+
+          <p>
+            Hepimizin hayatında “önce” ve “sonra” diye ikiye ayrılan anlar var.
+            Biri gittikten sonra, bir sınavdan sonra,  
+            bir şehir değişince, bir söz ağır gelince…
+            O anlarda dünya eski hâlinde duruyor gibi görünse de
+            biz, içimizden sessizce başka birine dönüşüyoruz.
+          </p>
+
+          <p>
+            Sen de belki şu an tam o aradasın:
+            Ne eskisi kadar eskidesin,
+            ne de yenisine tam olarak adım atabildin.
+            İkisi arasında asılı kalmış bir hâlin var.
+          </p>
+
+          <p>
+            Bu aralık hâli çok zor biliyorum.
+            Ama inan, en büyük dönüşümler de bu gri bölgede başlıyor.
+            Çünkü burada kimse seni zorlamıyor.
+            Sadece kalbinle baş başasın.
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“Bazen hayat, seni sarstığı yerde değil,  
+              sakinleşmeyi öğrendiğin yerde yeniden başlar.”</em>
+            </p>
+            <p>
+              Bugün bir şeyleri zorla değiştirmek zorunda değilsin.
+              Sadece şunu fark etmen bile yeter:
+              “Ben artık eskisi gibi hissetmiyorum ve bu normal.”
+            </p>
+          </div>
+
+          <p>
+            Yeniden başlamak için mükemmel olman gerekmiyor.
+            Hatta çoğu zaman tam tersi:
+            Dağılmış, yorgun, kafası karışık hâlinle otururken
+            bir anda “buradan da bir yol çıkar” diyorsun.
+            Ve o yol, başkalarının değil, senin yolun oluyor.
+          </p>
+
+          <p>
+            Belki uzun süredir kendine kızıyorsun:
+            “Neden toparlanamıyorum?”,  
+            “Neden herkes gibi hızlı olamıyorum?”,  
+            “Neden hâlâ buradayım?”  
+            Oysa bazen, en büyük cesaret
+            hemen toparlanmak değil;
+            toparlanamadığını kabul edebilmek.
+          </p>
+
+          <p>
+            Bugün kendine şunu söyleyebilirsin:
+            “Ben şu anda olduğum hâlimle de sevilebilirim.”
+            Çünkü yeniden başlamak,
+            kendini ancak başarılarının üzerinden sevmeyi bırakıp
+            var olduğun için değer vermeye başladığında hızlanıyor.
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“Hayat, sadece kazandıklarınla değil;  
+              pes etmediğin o sessiz günlerle de yeniden başlar.”</em>
+            </p>
+            <p>
+              Belki bugün hiçbir büyük şey yapmadın.
+              Ama yine de buradasın,
+              yine bir şeyler öğrenmeye açıksın,
+              yine kalbinde küçük de olsa bir umut taşıyorsun.
+              İşte asıl başlangıç tam da burada.
+            </p>
+          </div>
+
+          <p>
+            Yeni bir sayfa açmak için
+            tüm defteri yırtmana gerek yok.
+            Bazen kaldığın yerden  
+            daha yumuşak bir kalemle devam etmek yeter.
+            Aynı hayat, daha nazik bir bakışla
+            bambaşka görünebiliyor.
+          </p>
+
+          <p>
+            Belki yarın yine yorulacaksın,
+            yine zorlanacaksın, yine düşeceksin.
+            Ama artık biliyorsun:
+            Düşmen, bittiğin anlamına gelmiyor.
+            Her düşüş, yeni bir kalkışın  
+            prova hâli sadece.
+          </p>
+
+          <p>
+            Bugün hayata yeniden başlamak istiyorsan,
+            kocaman cümleler kurmak zorunda değilsin.
+            Minicik bir cümle bile yeter:
+            “Kendim için de yaşayacağım.”
+          </p>
+
+          <p>
+            Ve unutma; yeniden başlamak,
+            önce içinden başlar.
+            Dışarıdan hiçbir şey değişmemiş gibi görünür,
+            ama sen artık aynı şeyi aynı gözle görmezsin.
+            İşte o anda dünya da yavaş yavaş değişmeye başlar.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Bugün attığın en küçük adım bile,  
+            dün olduğun hâlden daha ileri bir yer.”</em>
+          </p>
+
+          <p>
+            Eğer bu satırları buraya kadar okuduysan,
+            kalbin çoktan bir karar verdi bile:
+            “Ben devam edeceğim.”
+            Belki yavaş, belki tökezleyerek,
+            belki ara ara durarak…
+            Ama yine de devam edeceksin.
+          </p>
+
+          <p>
+            Hayata yeniden başlamak,  
+            geçmişi silmek değil;  
+            geçmişten öğrendiklerinin elinden tutup
+            kendine daha güzel bir bugün hazırlamaktır.
+          </p>
+
+          <p>
+            Bugün kendine küçük bir iyilik yap:
+            Derin bir nefes al,  
+            etrafına bak ve içinden şöyle fısılda:
+            “Her şeye rağmen, hâlâ buradayım.  
+            Ve bu, yeni bir başlangıç için yeter.”
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>🌅 Hayata Yeniden Başlamak • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-09.html">← Önceki sayı: Kırgın Kalplere Bir Mektup</a> •
+            <a href="dergi-11.html">Sonraki sayı → Yalnızlığın Güzel Yüzü</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+  </html>
