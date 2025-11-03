@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mola Bitti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #f5f3ff, #e0f2fe);
+      color: #0f172a;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.night {
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      color: #e5e7eb;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 32px 16px 40px;
+    }
+
+    .card {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 22px 30px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.4);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.night .card {
+      background: rgba(15,23,42,0.94);
+      box-shadow: 0 20px 46px rgba(0,0,0,0.8);
+    }
+
+    .glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      filter: blur(60px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+
+    .glow.glow-1 {
+      top: -80px;
+      left: -60px;
+      background: rgba(56,189,248,0.8);
+    }
+
+    .glow.glow-2 {
+      bottom: -80px;
+      right: -60px;
+      background: rgba(244,114,182,0.8);
+    }
+
+    body.night .glow.glow-1 {
+      background: rgba(56,189,248,0.25);
+    }
+    body.night .glow.glow-2 {
+      background: rgba(129,140,248,0.35);
+    }
+
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: rgba(248,250,252,0.9);
+      box-shadow: 0 10px 24px rgba(148,163,184,0.7);
+    }
+
+    body.night .icon-circle {
+      background: rgba(15,23,42,0.9);
+      box-shadow: 0 10px 24px rgba(15,23,42,0.9);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+    }
+
+    body.night .subtitle {
+      color: #9ca3af;
+    }
+
+    .text-block {
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #374151;
+      margin: 0 auto;
+      max-width: 480px;
+      white-space: pre-line;
+    }
+
+    body.night .text-block {
+      color: #e5e7eb;
+    }
+
+    .text-block p {
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      font-weight: 600;
+    }
+
+    .closing {
+      margin-top: 14px;
+      font-size: 0.96rem;
+      font-weight: 500;
+    }
+
+    .closing em {
+      font-style: normal;
+      opacity: 0.85;
+    }
+
+    .small-note {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .small-note a {
+      color: #22c55e;
+      font-weight: 500;
+    }
+
+    body.night .small-note a {
+      color: #4ade80;
+    }
+
+    .clock-chip {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      font-size: 0.78rem;
+      color: #4b5563;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.9);
+    }
+
+    body.night .clock-chip {
+      background: rgba(15,23,42,0.92);
+      color: #e5e7eb;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.9);
+    }
+
+    .clock-time {
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 18px 26px;
+        border-radius: 24px;
+      }
+      h1 {
+        font-size: 1.25rem;
+      }
+      .text-block {
+        font-size: 0.9rem;
+      }
+      .clock-chip {
+        top: 12px;
+        right: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+
+      <div class="clock-chip">
+        <span id="clockIcon">🕰️</span>
+        <span class="clock-time" id="clockTime">--:--</span>
+      </div>
+
+      <div class="icon-circle" id="mainIcon">☀️</div>
+      <h1 id="mainTitle">Mola bitti, hayat devam ediyor.</h1>
+      <p class="subtitle" id="subTitle">
+        Ekranı bırak, kendine bak. Gerçek mola şimdi başlıyor.
+      </p>
+
+      <!-- Gündüz metni -->
+      <div class="text-block" id="dayText">
+        <p><span class="highlight">Dur.</span> Evet, gerçekten dur. 
+Şu an hiçbir bildirim, hiçbir görev, hiçbir “şunu da halletmeliyim” yok. 
+Sadece sen varsın.</p>
+
+        <p>Başını kaldır. Çevrene bir bak. Duvarına, pencerene, ışığa, gökyüzünün tonuna…  
+Hepsi seninle beraber burada duruyor. Sen fark etsen de etmesen de.</p>
+
+        <p>Şimdi derin bir nefes al. O nefesin içindeki sıcaklığı hisset.  
+O küçücük his, yaşadığının en sade kanıtı. 
+Bu kadar basit, bu kadar değerli.</p>
+
+        <p>Bugün ne yaşadıysan, iyi ya da zor… Hepsi bitti. 
+Şu an sadece <span class="highlight">şimdi</span> var. 
+Ve “şimdi”, seni yargılamıyor.  
+Senden tek istediği, biraz farkındalık, biraz da şükür.</p>
+
+        <p>Gözlerini gezdir etrafında. Hayat devam ediyor, evet. 
+Ama sen ona birkaç dakikalığına ara verebildin. 
+Bunu küçümseme; çoğu insan kendine o arayı hiç vermiyor.</p>
+
+        <p class="closing">
+          <em>Ve bu bile şükretmeye değer.</em> 🕊️
+        </p>
+
+        <p class="closing">
+          Bir dahaki molada yine beklerim. 
+          <em>Huzurlu kal, başını kaldırmayı unutma.</em> ☕
+        </p>
+      </div>
+
+      <!-- Gece metni -->
+      <div class="text-block" id="nightText" style="display:none;">
+        <p><span class="highlight">Dur.</span> Şu an gece. 
+Dünyanın sesi azaldı; dışarıda belki sadece rüzgâr, 
+uzaktan geçen bir araba, ya da şehirden sızan hafif bir uğultu var.</p>
+
+        <p>Telefonu elinden yavaşça bırak. 
+Ekrana değil, kendine bak. 
+Görüyor musun? Her şey yavaşlamış olsa da, sen hâlâ buradasın.</p>
+
+        <p>Başını kaldır. Tavana, duvara ya da gökyüzüne bak. 
+Karanlık sandığın göğün içinde, binlerce küçük ışığın evi saklı. 
+Onlar sönmedi; sadece uzakta. 
+Tıpkı umutların gibi.</p>
+
+        <p>Nefes al. Gerçekten al. 
+Kalbin kendi ritminde atmaya devam ediyor. 
+Dünyanın karmaşasına rağmen, içinde hâlâ bir ritim var. 
+Bu, en sessiz mucize.</p>
+
+        <p>Belki bugün yoruldun, kırıldın, sıkıldın. 
+Ama buraya kadar geldin. 
+Demek ki içindeki bir parça hâlâ “devam edebilirim” diyebiliyor.</p>
+
+        <p class="closing">
+          <em>Farkında olmak bile, hayata teşekkür etmektir.</em> 🌙
+        </p>
+
+        <p class="closing">
+          Şimdi gözlerini ekrandan al. 
+          Odanı, gökyüzünü, karanlığın içindeki küçücük ışığı fark et. 
+          Dinlen; çünkü dinlenmek, hayata “teşekkür ederim” demenin en sakin hâlidir.
+        </p>
+
+        <p class="closing">
+          İyi geceler. 
+          Yarın yine gelirsen, 
+          beraber biraz daha susarız. ☕
+        </p>
+      </div>
+
+      <p class="small-note">
+        Eğer gerçekten çıkmadan önce bir tur daha bakmak istersen,  
+        <a href="menu.html">buradan ana menüye dönebilirsin</a>.  
+        Ama bence şimdilik telefonu elinden bırak. 💚
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function updateClockAndMode() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+
+      const timeText = `${hours}:${minutes}`;
+      document.getElementById("clockTime").textContent = timeText;
+
+      const body = document.body;
+      const mainIcon = document.getElementById("mainIcon");
+      const mainTitle = document.getElementById("mainTitle");
+      const subTitle = document.getElementById("subTitle");
+      const clockIcon = document.getElementById("clockIcon");
+      const dayText = document.getElementById("dayText");
+      const nightText = document.getElementById("nightText");
+
+      // Gündüz 07–19 arası
+      const isDay = now.getHours() >= 7 && now.getHours() < 19;
+
+      if (isDay) {
+        body.classList.remove("night");
+        mainIcon.textContent = "☀️";
+        clockIcon.textContent = "🕰️";
+        mainTitle.textContent = "Mola bitti, hayat devam ediyor.";
+        subTitle.textContent = "Ekranı bırak, etrafına bak. Gerçek mola şimdi başlıyor.";
+        dayText.style.display = "block";
+        nightText.style.display = "none";
+      } else {
+        body.classList.add("night");
+        mainIcon.textContent = "🌙";
+        clockIcon.textContent = "🌙";
+        mainTitle.textContent = "Mola bitti, gece devam ediyor.";
+        subTitle.textContent = "Ekranı bırak, kendini dinle. Gerçek dinlenme şimdi başlıyor.";
+        dayText.style.display = "none";
+        nightText.style.display = "block";
+      }
+    }
+
+    updateClockAndMode();
+    setInterval(updateClockAndMode, 30000); // 30 saniyede bir güncelle; yeter
+  </script>
+</body>
+</html>
