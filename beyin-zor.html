@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyin Zor – God Level</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Poppins',sans-serif;
+  color:#fff;
+  overflow-x:hidden;
+  background:radial-gradient(circle at 50% 50%,#7f1d1d,#450a0a,#000);
+  background-size:400% 400%;
+  animation:lavaFlow 10s ease-in-out infinite;
+}
+@keyframes lavaFlow{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.container{
+  max-width:900px;
+  margin:40px auto;
+  background:rgba(0,0,0,0.7);
+  border:2px solid rgba(239,68,68,0.4);
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(239,68,68,0.6);
+  padding:25px 30px;
+}
+h1{
+  text-align:center;
+  color:#f87171;
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+p.desc{
+  text-align:center;
+  color:#e5e7eb;
+  margin-bottom:25px;
+}
+.question{
+  margin-bottom:20px;
+  animation:fadeIn 0.6s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(15px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.options button{
+  display:block;
+  width:100%;
+  margin:5px 0;
+  padding:9px 13px;
+  border:1px solid #ef4444;
+  border-radius:8px;
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  cursor:pointer;
+  transition:0.2s;
+}
+.options button:hover{
+  background:rgba(239,68,68,0.25);
+}
+.result{
+  font-weight:600;
+  margin-top:6px;
+}
+#finish{
+  display:block;
+  margin:25px auto;
+  padding:10px 22px;
+  border:none;
+  border-radius:8px;
+  background:#ef4444;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+#finish:hover{
+  background:#b91c1c;
+}
+#summary{
+  margin-top:20px;
+  padding:15px;
+  background:rgba(255,255,255,0.05);
+  border-radius:12px;
+  border:1px solid #ef4444;
+}
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🔥 Beyin Zor – God Level 🔥</h1>
+    <p class="desc">Bu testte her soru mantığı zorlar, bazısı evrenin kendisini.</p>
+    <div id="quiz"></div>
+    <button id="finish">Testi Bitir</button>
+    <div id="summary" class="hidden"></div>
+  </div>
+
+<script>
+let score = 0;
+const quizDiv = document.getElementById('quiz');
+  const questions = [
+{q:"Bir zaman yolcusu geçmişe gidip dedesini öldürüyor. Zaman yolcusunun varlığına ne olur?", options:["Yok olur","Sonsuz döngüye girer","Var olmaya devam eder","Tanımsız"], correct:3},
+{q:"“Bu cümle yanlıştır.” ifadesi hangi mantık kümesine girer?", options:["Klasik mantık","Parakonsisten mantık","Lojistik mantık","Epistemik mantık"], correct:1},
+{q:"Bir küme kendisini içermeyen tüm kümeleri içeriyorsa, kendini içerir mi?", options:["Evet","Hayır","Hem evet hem hayır","Russell paradoksu"], correct:3},
+{q:"Bir robot “Eğer bu cümle yanlışsa, ben susarım” diyor. Robotun davranışı ne olur?", options:["Sonsuza kadar konuşur","Susar","Mantık hatası verir","Çöker"], correct:2},
+{q:"Bir kişi hem her zaman yalan söylüyor hem de bazen doğru söylüyor diyorsa?", options:["Yalancıdır","Doğrudur","Mantıksızdır","Olmaz, tanım çelişir"], correct:3},
+{q:"Bir kürenin içindeki nokta sayısı sonsuz, yüzeyindeki nokta sayısı da sonsuz. Hangisi daha çok noktaya sahiptir?", options:["İçi","Yüzeyi","Aynı sayıda","Tanımlanamaz"], correct:3},
+{q:"Bir asansörde 5 kişi var. Her biri ya geçmişe, ya geleceğe, ya da hiçbir yere gitmiyor. Asansörün ağırlığı 400 kg. Kaç kişi “şu anda buradayım” diyebilir?", options:["0","1","2","Tanımsız"], correct:3},
+{q:"Sonsuz işlem gücüne sahip ama girdi alamayan bir bilgisayarın düşünme yeteneği hakkında ne söylenir?", options:["Düşünür ama bilemez","Bilir ama düşünemez","Ne düşünür ne bilir","Tanımsız bir sistem"], correct:3},
+{q:"Sonsuz yaşayan ama hiçbir anıyı hatırlamayan bir insan, yaşadığını bilebilir mi?", options:["Evet","Hayır","Sadece gözlemlerse","Anlamsız"], correct:3},
+{q:"Evrenin sonu varsa, zamanın başlangıcı nedir?", options:["İlk olay","Tanımsız","Sonsuzun tersi","Sadece gözlemcinin varlığı"], correct:1}
+];
+
+questions.forEach((q,i)=>{
+  const qDiv = document.createElement('div');
+  qDiv.classList.add('question');
+  qDiv.innerHTML = `<p><b>${i+1}.</b> ${q.q}</p>`;
+  const optDiv = document.createElement('div');
+  optDiv.classList.add('options');
+  q.options.forEach((opt,idx)=>{
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.addEventListener('click',()=>{
+      if(!btn.classList.contains('answered')){
+        if(idx===q.correct){
+          btn.style.background="#16a34a";
+          qDiv.insertAdjacentHTML('beforeend',`<div class='result'>✔ Doğru!</div>`);
+          score++;
+        } else {
+          btn.style.background="#b91c1c";
+          qDiv.insertAdjacentHTML('beforeend',`<div class='result'>❌ Yanlış</div>`);
+        }
+        optDiv.querySelectorAll('button').forEach(b=>b.disabled=true);
+      }
+    });
+    optDiv.appendChild(btn);
+  });
+  qDiv.appendChild(optDiv);
+  quizDiv.appendChild(qDiv);
+});
+  document.getElementById('finish').addEventListener('click',()=>{
+  let msg="";
+  if(score<=3){
+    msg="🩸 Beynini ısıtmışsın ama hala kömür modundasın.";
+  }else if(score<=6){
+    msg="🔥 Yükseliyorsun! Nöronlar alev almak üzere.";
+  }else if(score<=8){
+    msg="⚡ Zeka ateşin parlıyor, beynin lav gibi akıyor.";
+  }else{
+    msg="💀 Sen artık insan değilsin, yürüyen süpernova.";
+  }
+  const sum=document.getElementById('summary');
+  sum.classList.remove('hidden');
+  sum.innerHTML=`<h3>Sonuç</h3><p><b>${score}/10</b> doğru.</p><p>${msg}</p>`;
+  window.scrollTo(0,document.body.scrollHeight);
+});
+</script>
+</body>
+</html>
