@@ -2,194 +2,439 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Kafa Molası – Mini Dergi / Sayı 5: Kendine Mola Ver</title>
+  <title>Kafa Molası – Mini Dergi / Sayı 5: Kendine İyi Davranmayı Öğrenirken</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-      min-height:100vh;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(to bottom right,#f6f3ee,#e0f2fe);color:#0f172a;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    .wrapper{width:100%;padding:26px 14px 34px;}
-    .container{max-width:880px;margin:0 auto;}
-    .top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
-    .logo-row{display:flex;align-items:center;gap:10px;}
-    .logo-circle{
-      width:46px;height:46px;border-radius:999px;
-      background:rgba(248,250,252,0.96);
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 10px 22px rgba(148,163,184,0.7);font-size:1.8rem;
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #ecfccb, #dbeafe);
+      color: #0f172a;
     }
-    .logo-text{display:flex;flex-direction:column;gap:2px;}
-    .logo-text h1{font-size:1.1rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;}
-    .logo-text span{font-size:0.8rem;color:#6b7280;}
-    .nav-links{display:flex;flex-wrap:wrap;gap:8px;}
-    .pill-link{
-      font-size:0.78rem;color:#4f46e5;text-decoration:none;
-      padding:6px 11px;border-radius:999px;background:rgba(255,255,255,0.92);
-      box-shadow:0 8px 18px rgba(148,163,184,0.6);
-      display:inline-flex;align-items:center;gap:6px;
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
     }
-    .pill-link:hover{text-decoration:underline;}
-    .card{
-      margin-top:8px;background:rgba(255,255,255,0.96);
-      border-radius:26px;box-shadow:0 18px 40px rgba(148,163,184,0.8);
-      padding:22px 20px 22px;position:relative;overflow:hidden;
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
     }
-    .glow-1,.glow-2{
-      position:absolute;width:240px;height:240px;border-radius:999px;
-      filter:blur(70px);opacity:0.8;z-index:-1;
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
-    .glow-1{top:-90px;left:-80px;background:rgba(167,139,250,0.7);}
-    .glow-2{bottom:-90px;right:-80px;background:rgba(134,239,172,0.7);}
-    .issue-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:5px 10px;border-radius:999px;background:#ede9fe;
-      color:#5b21b6;font-size:0.8rem;margin-bottom:10px;
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .issue-badge span:first-child{font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
-    .issue-title{font-size:1.4rem;font-weight:600;margin-bottom:4px;}
-    .issue-subtitle{font-size:0.94rem;color:#6b7280;margin-bottom:18px;line-height:1.5;}
-    .meta-row{display:flex;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#9ca3af;margin-bottom:12px;}
-    .text{font-size:0.94rem;color:#374151;line-height:1.8;white-space:pre-line;}
-    .text p{margin-bottom:10px;}
-    .closing-block{margin-top:18px;padding-top:12px;border-top:1px dashed rgba(148,163,184,0.7);font-size:0.9rem;color:#4b5563;}
-    .closing-block p{margin-bottom:8px;}
-    .closing-quote{font-size:0.96rem;font-weight:500;margin-top:6px;}
-    .nav-bottom{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:0.8rem;color:#9ca3af;}
-    .nav-bottom a{color:#4f46e5;text-decoration:none;}
-    .nav-bottom a:hover{text-decoration:underline;}
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-link {
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(134,239,172,0.7); /* yeşil huzur */
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(147,197,253,0.7); /* mavi dinginlik */
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrapper"><div class="container">
-    <div class="top-row">
-      <div class="logo-row">
-        <div class="logo-circle">📰</div>
-        <div class="logo-text">
-          <h1>Mini Dergi</h1>
-          <span>Kafa Molası • Sayı 5</span>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 5</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
         </div>
       </div>
-      <div class="nav-links">
-        <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
-        <a href="menu.html" class="pill-link">☕ Ana menü</a>
-      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 5</span>
+          <span>• Kendine İyi Davranmayı Öğrenirken</span>
+        </div>
+
+        <h2 class="issue-title">Kendine İyi Davranmayı Öğrenirken</h2>
+        <p class="issue-subtitle">
+          Herkese anlayış gösterip kendine acımasız davranan kalpler için.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 4–6 dakikalık okuma</span>
+          <span>🌿 Tema: Öz-şefkat & içsel barış</span>
+        </div>
+
+        <div class="text">
+          <p>
+            İnsan bazen kendi kendine en sert sesi çıkarıyor.  
+            “Nasıl yapamadın?”, “Neden böylesin?”, “Bir türlü toparlanamadın.”  
+            Başkalarının hatalarına hoşgörüyle yaklaşırken,  
+            kendi hatalarında öfkeyle doluyorsun.  
+            Sanki başkalarının insan olma hakkı var da  
+            senin yokmuş gibi.
+          </p>
+
+          <p>
+            Oysa kendine iyi davranmak, tembellik değil.  
+            Şımartmak değil, vazgeçmek hiç değil.  
+            Bu, sadece insan olmanın farkında olmak demek.  
+            Yorulduğunu kabul edebilmek,  
+            hata yaptığında bile kalbini hemen cezalandırmamak demek.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz ki</em> en büyük yorgunluk,  
+            sürekli “daha iyi olmalıyım” baskısından geliyor.  
+            Sanki şu an olduğun hâl, kabul edilemezmiş gibi.  
+            Ama gerçek şu:  
+            İyileşmek, kendini azarlayarak olmuyor.  
+            Şefkatle başlıyor.
+          </p>
+
+          <p>
+            Kendine iyi davranmayı öğrenmek,  
+            dünyayı yumuşatıyor farkında mısın?  
+            Çünkü nasıl konuşuyorsan,  
+            o tonda duyuyorsun her şeyi.  
+            İçinde öfke varsa, dışarısı da hep savaş gibi.  
+            İçinde şefkat varsa, dünya biraz daha sessizleşiyor.
+          </p>
+
+          <p>
+            Belki sen de bir dönem “çok şey hissettiğin” için suçlandın.  
+            “Abartma”, “hassas olma”, “her şeyi dert etme.”  
+            Ama o duyguların sana ait,  
+            ve bastırıldıklarında kaybolmuyorlar;  
+            sadece seni içeriden kırıyorlar.  
+            İşte o yüzden, bu sayfa senin için bir hatırlatma:  
+            <em>“Kırılganlık bir zayıflık değil, canlı olduğunun kanıtıdır.”</em>
+          </p>
+
+          <p>
+            Herkes senden bir şey beklerken  
+            senin kendinden beklemen gereken tek şey şu olabilir:  
+            “Bugün de elimden geleni yaptım.”  
+            Kalanını hayatla paylaş.  
+            Çünkü her şey senin kontrolünde değil —  
+            ve bu, korkulacak değil, rahatlatıcı bir gerçek.
+          </p>
+
+          <p>
+            Bir düşün:  
+            En sevdiğin insana, bu kadar acımasız davranır mıydın?  
+            Ona “yetersizsin” der miydin?  
+            Hayır, değil mi?  
+            O zaman niye kendine böyle söylüyorsun?  
+            Kalbin de bir insan, o da senden biraz nazik davranmanı istiyor.
+          </p>
+
+          <p>
+            Bugün belki hâlâ toparlanamadın.  
+            Belki aynı düşünceler dönüp duruyor,  
+            belki geçmişte yaptığın bir hatayı hâlâ affedemedin.  
+            Ama bil ki affetmek, unutmak değil;  
+            kendine artık “yeter” demek.  
+            Yaranı taşımak yerine, sarmayı seçmek.
+          </p>
+
+          <p>
+            Kendine iyi davranmak, büyük adımlar gerektirmiyor.  
+            Bazen sadece, “bugün kendimi biraz dinleyeceğim.” demek yetiyor.  
+            Küçük bir yürüyüş, sessiz bir kahve,  
+            kimseye açıklama yapmadan “bugün ben susmak istiyorum.” demek bile  
+            kendine verilen bir hediyedir.
+          </p>
+
+          <p>
+            Şunu unutma:  
+            Kendine iyi davranmak,  
+            başkalarına olan sevgini de iyileştiriyor.  
+            Çünkü insan, kendini sevmeden,  
+            kimseyi gerçekten sevmiyor.  
+            Ne verirsen, içinden veriyorsun.
+          </p>
+
+          <p>
+            Belki şu an kendini tam olarak sevmiyorsun.  
+            Olabilir.  
+            Ama sevmeye çalışıyor olman bile yeterli.  
+            Çünkü şefkat, “tam olduktan sonra” değil,  
+            “eksikken de değerliyim” diyebildiğinde başlıyor.
+          </p>
+
+          <p>
+            Bugün aynaya baktığında yüzüne biraz daha yumuşak bak.  
+            “Elimden geleni yaptım.” de.  
+            “Bazen ben de yoruluyorum.” de.  
+            Çünkü gerçekten, yorulmak suç değil.  
+            Ve sen — tüm karmaşanın ortasında hâlâ incelik taşıyorsun.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Kendine iyi davranmak, dünyayı değiştirmez belki...  
+            ama senin dünyanı sessizce iyileştirir.”</em>
+          </p>
+
+          <p>
+            Belki bugün sadece bir adım attın,  
+            belki sadece biraz nefes aldın,  
+            belki hiçbir şey yapmadın ama  
+            kendini suçlamadın — işte tam orada,  
+            değişim zaten başladı.
+          </p>
+
+          <p>
+            Hadi bugün bir şey için değil,  
+            sadece kendin için iyi ol.  
+            Çünkü sen de herkes kadar nazik bir başlangıcı hak ediyorsun.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>🌿 Kendine İyi Davranmayı Öğrenirken • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-04.html">← Önceki sayı: Sabahın Sessiz Masası</a> •
+            <a href="dergi-06.html">Sonraki sayı → Kırılmadan Büyümek</a>
+          </span>
+        </div>
+      </article>
     </div>
-
-    <article class="card">
-      <div class="glow-1"></div><div class="glow-2"></div>
-
-      <div class="issue-badge"><span>SAYI 5</span><span>• Kendine Mola Ver</span></div>
-      <h2 class="issue-title">Kendine Mola Ver</h2>
-      <p class="issue-subtitle">
-        Hep başkaları için koştururken, kendine “biraz dur” demeyi unutanlara.
-      </p>
-
-      <div class="meta-row">
-        <span>⏳ 4–6 dakikalık okuma</span>
-        <span>🌤️ Tema: Kendini toparlamak & izin vermek</span>
-      </div>
-
-      <div class="text">
-        <p>
-          Hayatta en çok unuttuğumuz şeylerden biri, kendimize de mola hakkı tanımak.  
-          Hep birine yetişiyoruz, hep bir şey yetiştiriyoruz.  
-          Ama kendimize “biraz dur” demeye sıra hiç gelmiyor.
-        </p>
-
-        <p>
-          “Kendine iyi bak.” der insanlar, ama kimse nasıl yapılacağını öğretmez.  
-          Oysa bazen iyi bakmak, bir şeyler eklemek değil,  
-          birkaç şeyi eksiltmektir: yorgunluk, suçluluk, acele…
-        </p>
-
-        <p>
-          Belki sen de uzun zamandır hep bir şeyleri telafi etmeye çalışıyorsun.  
-          Dersleri, ilişkileri, geçmişi, zamanı…  
-          Ama dur, bir düşün:  
-          Belki hiçbir şeyi tamir etmen gerekmiyor şu anda.  
-          Belki sadece nefes alman yeterli.
-        </p>
-
-        <p>
-          <em>Kendine mola vermek</em> tembellik değil, bakım biçimidir.  
-          Tıpkı bir çiçeği sürekli sulamak yerine,  
-          bazen sadece güneşe bırakmak gibi.  
-          Çünkü büyümek, bazen susarak olur.
-        </p>
-
-        <p>
-          Günün bir yerinde, telefonunu kenara bırak.  
-          Sessizce otur.  
-          Düşünmek zorunda bile değilsin.  
-          Bir süre sadece “ol.”  
-          Bir nefes ver dünyaya,  
-          sonra bir nefes al kendinden.
-        </p>
-
-        <p>
-          Bugün bir şey yapmadığın için suçluluk duyma.  
-          “Verimli” olmadığın için kendini azarlama.  
-          Çünkü verim, sadece üretmek değil;  
-          bazen toparlanmaktır da.
-        </p>
-
-        <p>
-          Kendine mola vermek, pes etmek değildir.  
-          Hatta tam tersine:  
-          Devam edebilmenin en insanca yoludur.  
-          Çünkü kimse sürekli güçlü kalamaz,  
-          kimse sürekli “iyi” olamaz.  
-          Ama herkes, kendine bir ara verebilir.
-        </p>
-
-        <p>
-          Belki bu yazıyı okuduktan sonra su içersin,  
-          belki dışarı çıkarsın,  
-          belki sadece yatağına uzanır, tavanı izlersin.  
-          Her ne yaparsan yap, bilinçli bir seçim olsun:  
-          “Şu an kendim için duruyorum.”
-        </p>
-
-        <p>
-          Bunu her yaptığında,  
-          zihnin biraz daha yumuşayacak,  
-          kalbin biraz daha hafifleyecek.  
-          Çünkü bazen ilerlemenin en güzel hâli,  
-          hiçbir yere gitmemektir.
-        </p>
-      </div>
-
-      <div class="closing-block">
-        <p class="closing-quote">
-          <em>“Bedenin dinlenmeye, kalbin susmaya, ruhun kendine dönmeye hakkı var.”</em>
-        </p>
-
-        <p>
-          Hayatın senden bekledikleri bitmez.  
-          Ama sen, kendine bir kahve molası verebilirsin.  
-          Sessizce otur, etrafına bak.  
-          Belki fark edeceksin —  
-          Dünya sen durunca da dönüyor,  
-          ama o an, biraz senin etrafında.
-        </p>
-
-        <p>
-          Şimdi derin bir nefes al.  
-          Ve içinden fısılda:  
-          “Kendime bu molayı hak görüyorum.”  
-          İşte bu kadar.
-        </p>
-      </div>
-
-      <div class="nav-bottom">
-        <span>🌤️ Kendine Mola Ver • Kafa Molası Mini Dergi</span>
-        <span><a href="dergi-04.html">← Önceki sayı: Sabahın Sessiz Masası</a></span>
-      </div>
-    </article>
-  </div></div>
+  </div>
 </body>
 </html>
