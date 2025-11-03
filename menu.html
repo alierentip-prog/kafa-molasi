@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Menü</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: linear-gradient(to bottom right, #f5f3ff, #e0f2fe);
+      color: #111827;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Sidebar */
+
+    .sidebar {
+      width: 76px;
+      background: rgba(17, 24, 39, 0.92);
+      color: #e5e7eb;
+      padding: 18px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sidebar-logo {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .nav-group-title {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9ca3af;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .nav-item {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: rgba(31, 41, 55, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+    }
+
+    .nav-item:hover {
+      transform: translateY(-1px) scale(1.02);
+      background: rgba(55, 65, 81, 1);
+      box-shadow: 0 10px 22px rgba(15,23,42,0.5);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(145deg, #22c55e, #06b6d4);
+    }
+
+    .nav-label {
+      font-size: 0.65rem;
+      text-align: center;
+      margin-top: 4px;
+      color: #d1d5db;
+    }
+
+    .nav-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+    }
+
+    /* Main */
+
+    .main {
+      flex: 1;
+      padding: 22px 18px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      font-size: 1.5rem;
+    }
+
+    .top-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-title h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #0f172a;
+    }
+
+    .top-title span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .clock-box {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #374151;
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+    }
+
+    .clock-time {
+      font-weight: 600;
+    }
+
+    .exit-btn {
+      border: none;
+      outline: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: linear-gradient(to right, #f97373, #ef4444);
+      color: #fef2f2;
+      box-shadow: 0 10px 22px rgba(239,68,68,0.45);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+    }
+
+    .exit-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 7px 16px rgba(239,68,68,0.4);
+      opacity: 0.97;
+    }
+
+    /* Content */
+
+    .intro-text {
+      max-width: 620px;
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.95);
+      border-radius: 24px;
+      padding: 16px 14px 16px;
+      box-shadow: 0 12px 26px rgba(148,163,184,0.5);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, translate 0.12s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(148,163,184,0.7);
+      background: rgba(255,255,255,1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .bg-pink   { background: #fee2e2; }
+    .bg-yellow { background: #fef3c7; }
+    .bg-green  { background: #dcfce7; }
+    .bg-blue   { background: #e0f2fe; }
+    .bg-purple { background: #ede9fe; }
+    .bg-sage   { background: #e5f4ec; }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+    }
+
+    .card-body {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .card-footer {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-footer span {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        padding: 10px 12px;
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .sidebar-bottom {
+        margin-top: 0;
+        margin-left: auto;
+      }
+
+      .main {
+        padding: 18px 12px 26px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-right {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sol yan panel -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">☕</div>
+
+    <div class="nav-block">
+      <div class="nav-item active">
+        <span>🏠</span>
+      </div>
+      <div class="nav-label">Ana</div>
+    </div>
+
+    <div class="nav-group-title">Eğlence</div>
+
+    <a href="sakamatikler.html" class="nav-block">
+      <div class="nav-item">
+        <span>😂</span>
+      </div>
+      <div class="nav-label">Şaka</div>
+    </a>
+
+    <a href="ruhsal-testler.html" class="nav-block">
+      <div class="nav-item">
+        <span>🧠</span>
+      </div>
+      <div class="nav-label">Test</div>
+    </a>
+
+    <div class="nav-group-title">Mola</div>
+
+    <a href="bir-dakikalik-mola.html" class="nav-block">
+      <div class="nav-item">
+        <span>⏱️</span>
+      </div>
+      <div class="nav-label">1 dk</div>
+    </a>
+
+    <a href="sessiz-oda.html" class="nav-block">
+      <div class="nav-item">
+        <span>🌿</span>
+      </div>
+      <div class="nav-label">Sessiz</div>
+    </a>
+
+    <div class="nav-group-title">Söz & Ruh</div>
+
+    <a href="kahve-sohbetleri.html" class="nav-block">
+      <div class="nav-item">
+        <span>☕</span>
+      </div>
+      <div class="nav-label">Sohbet</div>
+    </a>
+
+    <a href="motivasyon.html" class="nav-block">
+      <div class="nav-item">
+        <span>✨</span>
+      </div>
+      <div class="nav-label">Motiv</div>
+    </a>
+
+    <a href="ruh-haritasi.html" class="nav-block">
+      <div class="nav-item">
+        <span>📈</span>
+      </div>
+      <div class="nav-label">Ruh</div>
+    </a>
+
+    <div class="sidebar-bottom">
+      <a href="cikis.html" class="nav-block">
+        <div class="nav-item">
+          <span>🚪</span>
+        </div>
+        <div class="nav-label">Çıkış</div>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Ana içerik -->
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <div class="top-logo-circle">☕</div>
+        <div class="top-title">
+          <h1>Kafa Molası</h1>
+          <span>Bugün kafanı nereye bırakalım?</span>
+        </div>
+      </div>
+
+      <div class="top-right">
+        <div class="clock-box">
+          <span>🕰️</span>
+          <div>
+            <div class="clock-time" id="clockTime">--:--</div>
+            <div class="clock-date" id="clockDate" style="font-size:0.7rem;"></div>
+          </div>
+        </div>
+
+        <a href="cikis.html">
+          <button class="exit-btn">
+            <span>🚪</span>
+            <span>Molayı Bitir</span>
+          </button>
+        </a>
+      </div>
+    </header>
+
+    <p class="intro-text">
+      Hoş geldin. Burası beynini rafa kaldırdığın, kalbini biraz rahat bıraktığın yer.
+      Aşağıdan ruh hâline en çok uyan köşeyi seç; gerisini biz hallederiz. 💭
+    </p>
+
+    <section class="cards-grid">
+
+      <!-- Şakamatikler -->
+      <a href="sakamatikler.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-pink">😂</div>
+          <div>
+            <div class="card-title">Şakamatikler</div>
+            <div class="card-tag">Goygoy testleri</div>
+          </div>
+        </div>
+        <div class="card-body">
+          IQ ölçmüyoruz, moral ölçüyoruz. Saçma sorular, absürt sonuçlar, bol kahkaha.
+        </div>
+        <div class="card-footer">
+          <span>Bugün gülmeyi dene.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Ruhsal Testler -->
+      <a href="ruhsal-testler.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-purple">🧠</div>
+          <div>
+            <div class="card-title">Ruhsal Testler</div>
+            <div class="card-tag">Yarı ciddi yarı deli</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Biraz psikoloji, bolca samimiyet. Kendini tanı, ama fazla ciddiye alma.
+        </div>
+        <div class="card-footer">
+          <span>İçe doğru minik yolculuk.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Kahve Sohbetleri -->
+      <a href="kahve-sohbetleri.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-yellow">☕</div>
+          <div>
+            <div class="card-title">Kahve Sohbetleri</div>
+            <div class="card-tag">Samimi yazılar</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Sanki karşında yakın bir arkadaşın var. Hayat, yorgunluk, umut üstüne küçük sohbetler.
+        </div>
+        <div class="card-footer">
+          <span>Bir yudum al, oku.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Motivasyon -->
+      <a href="motivasyon.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-sage">✨</div>
+          <div>
+            <div class="card-title">Motivasyon+</div>
+            <div class="card-tag">Yumuşak gaz</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Bağırarak değil, fısıldayarak motive ediyor. “Kendine nazik ol” diyen yazılar.
+        </div>
+        <div class="card-footer">
+          <span>Bugün kendine iyi davran.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Mini Dergi -->
+      <a href="mini-dergi.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-blue">📰</div>
+          <div>
+            <div class="card-title">Mini Dergi</div>
+            <div class="card-tag">Kısa sayılar</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Her sayı başka bir tema: yalnızlık, sabır, şükür… Az kelime, çok his.
+        </div>
+        <div class="card-footer">
+          <span>Bir sayılık mola.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Kitap Alıntıları -->
+      <a href="kitap-alintilari.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-purple">📚</div>
+          <div>
+            <div class="card-title">Kitap Alıntıları</div>
+            <div class="card-tag">Kategori kategori</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Hayat, aşk, gece, kahve… Kategorilere ayrılmış alıntılarla kelimelerle nefes al.
+        </div>
+        <div class="card-footer">
+          <span>Satırlarda kaybol.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Günün Sözü -->
+      <a href="gunun-sozu.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-yellow">🕯️</div>
+          <div>
+            <div class="card-title">Günün Sözü</div>
+            <div class="card-tag">Tek cümlelik mola</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Bugüne eşlik edecek küçük bir cümle. Belki paylaşır, belki sadece saklarsın.
+        </div>
+        <div class="card-footer">
+          <span>Bugünün kelimesi.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- 1 Dakikalık Mola -->
+      <a href="bir-dakikalik-mola.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-blue">⏱️</div>
+          <div>
+            <div class="card-title">1 Dakikalık Mola</div>
+            <div class="card-tag">Sessizlik terapisi</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Sadece bir dakika. Hiçbir şey yapma, sadece nefes al. Geri kalan her şey bekleyebilir.
+        </div>
+        <div class="card-footer">
+          <span>Şimdi durma zamanı.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Günün Beyin Egzersizi -->
+      <a href="beyin-egzersizi.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-green">🧩</div>
+          <div>
+            <div class="card-title">Günün Beyin Egzersizi</div>
+            <div class="card-tag">Mini bulmaca</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Mantık kaslarını yakmadan çalıştır. Küçük bir soru, ufak bir tebessüm.
+        </div>
+        <div class="card-footer">
+          <span>Beyni ısıtalım.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Sessiz Oda -->
+      <a href="sessiz-oda.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-sage">🌿</div>
+          <div>
+            <div class="card-title">Sessiz Oda</div>
+            <div class="card-tag">Tam sakinlik</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Hiçbir şey yüklenmiyor. Sadece renk, nefes ve birkaç yumuşak cümle.
+        </div>
+        <div class="card-footer">
+          <span>Dünyayı sessize al.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Rastgele Mod -->
+      <a href="rastgele.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-pink">🎲</div>
+          <div>
+            <div class="card-title">Rastgele Mod</div>
+            <div class="card-tag">Kader butonu</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Tek tıkla sürpriz: test, yazı, alıntı, mola… Hayat gibi, nereye düşeceğin belli değil.
+        </div>
+        <div class="card-footer">
+          <span>Şansa bırak.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+      <!-- Ruh Haritası -->
+      <a href="ruh-haritasi.html" class="card">
+        <div class="card-header">
+          <div class="card-icon bg-purple">📈</div>
+          <div>
+            <div class="card-title">Ruh Haritası</div>
+            <div class="card-tag">Günün ruh hâli</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Her girişte nasıl hissettiğini işaretle. Haftanın sonunda ruh hâlin renklerle karşına çıksın.
+        </div>
+        <div class="card-footer">
+          <span>Kendini takip et.</span>
+          <span>➡️</span>
+        </div>
+      </a>
+
+    </section>
+  </main>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const dayNames = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+      const monthNames = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+
+      const day = dayNames[now.getDay()];
+      const date = now.getDate();
+      const month = monthNames[now.getMonth()];
+
+      document.getElementById("clockTime").textContent = `${hours}:${minutes}`;
+      document.getElementById("clockDate").textContent = `${day}, ${date} ${month}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+
+</body>
+          </html>
