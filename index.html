@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at top, #1b1f3b, #05060f 60%, #020308);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #f7f8fa;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 26px;
+    }
+    .loader {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #ff6bd6;
+      animation: spin 0.9s linear infinite;
+      margin-bottom: 18px;
+    }
+    .msg {
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .highlight {
+      color: #ffb86c;
+      font-weight: 600;
+    }
+    .small {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">☕ Kafa Molası</div>
+  <div class="subtitle">ciddiyet bu molaya giremez</div>
+
+  <div class="loader"></div>
+
+  <div class="msg">
+    <div class="line">
+      <span class="highlight">Mantık devre dışı bırakılıyor…</span>
+    </div>
+    <div class="small">Lütfen bekleyiniz 🧠</div>
+  </div>
+</body>
+</html>
