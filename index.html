@@ -1,129 +1,251 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Kafa Molası</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #ffffff 0, #eef3ff 50%, #dde5ff 100%);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #111827;
+      background: linear-gradient(to bottom, #f6f3ee, #e7eafe);
+      color: #222;
     }
-    .wrap {
+
+    .wrapper {
       text-align: center;
-      padding: 32px 22px;
-      max-width: 480px;
+      padding: 40px 20px 48px;
+      width: 100%;
     }
+
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 32px 24px 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
     .logo {
-      font-size: 2.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .logo span {
-      font-size: 2.3rem;
-      margin-right: 6px;
-    }
-    .subtitle-top {
-      font-size: 1rem;
-      opacity: 0.75;
-      margin-bottom: 26px;
-    }
-    .loader {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 4px solid rgba(15,23,42,0.12);
-      border-top-color: #ec4899;
-      border-right-color: #6366f1;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 22px auto;
-    }
-    .lines {
-      transition: opacity 0.25s ease;
-    }
-    .lines.fading {
-      opacity: 0;
-    }
-    .line-main {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #111827;
+      font-size: 2.8rem;
       margin-bottom: 6px;
     }
-    .line-sub {
+
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
       font-size: 0.95rem;
-      color: #4b5563;
-    }
-    .brain {
-      font-size: 1.2rem;
-      margin-left: 4px;
-    }
-    .hint {
-      margin-top: 26px;
-      font-size: 0.8rem;
       color: #6b7280;
+      margin-bottom: 28px;
     }
+
+    .loader {
+      margin: 0 auto 28px;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 6px solid #e5e7eb;
+      border-top-color: #f973a2;
+      border-right-color: #8b5cf6;
+      animation: spin 1.3s linear infinite;
+    }
+
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .main-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #111827;
+      min-height: 3.4em; /* yazı kayarken zıplamasın */
+      line-height: 1.5;
+      margin-bottom: 18px;
+      white-space: pre-line;
+    }
+
+    .helper-text {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 14px;
+    }
+
+    .helper-text span {
+      font-size: 1.1rem;
+    }
+
+    .promise-box {
+      display: none; /* başta gizli */
+      margin-top: 10px;
+      padding: 14px 16px 18px;
+      border-radius: 18px;
+      background: #fef3c7;
+      border: 1px solid #facc15;
+      text-align: left;
+    }
+
+    .promise-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+
+    .promise-text {
+      font-size: 0.85rem;
+      color: #92400e;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .promise-btn {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      color: #f9fafb;
+      box-shadow: 0 10px 22px rgba(22, 163, 74, 0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    }
+
+    .promise-btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 6px 14px rgba(22, 163, 74, 0.3);
+      opacity: 0.95;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 18px 32px;
+        border-radius: 22px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .main-text {
+        font-size: 1.05rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="logo"><span>☕</span>Kafa Molası</div>
-    <div class="subtitle-top">kafanı bırak, molaya gel</div>
+  <div class="wrapper">
+    <div class="card">
+      <div class="logo">☕</div>
+      <h1>Kafa Molası</h1>
+      <p class="subtitle">kafanı bırak, molaya gel</p>
 
-    <div class="loader"></div>
+      <div class="loader"></div>
 
-    <div class="lines" id="lines">
-      <div class="line-main" id="line-main">Ciddiyet bu molaya giremez.</div>
-      <div class="line-sub" id="line-sub"></div>
-    </div>
+      <p id="mainText" class="main-text">
+        Ciddiyet bu molaya giremez.
+      </p>
 
-    <div class="hint">
-      Mantık hafifçe söndürülüyor, lütfen cihazınızı kapatmayın. 😌
+      <p class="helper-text" id="helperText">
+        Mantık hafifçe söndürülüyor, lütfen cihazınızı kapatmayın. <span>😌</span>
+      </p>
+
+      <!-- Kullanıcının söz verdiği bölüm -->
+      <div id="promiseBox" class="promise-box">
+        <div class="promise-title">Bir de şöyle anlaşalım mı? ☕</div>
+        <p class="promise-text">
+          Buraya rahatlamak için giriyorsun. Gül, düşün, kafanı dağıt…  
+          Ama işin bittiğinde sağ üstteki <b>Çıkış</b> tuşuna basıp  
+          başını kaldıracaksın. Bir etrafına bakacaksın. Nefes aldığını,
+          yaşadığını hatırlayıp küçük de olsa şükredeceksin. 🕊️
+        </p>
+        <button class="promise-btn" id="promiseBtn">
+          Söz veriyorum, molamı düzgün yapacağım 💚
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    const linesBox = document.getElementById('lines');
-    const lineMain = document.getElementById('line-main');
-    const lineSub  = document.getElementById('line-sub');
+    const messages = [
+      "Ciddiyet bu molaya giremez.",
+      "Mantık devre dışı bırakılıyor...\nLütfen bekleyiniz 🧠",
+      "Beynini yorma.\nBiraz da güldür.",
+      "Başını kaldırıp yukarı bakabilir misin?",
+      "Üstünde bi şey var sanki...",
+      "Şaka lan şaka 😂\nHadi gel molaya saf çocuk."
+    ];
 
-    function swapText(mainText, subText) {
-      linesBox.classList.add('fading');
-      setTimeout(() => {
-        lineMain.textContent = mainText;
-        lineSub.innerHTML = subText;
-        linesBox.classList.remove('fading');
-      }, 250);
+    const durations = [
+      1800, // 1. yazı
+      2200, // 2.
+      2200, // 3.
+      2000, // 4.
+      2000, // 5.
+      2500  // 6. yazı
+    ];
+
+    const mainTextEl = document.getElementById("mainText");
+    const helperTextEl = document.getElementById("helperText");
+    const promiseBox = document.getElementById("promiseBox");
+    const promiseBtn = document.getElementById("promiseBtn");
+
+    let index = 0;
+
+    function showPromise() {
+      // alt açıklamayı biraz silikleştir, söz kutusunu aç
+      helperTextEl.style.opacity = "0.7";
+      promiseBox.style.display = "block";
+      // ana metni boş bırakabiliriz veya son şakayı üstte bırakırız
     }
 
-    // 1. adım: Ciddiyet bu molaya giremez.
-    swapText('Ciddiyet bu molaya giremez.', '');
+    function showMessage(i) {
+      if (i >= messages.length) {
+        showPromise();
+        return;
+      }
 
-    // 2. adım: Beynini yorma
-    setTimeout(() => {
-      swapText('Beynini yorma.', 'Biraz da güldür.');
-    }, 1800);
+      mainTextEl.textContent = messages[i];
 
-    // 3. adım: Mantık devre dışı bırakılıyor… Lütfen bekleyiniz 🧠
-    setTimeout(() => {
-      swapText('Mantık devre dışı bırakılıyor…', 'Lütfen bekleyiniz <span class="brain">🧠</span>');
-    }, 3600);
+      setTimeout(() => {
+        showMessage(i + 1);
+      }, durations[i]);
+    }
 
-    // İleride buraya redirect ekleyebiliriz:
-    // setTimeout(() => { window.location.href = 'anasayfa.html'; }, 5200);
+    // sayfa yüklenince sırayla yazıları oynat
+    window.addEventListener("load", () => {
+      showMessage(0);
+    });
+
+    // söz verince menüye geç
+    promiseBtn.addEventListener("click", () => {
+      window.location.href = "menu.html"; // ana menü dosyanın adı
+    });
   </script>
 </body>
 </html>
