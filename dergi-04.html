@@ -8,75 +8,262 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {box-sizing: border-box;margin:0;padding:0;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(to bottom right,#f6f3ee,#e0f2fe);
+      background: linear-gradient(to bottom right, #fefce8, #e0f2fe);
       color: #0f172a;
     }
-    .wrapper {width:100%;padding:26px 14px 34px;}
-    .container {max-width:880px;margin:0 auto;}
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
     .top-row {
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;flex-wrap:wrap;margin-bottom:16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
-    .logo-row {display:flex;align-items:center;gap:10px;}
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .logo-circle {
-      width:46px;height:46px;border-radius:999px;
-      background:rgba(248,250,252,0.96);
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 10px 22px rgba(148,163,184,0.7);font-size:1.8rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
     }
-    .logo-text {display:flex;flex-direction:column;gap:2px;}
-    .logo-text h1 {font-size:1.1rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;}
-    .logo-text span {font-size:0.8rem;color:#6b7280;}
-    .nav-links {display:flex;flex-wrap:wrap;gap:8px;}
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .pill-link {
-      font-size:0.78rem;color:#4f46e5;text-decoration:none;
-      padding:6px 11px;border-radius:999px;
-      background:rgba(255,255,255,0.92);
-      box-shadow:0 8px 18px rgba(148,163,184,0.6);
-      display:inline-flex;align-items:center;gap:6px;
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .pill-link:hover{text-decoration:underline;}
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
     .card {
-      margin-top:8px;background:rgba(255,255,255,0.96);
-      border-radius:26px;box-shadow:0 18px 40px rgba(148,163,184,0.8);
-      padding:22px 20px 22px;position:relative;overflow:hidden;
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
     }
-    .glow-1,.glow-2{
-      position:absolute;width:240px;height:240px;border-radius:999px;
-      filter:blur(70px);opacity:0.8;z-index:-1;
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
     }
-    .glow-1{top:-90px;left:-80px;background:rgba(147,197,253,0.7);}
-    .glow-2{bottom:-90px;right:-80px;background:rgba(134,239,172,0.7);}
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(252,211,77,0.7);  /* sabah güneşi */
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(56,189,248,0.7);  /* serin sabah havası */
+    }
+
     .issue-badge {
-      display:inline-flex;align-items:center;gap:8px;
-      padding:5px 10px;border-radius:999px;
-      background:#dbeafe;color:#1e3a8a;font-size:0.8rem;margin-bottom:10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
     }
-    .issue-badge span:first-child{font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
-    .issue-title{font-size:1.4rem;font-weight:600;margin-bottom:4px;}
-    .issue-subtitle{font-size:0.94rem;color:#6b7280;margin-bottom:18px;line-height:1.5;}
-    .meta-row{display:flex;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#9ca3af;margin-bottom:12px;}
-    .meta-row span{display:inline-flex;align-items:center;gap:6px;}
-    .text{font-size:0.94rem;color:#374151;line-height:1.8;white-space:pre-line;}
-    .text p{margin-bottom:10px;}
-    .closing-block{margin-top:18px;padding-top:12px;border-top:1px dashed rgba(148,163,184,0.7);font-size:0.9rem;color:#4b5563;}
-    .closing-block p{margin-bottom:8px;}
-    .closing-quote{font-size:0.96rem;font-weight:500;margin-top:6px;}
-    .nav-bottom{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:0.8rem;color:#9ca3af;}
-    .nav-bottom a{color:#4f46e5;text-decoration:none;}
-    .nav-bottom a:hover{text-decoration:underline;}
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <div class="container">
+
       <div class="top-row">
         <div class="logo-row">
           <div class="logo-circle">📰</div>
@@ -85,6 +272,7 @@
             <span>Kafa Molası • Sayı 4</span>
           </div>
         </div>
+
         <div class="nav-links">
           <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
           <a href="menu.html" class="pill-link">☕ Ana menü</a>
@@ -95,114 +283,174 @@
         <div class="glow-1"></div>
         <div class="glow-2"></div>
 
-        <div class="issue-badge"><span>SAYI 4</span><span>• Sabahın Sessiz Masası</span></div>
+        <div class="issue-badge">
+          <span>SAYI 4</span>
+          <span>• Sabahın Sessiz Masası</span>
+        </div>
 
         <h2 class="issue-title">Sabahın Sessiz Masası</h2>
         <p class="issue-subtitle">
-          Güne başlamadan önce durup bir yudum huzur almak isteyenler için.
+          Herkes uyanmadan önceki o kısa, sessiz zamanın değerine dair.
         </p>
 
         <div class="meta-row">
-          <span>⏳ 4–6 dakikalık okuma</span>
-          <span>🌅 Tema: Yeni başlangıçlar & iç huzur</span>
+          <span>⏳ 3–6 dakikalık okuma</span>
+          <span>🌅 Tema: Günün ilk ışıkları & kendine dönüş</span>
         </div>
 
         <div class="text">
           <p>
-            Sabahın en sessiz anı, şehir uyanmadan hemen önceki andır.  
-            Hava biraz serin, dünya hâlâ uykulu.  
-            İşte o anda, kahvenin buharı yükselirken  
-            sanki zaman kısa bir süreliğine senin olur.
+            Sabahın çok erken bir saati.  
+            Oda hâlâ hafif karanlık, sokak sessiz, telefon suskun.  
+            Perdeden içeri sızmaya çalışan bir ışık,  
+            mutfaktan gelen su sesi, belki uzaktan geçen bir araba…  
+            Dünya, “henüz başlamadım” der gibi yavaş nefes alıyor.
           </p>
 
           <p>
-            Bu sayı, tam da o an için.  
-            Henüz gün başlamamışken, kendi içinde bir nefeslik mola verebilesin diye.  
-            Belki pencere kenarında, belki masanda, belki de yolda yürürken.  
-            Her şeyin başında durup “bugün ne olursa olsun,  
-            ben sakin kalacağım” diyebilmek için.
+            Sen de o arada bir yerde duruyorsun.  
+            Tam uykuda değilsin, tam günün içinde de.  
+            Elinde belki sıcak bir kahve, belki sadece bir bardak su.  
+            Masanın başına oturmuşsun; kimse senden hiçbir şey istemiyor.  
+            İşte bu, günün en dürüst anı.
           </p>
 
           <p>
-            Biz hep “başlamak zor” deriz.  
-            Ama bazen asıl mesele, başlamadan önceki o sessizlikle barışmaktır.  
-            Çünkü o sessizlik, korkutucu değil—temizdir.  
-            Boş bir defterin ilk sayfası gibi.  
-            Dilersen yeniden yazabilir, dilersen sadece bakabilirsin.
+            Gün boyunca üzerine yığılacak her şey  
+            henüz “güncelleme” gibi inmemiş zihnine:  
+            mesajlar, sınavlar, planlar, beklentiler, sorumluluklar…  
+            Sabah, ruhunun tampon bölgesi gibi.  
+            Çarpan her şeyden önce, sen varsın.
           </p>
 
           <p>
-            Kahveni karıştırırken o küçük döngüyü fark et:  
-            Kaşık bardakta dönüyor, ama sen dönmüyorsun.  
-            Dünya koşuştururken, sen sabahın sabrını içiyorsun.  
-            Belki hayatındaki hiçbir şey çözülmedi henüz,  
-            ama şu an, her şey yolunda gibi hissettiriyor.  
-            İşte “huzur” tam da bu—sorunların bitmesi değil,  
-            o an için seni ezmemesi.
+            <em>İkimiz de biliyoruz ki</em>, gün içinde kendimizi kaybetmek kolay.  
+            Bir bakmışız, sabah kalkış ile gece yatış arası  
+            sadece ekran, koşturmaca ve yorgun “off” seslerinden ibaret.  
+            “Ben bu günün neresindeydim?” diye sorduğunda  
+            kendine verecek net bir cevabın olmadığı oluyor.
           </p>
 
           <p>
-            <em>Sabahın sessiz masası</em> bir metafor aslında.  
-            Yalnızlığını değil, kendinle buluşmanı temsil ediyor.  
-            Kimseye yetişmeden, kimseye açıklama yapmadan,  
-            sadece kendi varlığınla bir kahvaltı etmek gibi.  
-            Sessizlik, bazen insanın en iyi sohbet arkadaşıdır.
+            İşte sabahın sessiz masası, tam burada devreye giriyor:  
+            “Bugün ben kim olmak istiyorum?” sorusunu  
+            kimse karışmadan sorabildiğin tek yer belki de.  
+            Yok yok, büyük cevaplara gerek yok.  
+            Bazen “bugün biraz daha sakin olayım” demen bile yetiyor.
           </p>
 
           <p>
-            Belki bugün çok şey düşünüyorsun:  
-            Yapılacak işler, sınavlar, geçmiş, gelecek…  
-            Ama önce dur.  
-            Masanın üstünde bir bardak su, bir tabak, bir kalem…  
-            Bunlara bak ve şöyle de:  
-            “Bugün bunları görebildiğim için bile şükür.”
+            Çoğu zaman sabaha da acımasız davranıyoruz:  
+            “Kalkar kalkmaz çalışmalıyım.”  
+            “Verimli başlamalıyım.”  
+            “Boşa vakit kaybetmemeliyim.”  
+            Hayatı tam performans koşulan bir yarış zannedip  
+            kendimize nefes alacak 10 dakikayı bile çok görüyoruz.
           </p>
 
           <p>
-            Her sabah aynı manzaraya bakıyoruz ama  
-            her gün aynı gözle bakmıyoruz.  
-            Bu da demek oluyor ki, huzur hep aynı yerde duruyor;  
-            biz sadece bazen göremiyoruz.
+            Oysa sabahın bu ilk dakikaları,  
+            tembellik değil; yön tayini.  
+            Bütün günün gittiği yönü, bazen bu ilk 15 dakika belirliyor:  
+            Kalbinle mi konuşacaksın, yoksa direkt bildirimlerle mi?
           </p>
 
           <p>
-            Bugün kendine şunu hatırlat:  
-            Büyük kararlar almana gerek yok.  
-            Sadece bir sabahı fark etmen bile yeterli.  
-            Çünkü bazen en büyük değişim,  
-            bir sabah kahveni içerken  
-            içinden geçen minicik bir “artık iyi olayım” cümlesiyle başlar.
+            Belki sen de birkaç kez şunu yaşadın:  
+            Çok erken uyanıp “biraz hava alayım” dedin  
+            ve günün geri kalanı garip şekilde daha tahammül edilebilir geldi.  
+            Birden bütün problemler çözülmedi elbette,  
+            ama içindeki “ben” kendini daha az unutulmuş hissetti.
           </p>
 
           <p>
-            Ve o cümle, senin bütün gününü değiştirebilir.
+            Bu masada otururken, kendini sorgulamak için değil,  
+            kendini duymak için oturabilirsin.  
+            “Ne yanlış yaptım?” yerine,  
+            “Şu an ne hissediyorum?” diye sormayı deneyebilirsin.  
+            Aradaki fark, kalbine nasıl davrandığını değiştiriyor.
+          </p>
+
+          <p>
+            Sabahın sessizliği, seni yargılamıyor.  
+            “Niye böylesin?” demiyor.  
+            Ne kadar yorgun, kırgın, karışık olursan ol,  
+            güneş yine doğuyor;  
+            yeni bir gün yine sana da açılıyor.  
+            Bu bile tek başına bir davet aslında:  
+            “Hadi, yeniden dene. Bu kez kendini unutma.”
+          </p>
+
+          <p>
+            Belki bugün de mükemmel geçmeyecek.  
+            Yine yorulacaksın, sinirleneceksin, sıkılacaksın.  
+            Ama sabahın o ilk dakikalarında  
+            kendine küçük bir söz verebilirsin:  
+            <em>“Ne olursa olsun, günün içinde kendimi tamamen kaybetmeyeceğim.”</em>
+          </p>
+
+          <p>
+            Bu masaya her oturduğunda,  
+            aslında kendine şu mesajı gönderiyorsun:  
+            “Ben de varım.”  
+            Hayatın ortasında sadece görevlerden, beklentilerden,  
+            başkalarının gözünden ibaret olmadığını hatırlatıyorsun kendine.
+          </p>
+
+          <p>
+            Belki kimse sabah bu kadar erken kalktığını bilmiyor.  
+            Belki ailene, arkadaşlarına, dünyaya söylenmemiş bir sırrın bu.  
+            Ama kalbin biliyor:  
+            O yeni güne, herkes uyanmadan önce  
+            kendi elinle küçük bir selam verdin.
+          </p>
+
+          <p>
+            Bu yüzden sabahın sessiz masası,  
+            gösterişsiz ama çok değerli bir buluşma noktası:  
+            Sen ve sen.  
+            Masanın üstünde kahve, su, kitap, hiçbir şey…  
+            Önemli değil.  
+            Önemli olan, kendini oraya getirmiş olman.
+          </p>
+
+          <p>
+            Bazı günler sadece 5 dakika oturacaksın,  
+            bazı günler 30 dakika akıp gidecek.  
+            Ama süre değil, niyet önemli.  
+            “Ben bugüne kendimle başlıyorum.” demek,  
+            en pahalı terapilerden bile daha şefkatli bir başlangıç bazen.
           </p>
         </div>
 
         <div class="closing-block">
           <p class="closing-quote">
-            <em>“Her sabah, hayatın sana sessizce uzattığı ikinci bir şanstır.”</em>
+            <em>“Sabahın ilk sessizliği,  
+            gün boyunca unuttuğumuz ‘ben’i bize sessizce geri verir.”</em>
           </p>
 
           <p>
-            Bugün belki her şey yoluna girmeyecek.  
-            Ama bugün, kendine nazik davranmayı seçebilirsin.  
-            Bu da yeterli bir başlangıç.
+            Bugün belki çok şey başaramayacaksın.  
+            Belki planladığın gibi gitmeyecek.  
+            Ama şu an bu satırları okuyorsan,  
+            içinden “kendime biraz daha iyi davranmalıyım” geçtiyse,  
+            bil ki bu da bir başlangıç.
           </p>
 
           <p>
-            Gözlerini kaldır, dışarıya bir bak.  
-            Belki kuş sesleri, belki sokaktan geçen bir insan,  
-            belki bulutların arasında süzülen güneş ışığı…  
-            Hepsi sana aynı şeyi söylüyor:  
-            <em>“Hâlâ buradasın. Ve bu da yeter.”</em>
+            Her sabah, mini bir sıfırlama tuşu gibi.  
+            Dün ne olduysa oldu;  
+            bugün, yeni bir nefes hakkın daha var.  
+            Ve o nefes, ekranın değil,  
+            sabahın sessiz masasında çok daha gerçek.
           </p>
         </div>
 
         <div class="nav-bottom">
           <span>🌅 Sabahın Sessiz Masası • Kafa Molası Mini Dergi</span>
           <span>
-            <a href="dergi-03.html">← Önceki sayı: Küçük Şükürler Defteri</a>
+            <a href="dergi-03.html">← Önceki sayı: Küçük Şükürler Defteri</a> •
+            <a href="dergi-05.html">Sonraki sayı → Kendine İyi Davranmayı Öğrenirken</a>
           </span>
         </div>
       </article>
