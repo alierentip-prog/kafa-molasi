@@ -2,126 +2,418 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Kafa Molası – Mini Dergi / Sayı 6: Biraz Daha Devam Et</title>
+  <title>Kafa Molası – Mini Dergi / Sayı 6: Kırılmadan Büyümek</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-      background:linear-gradient(to bottom right,#f6f3ee,#e0f2fe);
-      color:#0f172a;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #faf5ff, #e0f2fe);
+      color: #0f172a;
     }
-    .card{
-      max-width:880px;
-      background:rgba(255,255,255,0.96);
-      border-radius:26px;
-      box-shadow:0 18px 40px rgba(148,163,184,0.8);
-      padding:30px;
-      line-height:1.8;
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
     }
-    h1{font-size:1.6rem;margin-bottom:4px;}
-    h2{font-size:1rem;font-weight:500;color:#6b7280;margin-bottom:20px;}
-    p{margin-bottom:10px;}
-    em{font-style:normal;font-weight:500;}
-    .quote{border-top:1px dashed rgba(148,163,184,0.7);margin-top:20px;padding-top:12px;font-size:0.95rem;color:#4b5563;}
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-link {
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(221,214,254,0.7);
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(147,197,253,0.7);
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Biraz Daha Devam Et</h1>
-    <h2>Sessizce mücadele eden, ama hâlâ yolda olan herkes için.</h2>
+  <div class="wrapper">
+    <div class="container">
 
-    <p>
-      Bazen sabah uyanmak bile bir maraton gibi gelir.  
-      Yatağın kenarında oturur, ellerini dizlerinin üstüne koyarsın.  
-      “Bugün de mi aynı şeyler?” diye içinden geçirirsin.  
-      Kalbin, sanki kendi içinde sessiz bir kavga verir.  
-      İşte bu sayı, tam o an için yazıldı.
-    </p>
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 6</span>
+          </div>
+        </div>
 
-    <p>
-      Hayat bizden hep “devam et”memizi ister.  
-      Ama kimse, “nasıl” devam edileceğini öğretmez.  
-      Çünkü bazen devam etmek, plan yapmak değildir —  
-      sadece yerinden kalkmak, bir adım atmak,  
-      belki sadece dişini fırçalamaktır.  
-      Ve o bile bazen kahramanlıktır.
-    </p>
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
 
-    <p>
-      <em>Biraz daha devam et.</em>  
-      Çünkü hiç kimse, senin kadar senin mücadeleni bilmiyor.  
-      Dışarıdan sessiz görünüyorsun belki,  
-      ama içinde dağlar kadar yük taşıyorsun.  
-      Kimse fark etmese de, sen hâlâ buradasın.  
-      Ve bu bile mucizeye yakın bir şey.
-    </p>
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
 
-    <p>
-      Yorulmak, pes etmekle aynı şey değildir.  
-      Hatta bazen “devam edemiyorum” dediğin anda bile,  
-      bir yerlerde, kalbin sessizce  
-      “ama deniyorum” der.  
-      İşte o cümle, senin gücündür.
-    </p>
+        <div class="issue-badge">
+          <span>SAYI 6</span>
+          <span>• Kırılmadan Büyümek</span>
+        </div>
 
-    <p>
-      Hayat bazen seni ödüllendirmez.  
-      Alkış gelmez, sırtın sıvazlanmaz.  
-      Kimse “iyi yaptın” demez.  
-      Ama sen yine de doğruyu yaparsın.  
-      O görünmeyen çabanın adı da “karakter”dir.  
-      Ve seninki, her yorgunluğa rağmen ayakta.
-    </p>
+        <h2 class="issue-title">Kırılmadan Büyümek</h2>
+        <p class="issue-subtitle">
+          Bazı yaralar öğretmen, bazı sessizliklerse olgunluk getirir.
+        </p>
 
-    <p>
-      Belki bugün kimse fark etmedi.  
-      Ama sen fark ettin — ve o yeter.  
-      Çünkü fark etmek, yeniden başlamanın ilk adımıdır.  
-      Ve bazen sadece bu bile bir zaferdir.
-    </p>
+        <div class="meta-row">
+          <span>⏳ 4–7 dakikalık okuma</span>
+          <span>💎 Tema: Direnç & duygusal olgunlaşma</span>
+        </div>
 
-    <p>
-      <em>Biraz daha devam et,</em> çünkü sabır bir maraton değil,  
-      küçük nefes aralıklarının toplamıdır.  
-      Yüz defa durup yüz birinci defa denemektir.  
-      Bugün sadece yürümek istiyorsan koşma,  
-      sadece nefes almak istiyorsan konuşma.  
-      Ama bırakma.
-    </p>
+        <div class="text">
+          <p>
+            Büyümek, sandığımız kadar yavaş bir süreç değil aslında.  
+            Bazen tek bir cümle, bir bakış, bir sessizlik —  
+            ve bir anda içinden geçiyorsun o eşiği.  
+            Bir sabah kalkıyorsun, fark ediyorsun ki  
+            artık aynı şeylere eskisi kadar kırılmıyorsun.  
+            Hâlâ üzülüyorsun belki, ama artık dağılmıyorsun.
+          </p>
 
-    <p>
-      Bir gün gelecek,  
-      şimdi taşıdığın bu ağırlık birden hafifleyecek.  
-      Geride dönüp bakacak ve  
-      “iyi ki pes etmemişim” diyeceksin.  
-      O zaman anla ki, tüm bu çaban  
-      bir başkası için değil, senin iç huzurun içindi.
-    </p>
+          <p>
+            <em>İkimiz de biliyoruz ki</em> büyümek, yalnızca yaş almak değil.  
+            Bazen birinin susuşundan, bazen bir dostluğun bitişinden,  
+            bazen de hayatın sessizce sana “artık farklı düşün” deyişinden öğreniyorsun.  
+            Hiçbir öğretmen, kalp kırıklığı kadar sabırlı değil.
+          </p>
 
-    <p>
-      Kendine kızma, hızlı toparlanamadın diye.  
-      Bazı şeyler yara gibi değil, kök gibi iyileşir;  
-      derinlerde, yavaşça, sessizce.  
-      Yeter ki inatla değil, şefkatle devam et.
-    </p>
+          <p>
+            İnsan kırılmadan büyüyemiyor belki,  
+            ama her kırılma, seni biraz daha yontuyor.  
+            Bir heykel gibi: fazlalıklar dökülüyor,  
+            özün kalıyor, sadeleşiyorsun.  
+            Zor günlerde sabırlı kalmak,  
+            bazen en sessiz kahramanlıktır.
+          </p>
 
-    <div class="quote">
-      <em>“Küçük adımların bile yönü doğruysa,  
-      gecikmek değil, ilerlemektir.”</em>
-      <p>
-        Bu sayıyı bitirirken senden tek bir şey isteyeceğim:  
-        Bugün pes etme.  
-        Sadece bugün.  
-        Çünkü belki de, tam da bugün —  
-        bir şeylerin değişmeye başladığı gündür.
-      </p>
+          <p>
+            Artık bazı konularda konuşmamayı seçiyorsun.  
+            Bu, ilgisizlik değil; içsel barışın işareti.  
+            “Haklıyım” demeden de huzurlu kalmayı öğreniyorsun.  
+            İnsan sustuğunda değil,  
+            içinde fırtınalar koparken sakin kalabildiğinde olgunlaşıyor.
+          </p>
+
+          <p>
+            Herkes seni anlamayacak, bu da normal.  
+            Çünkü büyümek, herkesin aynı hızda yapabildiği bir şey değil.  
+            Kimisi on yıl sonra fark eder,  
+            sen bir sabah kahveni içerken anlayıverirsin.  
+            O yüzden kimseye yetişmeye çalışma.  
+            Herkesin mevsimi farklı, seninki bahara dönüyor olabilir.
+          </p>
+
+          <p>
+            Bazı şeyler geçmiyor, evet.  
+            Ama sen geçiyorsun o şeylerin içinden.  
+            Aynı olay, aynı anı, aynı isim…  
+            Ama artık aynı sen değilsin.  
+            Bu, fark etmeden kazandığın bir olgunluk.
+          </p>
+
+          <p>
+            Belki “kırılmadan büyümek” mümkün değil,  
+            ama “kırıldığında dağılmadan toparlanmak” mümkün.  
+            Çünkü kırılmak, bazen yeniden yapılanmanın ilk adımıdır.  
+            Her çatlak, içine ışık alman için açılan bir kapıdır.
+          </p>
+
+          <p>
+            Hayat seni yavaş yavaş törpülüyor.  
+            Önce öfken azalıyor, sonra beklentin,  
+            sonra “herkes anlamalı” isteğin.  
+            En son geriye sadece şu kalıyor:  
+            <em>“Ben elimden geleni yaptım.”</em>  
+            İşte o noktada huzur, sessizce gelip kalıyor yanında.
+          </p>
+
+          <p>
+            Artık bazı şeylerin cevabını aramıyorsun.  
+            “Neden ben?” demiyorsun.  
+            Çünkü biliyorsun: bazen yaşamak,  
+            sadece olanları anlamadan da devam edebilmektir.  
+            Bu kabulleniş, olgunluğun ta kendisi.
+          </p>
+
+          <p>
+            Belki hâlâ bazı geceler kırgınsın,  
+            ama artık o kırgınlık seni yakmıyor, sadece hatırlatıyor:  
+            “Bir zamanlar buradan geçmiştim.”  
+            Ve o an, kendi içindeki yolculuğuna teşekkür ediyorsun.  
+            Çünkü büyümek, sadece ileri gitmek değil,  
+            bazen geçmişine şefkatle bakabilmektir.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Kırılmadan büyümek imkânsız olabilir,  
+            ama kırıldıktan sonra bile güzelleşmek mümkündür.”</em>
+          </p>
+
+          <p>
+            Her şeyin mükemmel olmasını bekleme.  
+            Hayat, biraz eksik, biraz yamuk, biraz kırık hâliyle gerçek.  
+            Ve sen, bu hâlinle de değerlisin.  
+            Çünkü kırılmamak değil,  
+            kırıldığında hâlâ sevmeyi başarabilmek olgunluktur.
+          </p>
+
+          <p>
+            Bugün birilerine değil,  
+            sadece kendine teşekkür et:  
+            “Bu kadar şey yaşadım ve hâlâ yumuşak kalabildim.”  
+            İşte bu, büyümenin en sessiz kutlamasıdır.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>💎 Kırılmadan Büyümek • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-05.html">← Önceki sayı: Kendine İyi Davranmayı Öğrenirken</a> •
+            <a href="dergi-07.html">Sonraki sayı → Kendi Ritmini Bulmak</a>
+          </span>
+        </div>
+      </article>
     </div>
   </div>
 </body>
-</html>
+  </html>
