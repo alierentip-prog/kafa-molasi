@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 1: Sessizlik Hakkı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #f6f3ee, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-link {
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(244,114,182,0.7);
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(56,189,248,0.7);
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 1</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 1</span>
+          <span>• Sessizlik Hakkı</span>
+        </div>
+
+        <h2 class="issue-title">Sessizlik Hakkı</h2>
+        <p class="issue-subtitle">
+          Hiçbir şey üretmediğin, ama içten içe toparlandığın o görünmez günler için.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 3–5 dakikalık okuma</span>
+          <span>🌿 Tema: Durmak & nefes almak</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Bazı günler vardır, hiçbir şey yapasımız gelmez.  
+            Ne mesajlara dönmek, ne ders açmak, ne “verimli” olmak…  
+            Sadece yatmak, tavana bakmak, duvara boş boş bakmak isteriz.  
+            Sonra da kendimizi suçlarız: “Bugün hiçbir şey yapmadım.”
+          </p>
+
+          <p>
+            Gel dürüst olalım: Biz yıllarca, “değerli olmanın” tek şartını  
+            bir şey üretmek sanarak büyüdük. Hep koş, hep hallet, hep yetiş…  
+            Sanki durduğumuz anda, insan olma hakkımız elimizden alınacak gibi.
+          </p>
+
+          <p>
+            Oysa sessizlik, tembellik değil.  
+            Düşünmeden durmak, boşluk değil.  
+            Bazen o “hiçbir şey yaptığına” inandığın günler,  
+            aslında zihninin kendini tamir ettiği günlerdir.  
+            Biz sadece fark etmiyoruz, çünkü “tamir” hep gürültülü sanılıyor.
+          </p>
+
+          <p>
+            Belki bugün hiçbir “büyük başarı” göstermedin.  
+            Ama yatağından kalktın, bir şeyler yedin, birilerine cevap verdin,  
+            bazen vermedin; kendi sınırını korudun.  
+            Bunlar da “hayatta kalma becerileri” ve küçümsenecek şeyler değiller.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz ki</em>, insan, telefon şarjı gibi bir şey değil.  
+            %0’a düşmeden önce kırılmaya, %100 dolu olsa bile yorulmaya hakkı var.  
+            Hem sen başkalarını bu kadar anlayışla karşılıyorsun da  
+            kendine niye bu kadar sert davranıyorsun?
+          </p>
+
+          <p>
+            Belki bugün tek başarın, bu satırları okumak oldu.  
+            Bu bile bir şey: Dünyanın ortasında, kendini duymaya çalışman.  
+            Sessizliğinle kavga etmek yerine, onu yanına oturtmayı denesek?  
+            “Evet, bugün fazla bir şey yapmadım ama bu da benim hakkım.” diyebilsek?
+          </p>
+
+          <p>
+            Hayat, sürekli koşmamız için kurulmadı.  
+            Bazen sadece, yol kenarındaki banka oturup  
+            geçen arabaları izlemek için varız.
+          </p>
+
+          <p>
+            Belki bunu kimse söylemedi ama biz söyleyelim:  
+            <em>Hiçbir şey yapmadığın günler için kendini suçlu hissetmek zorunda değilsin.</em>
+          </p>
+
+          <p>
+            Bugün belki not tutmadın, sınav çözmedin, “check list” doldurmadın.  
+            Ama kalbin bir kenara şunu yazdı bile:  
+            “Yorulursam durabiliyorum.”  
+            Ve bu, en pahalı derslerden biri.
+          </p>
+
+          <p>
+            Hayat bazen büyük kararlarla değil,  
+            küçük duruşlarla değişir.  
+            Sen bugün, kendini biraz olsun dinlemeyi seçtiğin için  
+            bu sayfanın sakince baş köşesine bir cümle yazıyoruz:
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Hayat, sadece üretince değil,  
+            durup bakınca da yaşamaya değer.”</em>
+          </p>
+
+          <p>
+            Eğer bugün hiçbir şey yapmadığını düşünüyorsan,  
+            belki de asıl yaptığın şey şuydu:  
+            Kendini tüketmeden, bir gün daha dayanmak.
+          </p>
+
+          <p>
+            Bu da az şey değil.  
+            Sessizlik, bazen “pes ettim” demek değil;  
+            “Biraz nefes alıp sonra devam edeceğim” demenin en sakin hâli.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>🌿 Sessizlik Hakkı • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-02.html">Sonraki sayı → Yorgun Kalpler Kulübü</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
