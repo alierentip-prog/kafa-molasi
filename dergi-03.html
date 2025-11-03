@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 3: Küçük Şükürler Defteri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #f6f3ee, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-link {
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(252,211,77,0.7);
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(244,114,182,0.7);
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 3</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 3</span>
+          <span>• Küçük Şükürler Defteri</span>
+        </div>
+
+        <h2 class="issue-title">Küçük Şükürler Defteri</h2>
+        <p class="issue-subtitle">
+          Büyük mucizelere gerek duymadan, küçük şeylerle gülümseyenler için.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 3–6 dakikalık okuma</span>
+          <span>🕯️ Tema: Şükür & küçük mutluluklar</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Hepimize yıllarca “büyük” şeyler anlatıldı.  
+            Büyük başarılar, büyük aşklar, büyük paralar…  
+            “Büyük” olmayan her şey, sanki ikinci plandaymış gibi.  
+            Sanki hayat, sadece zirvelerde yaşanabiliyormuş gibi.
+          </p>
+
+          <p>
+            Ama sonra bir gün, kahveni tam sevdiğin kıvamda içtiğinde,  
+            yağmur camına yavaş yavaş vurduğunda,  
+            sevdiğin bir şarkı tam ihtiyacın olan anda çaldığında  
+            şunu fark ediyorsun:  
+            <em>Bizi taşıyan şey, büyük mucizeler değil; küçük anlar.</em>
+          </p>
+
+          <p>
+            Bir mesaj: “Neredesin, iyi misin?”  
+            Uzun bir günden sonra sıcak bir duş.  
+            Evden çıkarken cebinden çıkan, unutulmuş 50 lira.  
+            Yolda yürürken yüzüne vuran yumuşak güneş.  
+            Tüm bunlar hiçbir zaman haberlerde olmayacak,  
+            ama kalbinin manşetinde hep onlar var.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz ki</em>, kalbin en çok “küçük” şeylere tutuluyor:  
+            Küçük gülüşlere, küçük jestlere, küçük iyiliklere.  
+            Çünkü büyük anlar nadir; küçük anlar her gün önümüzden geçiyor.  
+            Soru şu: Biz hâlâ bakabiliyor muyuz?
+          </p>
+
+          <p>
+            Bazen “şükret” kelimesi bile üzerimize yük gibi geliyor.  
+            Sanki “haline sus, hiçbir şey söyleme” demekmiş gibi.  
+            Oysa burada bahsettiğimiz şükür,  
+            “Her şey mükemmel, hiçbir sorun yok.” şükrü değil.  
+            “Her şey mükemmel olmasa da, iyi olan küçük şeyleri görebiliyorum.” demek biraz.
+          </p>
+
+          <p>
+            Belki şu an hayatında çözülmemiş sorunlar var.  
+            Hastalık, yorgunluk, belirsizlik, para, gelecek kaygısı…  
+            Evet, hepsi gerçek.  
+            Ama bütün bu gürültünün içinde,  
+            hâlâ seni gülümseten en az bir şey yok mu?
+          </p>
+
+          <p>
+            Bugün için tek bir küçük şeye “iyi ki” diyebilir misin?  
+            Belki sabah alarmı erteleyebildin.  
+            Belki sevdiğin birinin sesi telefonda iyi geldi.  
+            Belki sınava çok kötü değildin.  
+            Belki de sadece bugün, kimse seni incitmedi.  
+            Bunların hiçbirini kimse büyük bir olay olarak görmeyebilir.  
+            Ama kalbin, hepsini tek tek not ediyor.
+          </p>
+
+          <p>
+            Şükür, sorunları yok saymak değil;  
+            karanlıkta hâlâ yanan minik ışıkları fark etmek.  
+            “Bunlar da var.” diyebilmek.  
+            Bir anlamda kalbine şunu söylemek:  
+            <em>“Her şey kötü değil. Hâlâ hissedebiliyorum.”</em>
+          </p>
+
+          <p>
+            Çünkü bazen en büyük mucize,  
+            hâlâ bir şeyler hissedebiliyor olmak.  
+            Üzülmen, kırılman, sevinmen, heyecanlanman…  
+            Kalbin hâlâ tepki veriyorsa,  
+            bu, üzerinde hâlâ hayat olduğunun işareti.
+          </p>
+
+          <p>
+            Bugün senden liste yapmanı istemeyeceğim.  
+            Zaten fazlasıyla listen var: yapılacaklar, okunacaklar, çalışılacaklar…  
+            Bu sayfa, bir ödev sayfası değil.  
+            Sadece, bu satırları okurken  
+            aklına gelen tek bir küçük şeye  
+            içinden “iyi ki” demen yeter.
+          </p>
+
+          <p>
+            Adını yüksek sesle söylemek zorunda değilsin.  
+            Yazmak zorunda değilsin.  
+            Sadece, o küçük anı fark ettiğin anda  
+            kalbinin hafifçe yumuşamasına izin ver.
+          </p>
+
+          <p>
+            Belki şu an elinde sıcak bir içecek var.  
+            Belki odan sessiz.  
+            Belki herkes uyudu ve sadece sen ayaktasın.  
+            Belki de kalabalığın içinde tek başına okuyorsun bunları.  
+            Nerede olursan ol, seninle aynı şeyi yaşayan biri daha var:  
+            Küçük şeyler için bile “iyi ki” diyebilmekten utanmayan biri.
+          </p>
+
+          <p>
+            Hayat, sadece büyük dönüm noktalarından ibaret değil.  
+            Çoğunluğu, kimseye anlatmadığımız küçük sahnelerden oluşuyor.  
+            Bir bakış, bir dokunuş, bir sokak lambası,  
+            yolda yürürken çalan bir şarkı,  
+            sınavdan sonra kütüphane merdivenlerinde oturup derin bir nefes almak…
+          </p>
+
+          <p>
+            Şimdi, kendi içinde çok sessiz bir defter açtığını hayal et.  
+            Adı da “Küçük Şükürler Defteri” olsun.  
+            Sayfalarına her gün onlarca satır yazmana gerek yok.  
+            Bazen tek bir cümle bile yeter:  
+            “Bugün güneşi gördüm.”  
+            “Bugün biri beni anladı.”  
+            “Bugün ağladım ve bu da iyi geldi.”
+          </p>
+
+          <p>
+            Belki kimse o defteri hiç görmeyecek.  
+            Belki sen bile fiziksel olarak hiçbir yere yazmayacaksın.  
+            Ama kalbin, her “iyi ki” dediğinde  
+            kendi içine minik bir çizik atacak:  
+            “Burada, yaşanmaya değer bir şey oldu.”
+          </p>
+
+          <p>
+            Çünkü yaşam, büyük mucizelerin sahnesi olmaktan çok  
+            küçük şükürlerin sessiz albümü gibi.  
+            Ve sen, farkında olmadan her gün  
+            o albüme yeni bir fotoğraf ekliyorsun.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Bazen yaşamak, büyük şeyler başarmak değil;  
+            küçük şeyler için bile ‘iyi ki buradayım’ diyebilmektir.”</em>
+          </p>
+
+          <p>
+            Bugün hayatını kökten değiştirmek zorunda değilsin.  
+            Büyük kararlar, büyük sözler, büyük adımlar şart değil.  
+            Bazen en gerçek değişim,  
+            en küçük detayları fark edebildiğin anda başlıyor.
+          </p>
+
+          <p>
+            Eğer şu an içinden, kimse duymasa bile  
+            minicik bir “iyi ki” geçtiyse,  
+            bilin ki bu sayının amacı çoktan gerçekleşti.
+          </p>
+
+          <p>
+            Kalbin hâlâ şükredecek bir şey bulabiliyorsa,  
+            bu dünyanın hâlâ umut taşıyan köşelerinden birisin.  
+            Ve bu, sandığından çok daha değerli.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>🕯️ Küçük Şükürler Defteri • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-02.html">← Önceki sayı: Yorgun Kalpler Kulübü</a> •
+            <a href="dergi-04.html">Sonraki sayı → Sabahın Sessiz Masası</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
