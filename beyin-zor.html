@@ -4,236 +4,270 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beyin Zor - Cehennem Girişi</title>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
 <style>
-html,body{
-  margin:0;
-  height:100%;
-  overflow:hidden;
-  background:#000;
-}
-canvas{display:block;}
-#title{
-  position:absolute;
-  top:40%;
-  width:100%;
-  text-align:center;
-  font-family:"Poppins",sans-serif;
-  font-size:2.6rem;
-  color:#ff4d4d;
-  text-shadow:0 0 25px #ff0000,0 0 60px #ff6600;
-  animation:fadeIn 5s ease-in-out forwards;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;transform:scale(1);}
-}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{
+    height:100%;
+    font-family:"Poppins",system-ui,-apple-system,blinkmacsystemfont,sans-serif;
+    background:#050000;
+    color:#fff;
+    overflow-x:hidden;
+  }
+
+  /* Arka plan: kırmızı-siyah hareketli cehennem */
+  body{
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,80,80,0.4), transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(255,30,30,0.5), transparent 65%),
+      radial-gradient(circle at 50% 120%, rgba(255,120,0,0.5), transparent 70%),
+      #050000;
+    background-size:140% 140%;
+    animation:hellPulse 6s ease-in-out infinite alternate;
+  }
+  @keyframes hellPulse{
+    0%{background-position:0% 0%;}
+    50%{background-position:50% 100%;}
+    100%{background-position:100% 0%;}
+  }
+
+  /* Intro ekranı */
+  #intro{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    z-index:10;
+    transition:opacity .8s ease;
+  }
+  #intro h1{
+    font-size:2.6rem;
+    letter-spacing:1px;
+    color:#ff4d4d;
+    text-shadow:0 0 25px #ff0000,0 0 60px #ff6600;
+    margin-bottom:20px;
+  }
+  #intro h1 span{
+    font-size:2.9rem;
+  }
+  .subtitle{
+    font-size:1rem;
+    color:#ffb3b3;
+    margin-top:8px;
+    opacity:.9;
+  }
+
+  /* Yükleniyor dairesi */
+  .loader{
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    border:6px solid rgba(255,255,255,0.12);
+    border-top-color:#ff4444;
+    border-right-color:#ff8844;
+    animation:spin 1s linear infinite, glow 1.4s ease-in-out infinite alternate;
+    margin-top:12px;
+  }
+  @keyframes spin{
+    to{transform:rotate(360deg);}
+  }
+  @keyframes glow{
+    0%{box-shadow:0 0 10px rgba(255,80,80,0.4);}
+    100%{box-shadow:0 0 28px rgba(255,40,40,0.9);}
+  }
+
+  /* İnce kıvılcım efekti */
+  .embers{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle, rgba(255,200,120,0.9) 0, rgba(255,200,120,0) 60%),
+      radial-gradient(circle, rgba(255,120,60,0.7) 0, rgba(255,120,60,0) 55%);
+    background-size:4px 4px,3px 3px;
+    mix-blend-mode:screen;
+    opacity:0.35;
+    animation:embersFloat 10s linear infinite;
+  }
+  @keyframes embersFloat{
+    0%{transform:translate3d(0,0,0);}
+    50%{transform:translate3d(-20px,-40px,0);}
+    100%{transform:translate3d(20px,-80px,0);}
+  }
+
+  /* Quiz alanı */
+  #quizContainer{
+    max-width:900px;
+    margin:40px auto 60px auto;
+    padding:20px;
+    display:none; /* Başta gizli */
+  }
+
+  .quiz-card{
+    background:rgba(0,0,0,0.78);
+    border:2px solid #ff1f1f;
+    border-radius:18px;
+    box-shadow:0 0 25px rgba(255,0,0,0.6);
+    padding:25px 30px;
+  }
+
+  .quiz-card h2{
+    text-align:center;
+    color:#ff6666;
+    margin-bottom:10px;
+  }
+
+  .question{
+    margin-bottom:18px;
+  }
+  .question p{
+    margin-bottom:6px;
+  }
+
+  .options button{
+    display:block;
+    width:100%;
+    margin:4px 0;
+    padding:8px 12px;
+    border-radius:8px;
+    border:1px solid #ff4444;
+    background:rgba(255,255,255,0.04);
+    color:#fff;
+    cursor:pointer;
+    text-align:left;
+    font-size:0.95rem;
+    transition:.15s;
+  }
+  .options button:hover:not(:disabled){
+    background:rgba(255,80,80,0.2);
+    transform:translateY(-1px);
+  }
+
+  #finishBtn{
+    display:block;
+    margin:25px auto 5px auto;
+    padding:10px 22px;
+    border:none;
+    border-radius:10px;
+    background:#ef4444;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 0 18px rgba(255,0,0,0.6);
+  }
 </style>
 </head>
 <body>
-<canvas id="lava"></canvas>
-<div id="title">🔥 Pişman Olacaksın 🔥</div>
+
+<div id="intro">
+  <div class="embers"></div>
+  <h1>🔥 <span>Pişman Olacaksın</span> 🔥</h1>
+  <div class="loader"></div>
+  <div class="subtitle">Beyin yavaşça kavruluyor... Lütfen bekleyiniz.</div>
+</div>
+
+<div id="quizContainer"></div>
 
 <script>
-let scene=new THREE.Scene();
-let camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-let renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth,window.innerHeight);
-document.body.appendChild(renderer.domElement);
+/* 5 saniye sonra intro kapanıp quiz başlasın */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const intro = document.getElementById("intro");
+    intro.style.opacity = "0";
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.getElementById("quizContainer").style.display = "block";
+      initQuiz();
+    }, 800);
+  }, 5000);
+});
 
-// Lav yüzeyi
-let geometry=new THREE.PlaneGeometry(60,60,100,100);
-let material=new THREE.MeshBasicMaterial({color:0xff3300,wireframe:true});
-let plane=new THREE.Mesh(geometry,material);
-plane.rotation.x=-Math.PI/2;
-scene.add(plane);
+let score = 0;
+const questions = [
+  // Zorun Kolayı (1–10)
+  {q:"Bir odada 2 doğru söyleyen, 2 yalancı var. Her biri 'Yanımdaki yalancı' diyor. Odadaki sıralama nasıl olamaz?",o:["DYYD","YYDD","DYDY","YDDY"],a:1},
+  {q:"Bir tren A’dan B’ye 60, B’den A’ya 90 km/s. Karşılaştıklarında hangisi A’ya daha yakındır?",o:["A’ya yakın","B’ye yakın","Tam ortada","Tanımsız"],a:2},
+  {q:"Saat 8:10’da akrep-yelkovan açısı?",o:["115°","120°","125°","130°"],a:0},
+  {q:"‘Ben her zaman yalan söylerim’ diyen biri…",o:["Doğru","Yalan","Paradoks","Kafası karışmış"],a:2},
+  {q:"3 oğlu 1 tarlayı 1 günde sürüyor. 6 oğlu 6 tarlayı kaç günde sürer?",o:["1","2","3","6"],a:0},
+  {q:"100 kişi el sıkıştı, 4850 tokalaşma olduysa kaç kişi sıkışmadı?",o:["0","1","2","3"],a:1},
+  {q:"‘Eğer yağmur yağarsa dondurma alırım.’ Dondurma alındı. Ne sonuç çıkar?",o:["Yağmur yağdı","Yağmadı","Sonuç çıkarılamaz","Mantıksız"],a:2},
+  {q:"İlk iki harfi kimlik, son üçü sıfat; kendisi herkesin içinde olan kelime?",o:["Benim","İnsan","Kalp","Kişi"],a:2},
+  {q:"Baba 30, oğlu 5 yaşında. Kaç yıl sonra baba oğlunun 3 katı olur?",o:["5","10","15","20"],a:1},
+  {q:"100 ampul, 100 kişi sırasıyla aç-kapa yapıyor. Sonunda kaç ampul açık?",o:["10","20","30","sadece tam kareler"],a:3},
 
-// Işık ve kamera
-let light=new THREE.PointLight(0xff5500,2,100);
-light.position.set(0,20,0);
-scene.add(light);
-camera.position.set(0,15,25);
+  // Zorun Ortası (11–20)
+  {q:"Üç kişi otele girer… Kaybolan 1 TL nerededir?",o:["Bellboy aldı","Matematik hatası","Toplama-çıkarma karıştı","Hiçbiri"],a:2},
+  {q:"Kurt, keçi, otu geçirmek için en az kaç geçiş?",o:["5","6","7","8"],a:0},
+  {q:"3:15’te akrep-yelkovan arası açı?",o:["7.5°","30°","45°","52.5°"],a:3},
+  {q:"23 kişiden en az ikisinin doğum günü aynı olma olasılığı %?",o:[">50","<50","%25","%75"],a:0},
+  {q:"Köprü 5 dakikada bir açılıyor, geçiş 3 dakika. Rastgele gelenin geçme olasılığı?",o:["0.4","0.5","0.6","0.7"],a:1},
+  {q:"En az biri erkek olan iki çocukta ikisinin erkek olma olasılığı?",o:["1/2","1/3","2/3","1/4"],a:1},
+  {q:"Ali 7 soru çözdü; +5, −2, toplam 21. Kaç doğru?",o:["5","4","6","3"],a:0},
+  {q:"100 kitap, her gün 1 alınıp 1 iade. 10 günde en az kaç farklı kitap alınmıştır?",o:["10","11","19","20"],a:2},
+  {q:"Kalem 40, silgi 10 TL; birlikte 50, kalem silgiden 40 fazla. Nasıl mümkün?",o:["Yok","Vergi dahil","Mantık hatası","Fiyat farkı yanlış"],a:2},
+  {q:"10 işçi 10 günde duvar örüyor, her gün biri ayrılıyor. Kaç günde biter?",o:["20","25","30","35"],a:2},
 
-// Basit lav dalgalanması
-function animate(){
-  requestAnimationFrame(animate);
-  const t=Date.now()*0.002;
-  for(let i=0;i<plane.geometry.attributes.position.count;i++){
-    let y=Math.sin(i/10+t)*0.5;
-    plane.geometry.attributes.position.setY(i,y);
-  }
-  plane.geometry.attributes.position.needsUpdate=true;
-  light.intensity=1.5+Math.sin(t*2)*0.5;
-  renderer.render(scene,camera);
+  // God Level (21–30)
+  {q:"“Bu cümle yanlıştır.” mantıksal türü?",o:["Klasik","Parakonsisten","Epistemik","Tanımsız"],a:1},
+  {q:"Bir küme kendini içermeyenleri içeriyorsa, kendini içerir mi?",o:["Evet","Hayır","Hem evet hem hayır","Russell paradoksu"],a:3},
+  {q:"Zaman yolcusu dedesini öldürürse ne olur?",o:["Yok olur","Döngüye girer","Var olur","Tanımsız"],a:3},
+  {q:"Sonsuz işlem gücü ama girdi yok. Düşünebilir mi?",o:["Evet","Hayır","Kısmen","Tanımsız"],a:3},
+  {q:"Sonsuz yaşayan ama hafızasız insan yaşadığını bilir mi?",o:["Evet","Hayır","Sadece gözlemlerse","Anlamsız"],a:3},
+  {q:"Bir kürenin içi ve yüzeyi de sonsuz. Hangisinde daha çok nokta var?",o:["İçi","Yüzeyi","Eşit","Tanımsız"],a:3},
+  {q:"‘Ben bugün yalan söyleyeceğim.’ diyen kişi?",o:["Doğru söyler","Yalan söyler","Paradokstur","Kendini kandırır"],a:2},
+  {q:"Aynada 2:30 görünüyorsa gerçek saat?",o:["9:30","9:45","10:30","10:45"],a:0},
+  {q:"Bir kelime, ilk yarısı gündüz, ikinci yarısı geceyi anlatır. Bu kelime?",o:["Güngece","Gecegün","Alacakaranlık","Sabahgece"],a:2},
+  {q:"Evrenin sonu varsa, zamanın başlangıcı nedir?",o:["İlk olay","Tanımsız","Sonsuzun tersi","Yok"],a:1}
+];
+
+function initQuiz(){
+  const container = document.getElementById("quizContainer");
+  const card = document.createElement("div");
+  card.className = "quiz-card";
+  card.innerHTML = "<h2>🧠 Beyin Zor Testi</h2>";
+  container.appendChild(card);
+
+  questions.forEach((q,i)=>{
+    const qDiv=document.createElement("div");
+    qDiv.className="question";
+    qDiv.innerHTML=`<p><b>${i+1}.</b> ${q.q}</p>`;
+    const opts=document.createElement("div");
+    opts.className="options";
+    q.o.forEach((opt,idx)=>{
+      const btn=document.createElement("button");
+      btn.textContent=opt;
+      btn.onclick=()=>{
+        if(idx===q.a){
+          btn.style.background="#16a34a";
+          score++;
+        }else{
+          btn.style.background="#b91c1c";
+        }
+        opts.querySelectorAll("button").forEach(b=>b.disabled=true);
+      };
+      opts.appendChild(btn);
+    });
+    qDiv.appendChild(opts);
+    card.appendChild(qDiv);
+  });
+
+  const finish=document.createElement("button");
+  finish.id="finishBtn";
+  finish.textContent="Testi Bitir";
+  finish.onclick=()=>showResult();
+  card.appendChild(finish);
 }
-animate();
-  // -------------------- BEYİN ZOR TESTİ --------------------
-let score = 0;
-const questions = [
-  // Zorun Kolayı (1–10)
-  {q:"Bir odada 2 doğru söyleyen, 2 yalancı var. Her biri 'Yanımdaki yalancı' diyor. Odadaki sıralama nasıl olamaz?",o:["DYYD","YYDD","DYDY","YDDY"],a:1},
-  {q:"Bir tren A’dan B’ye 60, B’den A’ya 90 km/s. Karşılaştıklarında hangisi A’ya daha yakındır?",o:["A’ya yakın","B’ye yakın","Tam ortada","Tanımsız"],a:2},
-  {q:"Saat 8:10’da akrep-yelkovan açısı?",o:["115°","120°","125°","130°"],a:0},
-  {q:"‘Ben her zaman yalan söylerim’ diyen biri…",o:["Doğru","Yalan","Paradoks","Kafası karışmış"],a:2},
-  {q:"3 oğlu 1 tarlayı 1 günde sürüyor. 6 oğlu 6 tarlayı kaç günde sürer?",o:["1","2","3","6"],a:0},
-  {q:"100 kişi el sıkıştı, 4850 tokalaşma olduysa kaç kişi sıkışmadı?",o:["0","1","2","3"],a:1},
-  {q:"‘Eğer yağmur yağarsa dondurma alırım.’ Dondurma alındı. Ne sonuç çıkar?",o:["Yağmur yağdı","Yağmadı","Sonuç çıkarılamaz","Mantıksız"],a:2},
-  {q:"İlk iki harfi kimlik, son üçü sıfat; kendisi herkesin içinde olan kelime?",o:["Benim","İnsan","Kalp","Kişi"],a:2},
-  {q:"Baba 30, oğlu 5 yaşında. Kaç yıl sonra baba oğlunun 3 katı olur?",o:["5","10","15","20"],a:1},
-  {q:"100 ampul, 100 kişi sırasıyla aç-kapa yapıyor. Sonunda kaç ampul açık?",o:["10","20","30","sadece tam kareler"],a:3},
 
-  // Zorun Ortası (11–20)
-  {q:"Üç kişi otele girer… Kaybolan 1 TL nerededir?",o:["Bellboy aldı","Matematik hatası","Toplama-çıkarma karıştı","Hiçbiri"],a:2},
-  {q:"Kurt, keçi, otu geçirmek için en az kaç geçiş?",o:["5","6","7","8"],a:0},
-  {q:"3:15’te akrep-yelkovan arası açı?",o:["7.5°","30°","45°","52.5°"],a:3},
-  {q:"23 kişiden en az ikisinin doğum günü aynı olma olasılığı %?",o:[">50","<50","%25","%75"],a:0},
-  {q:"Köprü 5 dakikada bir açılıyor, geçiş 3 dakika. Rastgele gelenin geçme olasılığı?",o:["0.4","0.5","0.6","0.7"],a:1},
-  {q:"En az biri erkek olan iki çocukta ikisinin erkek olma olasılığı?",o:["1/2","1/3","2/3","1/4"],a:1},
-  {q:"Ali 7 soru çözdü; +5, −2, toplam 21. Kaç doğru?",o:["5","4","6","3"],a:0},
-  {q:"100 kitap, her gün 1 alınıp 1 iade. 10 günde en az kaç farklı kitap alınmıştır?",o:["10","11","19","20"],a:2},
-  {q:"Kalem 40, silgi 10 TL; birlikte 50, kalem silgiden 40 fazla. Nasıl mümkün?",o:["Yok","Vergi dahil","Mantık hatası","Fiyat farkı yanlış"],a:2},
-  {q:"10 işçi 10 günde duvar örüyor, her gün biri ayrılıyor. Kaç günde biter?",o:["20","25","30","35"],a:2},
-
-  // God Level (21–30)
-  {q:"“Bu cümle yanlıştır.” mantıksal türü?",o:["Klasik","Parakonsisten","Epistemik","Tanımsız"],a:1},
-  {q:"Bir küme kendini içermeyenleri içeriyorsa, kendini içerir mi?",o:["Evet","Hayır","Hem evet hem hayır","Russell paradoksu"],a:3},
-  {q:"Zaman yolcusu dedesini öldürürse ne olur?",o:["Yok olur","Döngüye girer","Var olur","Tanımsız"],a:3},
-  {q:"Sonsuz işlem gücü ama girdi yok. Düşünebilir mi?",o:["Evet","Hayır","Kısmen","Tanımsız"],a:3},
-  {q:"Sonsuz yaşayan ama hafızasız insan yaşadığını bilir mi?",o:["Evet","Hayır","Sadece gözlemlerse","Anlamsız"],a:3},
-  {q:"Bir kürenin içi ve yüzeyi de sonsuz. Hangisinde daha çok nokta var?",o:["İçi","Yüzeyi","Eşit","Tanımsız"],a:3},
-  {q:"‘Ben bugün yalan söyleyeceğim.’ diyen kişi?",o:["Doğru söyler","Yalan söyler","Paradokstur","Kendini kandırır"],a:2},
-  {q:"Aynada 2:30 görünüyorsa gerçek saat?",o:["9:30","9:45","10:30","10:45"],a:0},
-  {q:"Bir kelime, ilk yarısı gündüz, ikinci yarısı geceyi anlatır. Bu kelime?",o:["Güngece","Gecegün","Alacakaranlık","Sabahgece"],a:2},
-  {q:"Evrenin sonu varsa, zamanın başlangıcı nedir?",o:["İlk olay","Tanımsız","Sonsuzun tersi","Yok"],a:1}
-];
-
-// Test oluştur
-const quizDiv=document.createElement("div");
-quizDiv.style.cssText="max-width:900px;margin:40px auto;background:rgba(0,0,0,0.7);border:2px solid #ff1f1f;border-radius:18px;box-shadow:0 0 25px rgba(255,0,0,0.7);padding:25px 30px;";
-quizDiv.innerHTML="<h2 style='text-align:center;color:#ff6666;'>🧠 Beyin Zor Testi</h2>";
-document.body.appendChild(quizDiv);
-
-questions.forEach((q,i)=>{
-  const qDiv=document.createElement('div');
-  qDiv.className='question';
-  qDiv.innerHTML=`<p><b>${i+1}.</b> ${q.q}</p>`;
-  const opts=document.createElement('div');
-  opts.className='options';
-  q.o.forEach((opt,idx)=>{
-    const btn=document.createElement('button');
-    btn.textContent=opt;
-    btn.onclick=()=>{
-      if(idx===q.a){
-        btn.style.background="#16a34a";
-        score++;
-      }else{
-        btn.style.background="#b91c1c";
-      }
-      opts.querySelectorAll('button').forEach(b=>b.disabled=true);
-    };
-    opts.appendChild(btn);
-  });
-  qDiv.appendChild(opts);
-  quizDiv.appendChild(qDiv);
-});
-
-// Bitir butonu
-const finish=document.createElement('button');
-finish.textContent='Testi Bitir';
-finish.style.cssText="display:block;margin:25px auto;padding:10px 22px;border:none;border-radius:8px;background:#ef4444;color:#fff;font-weight:600;cursor:pointer;";
-finish.onclick=()=>{
-  showResult();
-  // -------------------- TEST SONUCU --------------------
-function showResult(){
-  const total = questions.length;
-  const percent = Math.round((score / total) * 100);
-// -------------------- BEYİN ZOR TESTİ --------------------
-let score = 0;
-const questions = [
-  // Zorun Kolayı (1–10)
-  {q:"Bir odada 2 doğru söyleyen, 2 yalancı var. Her biri 'Yanımdaki yalancı' diyor. Odadaki sıralama nasıl olamaz?",o:["DYYD","YYDD","DYDY","YDDY"],a:1},
-  {q:"Bir tren A’dan B’ye 60, B’den A’ya 90 km/s. Karşılaştıklarında hangisi A’ya daha yakındır?",o:["A’ya yakın","B’ye yakın","Tam ortada","Tanımsız"],a:2},
-  {q:"Saat 8:10’da akrep-yelkovan açısı?",o:["115°","120°","125°","130°"],a:0},
-  {q:"‘Ben her zaman yalan söylerim’ diyen biri…",o:["Doğru","Yalan","Paradoks","Kafası karışmış"],a:2},
-  {q:"3 oğlu 1 tarlayı 1 günde sürüyor. 6 oğlu 6 tarlayı kaç günde sürer?",o:["1","2","3","6"],a:0},
-  {q:"100 kişi el sıkıştı, 4850 tokalaşma olduysa kaç kişi sıkışmadı?",o:["0","1","2","3"],a:1},
-  {q:"‘Eğer yağmur yağarsa dondurma alırım.’ Dondurma alındı. Ne sonuç çıkar?",o:["Yağmur yağdı","Yağmadı","Sonuç çıkarılamaz","Mantıksız"],a:2},
-  {q:"İlk iki harfi kimlik, son üçü sıfat; kendisi herkesin içinde olan kelime?",o:["Benim","İnsan","Kalp","Kişi"],a:2},
-  {q:"Baba 30, oğlu 5 yaşında. Kaç yıl sonra baba oğlunun 3 katı olur?",o:["5","10","15","20"],a:1},
-  {q:"100 ampul, 100 kişi sırasıyla aç-kapa yapıyor. Sonunda kaç ampul açık?",o:["10","20","30","sadece tam kareler"],a:3},
-
-  // Zorun Ortası (11–20)
-  {q:"Üç kişi otele girer… Kaybolan 1 TL nerededir?",o:["Bellboy aldı","Matematik hatası","Toplama-çıkarma karıştı","Hiçbiri"],a:2},
-  {q:"Kurt, keçi, otu geçirmek için en az kaç geçiş?",o:["5","6","7","8"],a:0},
-  {q:"3:15’te akrep-yelkovan arası açı?",o:["7.5°","30°","45°","52.5°"],a:3},
-  {q:"23 kişiden en az ikisinin doğum günü aynı olma olasılığı %?",o:[">50","<50","%25","%75"],a:0},
-  {q:"Köprü 5 dakikada bir açılıyor, geçiş 3 dakika. Rastgele gelenin geçme olasılığı?",o:["0.4","0.5","0.6","0.7"],a:1},
-  {q:"En az biri erkek olan iki çocukta ikisinin erkek olma olasılığı?",o:["1/2","1/3","2/3","1/4"],a:1},
-  {q:"Ali 7 soru çözdü; +5, −2, toplam 21. Kaç doğru?",o:["5","4","6","3"],a:0},
-  {q:"100 kitap, her gün 1 alınıp 1 iade. 10 günde en az kaç farklı kitap alınmıştır?",o:["10","11","19","20"],a:2},
-  {q:"Kalem 40, silgi 10 TL; birlikte 50, kalem silgiden 40 fazla. Nasıl mümkün?",o:["Yok","Vergi dahil","Mantık hatası","Fiyat farkı yanlış"],a:2},
-  {q:"10 işçi 10 günde duvar örüyor, her gün biri ayrılıyor. Kaç günde biter?",o:["20","25","30","35"],a:2},
-
-  // God Level (21–30)
-  {q:"“Bu cümle yanlıştır.” mantıksal türü?",o:["Klasik","Parakonsisten","Epistemik","Tanımsız"],a:1},
-  {q:"Bir küme kendini içermeyenleri içeriyorsa, kendini içerir mi?",o:["Evet","Hayır","Hem evet hem hayır","Russell paradoksu"],a:3},
-  {q:"Zaman yolcusu dedesini öldürürse ne olur?",o:["Yok olur","Döngüye girer","Var olur","Tanımsız"],a:3},
-  {q:"Sonsuz işlem gücü ama girdi yok. Düşünebilir mi?",o:["Evet","Hayır","Kısmen","Tanımsız"],a:3},
-  {q:"Sonsuz yaşayan ama hafızasız insan yaşadığını bilir mi?",o:["Evet","Hayır","Sadece gözlemlerse","Anlamsız"],a:3},
-  {q:"Bir kürenin içi ve yüzeyi de sonsuz. Hangisinde daha çok nokta var?",o:["İçi","Yüzeyi","Eşit","Tanımsız"],a:3},
-  {q:"‘Ben bugün yalan söyleyeceğim.’ diyen kişi?",o:["Doğru söyler","Yalan söyler","Paradokstur","Kendini kandırır"],a:2},
-  {q:"Aynada 2:30 görünüyorsa gerçek saat?",o:["9:30","9:45","10:30","10:45"],a:0},
-  {q:"Bir kelime, ilk yarısı gündüz, ikinci yarısı geceyi anlatır. Bu kelime?",o:["Güngece","Gecegün","Alacakaranlık","Sabahgece"],a:2},
-  {q:"Evrenin sonu varsa, zamanın başlangıcı nedir?",o:["İlk olay","Tanımsız","Sonsuzun tersi","Yok"],a:1}
-];
-
-// Test oluştur
-const quizDiv=document.createElement("div");
-quizDiv.style.cssText="max-width:900px;margin:40px auto;background:rgba(0,0,0,0.7);border:2px solid #ff1f1f;border-radius:18px;box-shadow:0 0 25px rgba(255,0,0,0.7);padding:25px 30px;";
-quizDiv.innerHTML="<h2 style='text-align:center;color:#ff6666;'>🧠 Beyin Zor Testi</h2>";
-document.body.appendChild(quizDiv);
-
-questions.forEach((q,i)=>{
-  const qDiv=document.createElement('div');
-  qDiv.className='question';
-  qDiv.style.marginBottom = "15px";
-  qDiv.innerHTML=`<p><b>${i+1}.</b> ${q.q}</p>`;
-  const opts=document.createElement('div');
-  opts.className='options';
-  q.o.forEach((opt,idx)=>{
-    const btn=document.createElement('button');
-    btn.textContent=opt;
-    btn.style.cssText="display:block;width:100%;margin:5px 0;padding:8px 12px;border:1px solid #ff4444;border-radius:8px;background:rgba(255,255,255,0.05);color:#fff;cursor:pointer;";
-    btn.onclick=()=>{
-      if(idx===q.a){
-        btn.style.background="#16a34a";
-        score++;
-      }else{
-        btn.style.background="#b91c1c";
-      }
-      opts.querySelectorAll('button').forEach(b=>b.disabled=true);
-    };
-    opts.appendChild(btn);
-  });
-  qDiv.appendChild(opts);
-  quizDiv.appendChild(qDiv);
-});
-
-// Bitir butonu
-const finish=document.createElement('button');
-finish.textContent='Testi Bitir';
-finish.style.cssText="display:block;margin:25px auto;padding:10px 22px;border:none;border-radius:8px;background:#ef4444;color:#fff;font-weight:600;cursor:pointer;";
-finish.onclick=()=>{ showResult(); };
-quizDiv.appendChild(finish);
-
-// -------------------- TEST SONUCU --------------------
 function showResult(){
   const total = questions.length;
   const percent = Math.round((score / total) * 100);
 
   let msg = "";
   if(percent <= 30){
-    msg = "🩸 Beyin daha yeni erimeye başlamış, hala tost ekmeği kıvamındasın.";
+    msg = "🩸 Beyin daha yeni erimeye başlamış, hâlâ tost ekmeği kıvamındasın.";
   } else if(percent <= 60){
     msg = "🔥 Nöronların kavruluyor ama dayanıyorsun, zekân lav gibi akıyor.";
   } else if(percent <= 85){
@@ -243,29 +277,21 @@ function showResult(){
   }
 
   document.body.innerHTML = `
-  <div style="max-width:800px;margin:100px auto;padding:40px;border-radius:18px;
-  background:rgba(0,0,0,0.85);border:2px solid #ff1f1f;box-shadow:0 0 30px rgba(255,0,0,0.7);
-  text-align:center;font-family:'Poppins',sans-serif;color:#fff;">
-    <h1 style="color:#ff4d4d;">🔥 Beyin Zor Sonucu 🔥</h1>
-    <p style="font-size:1.3rem;margin-top:10px;">${score} / ${total} Doğru</p>
-    <p style="margin-top:15px;font-size:1.2rem;">${msg}</p>
-    <p style="margin-top:15px;color:#ff8080;">Zeka oranı: <b>${percent}%</b></p>
-    <button id="retryBtn" style="margin-top:30px;padding:12px 20px;border:none;border-radius:10px;
-    background:#ff4d4d;color:white;font-size:1rem;font-weight:bold;cursor:pointer;
-    box-shadow:0 0 20px rgba(255,0,0,0.7);">Tekrar Dene</button>
-  </div>`;
+    <div style="max-width:800px;margin:100px auto;padding:40px;border-radius:18px;
+      background:rgba(0,0,0,0.9);border:2px solid #ff1f1f;box-shadow:0 0 30px rgba(255,0,0,0.7);
+      text-align:center;font-family:'Poppins',sans-serif;color:#fff;">
+      <h1 style="color:#ff4d4d;">🔥 Beyin Zor Sonucu 🔥</h1>
+      <p style="font-size:1.3rem;margin-top:10px;">${score} / ${total} Doğru</p>
+      <p style="margin-top:15px;font-size:1.2rem;">${msg}</p>
+      <p style="margin-top:15px;color:#ff8080;">Zeka oranı: <b>${percent}%</b></p>
+      <button id="retryBtn" style="margin-top:30px;padding:12px 20px;border:none;border-radius:10px;
+        background:#ff4d4d;color:white;font-size:1rem;font-weight:bold;cursor:pointer;
+        box-shadow:0 0 20px rgba(255,0,0,0.7);">Tekrar Dene</button>
+    </div>
+  `;
 
-  document.getElementById('retryBtn').onclick = () => {
-    location.reload();
-  };
-  }
-  // Tekrar başlat
-  document.getElementById('retryBtn').onclick = () => {
-    location.reload();
-  };
+  document.getElementById("retryBtn").onclick = () => location.reload();
 }
-};
-quizDiv.appendChild(finish);
 </script>
 </body>
 </html>
