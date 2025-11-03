@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 2: Yorgun Kalpler Kulübü</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #f6f3ee, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 26px 14px 34px;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-link {
+      font-size: 0.78rem;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .glow-1 {
+      top: -90px;
+      left: -80px;
+      background: rgba(248,113,113,0.7);
+    }
+
+    .glow-2 {
+      bottom: -90px;
+      right: -80px;
+      background: rgba(129,140,248,0.7);
+    }
+
+    .issue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .issue-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .issue-subtitle {
+      font-size: 0.94rem;
+      color: #6b7280;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .text {
+      font-size: 0.94rem;
+      color: #374151;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .text p {
+      margin-bottom: 10px;
+    }
+
+    .text em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p {
+      margin-bottom: 8px;
+    }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .nav-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+      .issue-title {
+        font-size: 1.25rem;
+      }
+      .issue-subtitle {
+        font-size: 0.86rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+      .logo-text h1 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 2</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 2</span>
+          <span>• Yorgun Kalpler Kulübü</span>
+        </div>
+
+        <h2 class="issue-title">Yorgun Kalpler Kulübü</h2>
+        <p class="issue-subtitle">
+          Güçlü görünmekten yorulmuş, “iyiyim” cümlesine sığamayan ruhlar için.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 3–6 dakikalık okuma</span>
+          <span>💔 Tema: Yorgunluk & kırılgan güç</span>
+        </div>
+
+        <div class="text">
+          <p>
+            “Nasılsın?” sorusuna refleks gibi “İyiyim.” diyoruz.  
+            Dilimiz alışmış, yüzümüz ezberlemiş.  
+            Bazen gerçekten iyi olduğumuz için değil;  
+            “Anlatmaya üşeniyorum.” diye kısadan kapatmak için söylüyoruz.
+          </p>
+
+          <p>
+            Çünkü “iyi değilim” demek, açıklama gerektiriyor gibi.  
+            “Ne oldu?”, “Niye?”, “Ama bak şöyle düşün…”  
+            İçimizde yüzlerce karışık duygu varken  
+            hepsini iki cümleye sıkıştırmak zorunda kalmak yorucu.  
+            O yüzden susuyoruz çoğu zaman.  
+            Yorgunluğumuzu, iç sesimizin içine atıyoruz.
+          </p>
+
+          <p>
+            Bir de bunun üstüne, yıllardır duyduğumuz bir cümle var:  
+            <em>“Sen güçlüsün, sen halledersin.”</em>  
+            Evet, çoğu zaman hallettik.  
+            Hatta başkalarının yüklerine bile omuz olduk.  
+            Dinledik, teselli ettik, çözüm düşündük.  
+            Ama kimse şunu sormadı pek:  
+            “Peki sen kimin yanında dağılıyorsun?”
+          </p>
+
+          <p>
+            Güçlü görünmeye çalışan insanlar, en çok kendi yorgunluklarını saklıyor.  
+            “Ben de bittim.” demek yerine,  
+            “Hallediyorum ya, idare.” diye geçiştiriyor.  
+            Oysa içten içe hepimiz biliyoruz ki:  
+            <em>Güçlü olmak, hiç yorulmamak demek değil;</em>  
+            güçlü olmak,  
+            yorulduğunu kabul edip kendini yine de sevmeye çalışmak demek biraz.
+          </p>
+
+          <p>
+            Belki sen de son zamanlarda şunu fark ettin:  
+            Küçük şeylere tahammülün azaldı.  
+            Normalde takmayacağın şeylere fazla takılmaya başladın.  
+            Kalabalıkta bile yalnız hissediyorsun.  
+            “Ne oluyor bana?” diyorsun belki.  
+            Cevap çok basit ve çok insanca:  
+            <em>Yorgunsun.</em>
+          </p>
+
+          <p>
+            Yorgunluk, sadece fiziksel bir şey değil;  
+            üst üste ertelenmiş duygular,  
+            bitmemiş konuşmalar,  
+            “Boşver ya.” deyip kendine yutturduğun kırgınlıklar var içinde.  
+            Bunlar tek tek hafifmiş gibi duruyor ama  
+            hepsi üst üste binince, ruhun bir noktada  
+            “Ben biraz durabilir miyim?” diyor.
+          </p>
+
+          <p>
+            İşin kötüsü, biz yorgun kalbimize bile yükleniyoruz:  
+            “Herkes böyle, abartma.”  
+            “Daha kötüleri var, şükret.”  
+            “Duygusal davranıyorsun.”  
+            Sanki kalbimizin garantisi varmış gibi,  
+            paşa paşa her şeyi kaldırmak zorundaymış gibi davranıyoruz.
+          </p>
+
+          <p>
+            Oysa yorulmak, nankörlük değil.  
+            Şikâyet etmek, şımarıklık değil.  
+            Her şeye yetişememek, başarısızlık değil.  
+            <em>İnsan olmak.</em>  
+            Yorgunluk, yanlış yaptığının değil,  
+            uzun süredir çok şey yaptığının işareti çoğu zaman.
+          </p>
+
+          <p>
+            Belki kimse sana açıkça söylemedi,  
+            o yüzden bu satırdan seslenelim:  
+            <em>Senin de yorulmaya hakkın var.</em>  
+            Bir gün hiçbir şeye yetişmemeye,  
+            bir gün düzgün cevap verememeye,  
+            bir gün “bugün ben bakamayacağım” demeye hakkın var.
+          </p>
+
+          <p>
+            Bu kulübün adı boşuna “Yorgun Kalpler Kulübü” değil.  
+            Buraya gelenlerin ortak noktası, zayıf olmaları değil;  
+            tam tersine, çok uzun süre güçlü görünmeye çalışmış olmaları.  
+            Hep anlayan, hep dinleyen, hep idare eden tarafta kalmak da yorar.
+          </p>
+
+          <p>
+            Şimdi gel, şu soruyu kendimize dürüstçe soralım:  
+            “Ben en son ne zaman gerçekten ‘iyi değilim’ dedim?”  
+            Ve biri gerçekten dinledi mi?  
+            Belki cevabı içini biraz acıtacak ama sorun değil.  
+            Çünkü o acı da gerçek, o da senin.
+          </p>
+
+          <p>
+            Bu sayfayı okurken belki “tam benlik bu” dedin,  
+            belki sadece iç çekip sayfayı kaydırdın,  
+            belki gözlerin hafif doldu.  
+            Bunların hepsi çok normal.  
+            Demek ki kalbin hâlâ hissetmekten vazgeçmemiş.  
+            Yorgun ama canlı, kırık ama sıcak.
+          </p>
+
+          <p>
+            Gel, bu kulübün duvarına birlikte bir kural yazalım:  
+            <em>“Burada kimse, yorgun olduğu için kendini suçlamıyor.”</em>  
+            Yorgunluk, tamir edilmesi gereken bir kusur değil;  
+            dinlenmesi gereken bir alarm.
+          </p>
+
+          <p>
+            Eğer bugün hiçbir şeye yetişemediğini düşündüysen,  
+            belki de asıl yaptığın şey şuydu:  
+            Kendi sınırlarına çarpmak ve “buraya kadar” demek.  
+            Bu bile, öyle sandığın kadar acizce değil;  
+            bilakis olgunluk.
+          </p>
+
+          <p>
+            Başkalarına gösterdiğin şefkati kendine de gösterebildiğin gün,  
+            bu kulübün onur üyesi oluyorsun aslında.  
+            O gün belki ağlıyorsun, belki susuyorsun,  
+            belki sadece ekranı kapatıp odanda oturuyorsun.  
+            Ama içinden bir ses şu cümleyi fısıldıyor:
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Yorgunum, ama hâlâ buradayım.  
+            Bu bile başlı başına bir güç.”</em>
+          </p>
+
+          <p>
+            Senin hikâyen, sadece ne kadar çok şey başardığınla ölçülmüyor.  
+            Düşüp kalktığın, yorulup devam ettiğin,  
+            bazen hiçbir şey yapmayıp yine de hayatta kaldığın tüm günler  
+            bu hikâyenin sayfalarına yazılıyor.
+          </p>
+
+          <p>
+            Kendine bugün bir iyilik yapmak istiyorsan,  
+            büyük kararlara gerek yok.  
+            Sadece “Bu kadar yorgun hissetmem normal.” deyip  
+            kalbini rahatlatman bile yeter.
+          </p>
+
+          <p>
+            Yorgun olabilirsin.  
+            Eski enerjinde olmayabilirsin.  
+            Ama inan, hâlâ çok değerlisin.  
+            Ve belki bunu en çok senin duyman gerekiyor.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>💔 Yorgun Kalpler Kulübü • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-01.html">← Önceki sayı: Sessizlik Hakkı</a> •
+            <a href="dergi-03.html">Sonraki sayı → Küçük Şükürler Defteri</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
