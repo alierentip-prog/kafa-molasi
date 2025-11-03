@@ -2,221 +2,139 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Şakamatikler</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;}
-
-  html,body{
-    height:100%;
-    font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-    background:#f5f7ff;
-    color:#111827;
+  :root{
+    --bg:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --accent:#8b5cf6; /* pastel mor */
+    --accent2:#f59e0b; /* pastel amber */
   }
-
+  *{box-sizing:border-box}
+  html,body{height:100%}
   body{
+    margin:0;
     background:
-      radial-gradient(circle at 0% 0%, #e0f2fe 0, transparent 55%),
-      radial-gradient(circle at 100% 100%, #fee2e2 0, transparent 55%),
-      #f9fafb;
-    background-attachment:fixed;
+      radial-gradient(1200px 600px at 10% -10%, #f5f3ff 0%, transparent 60%),
+      radial-gradient(1000px 500px at 110% 110%, #fff7ed 0%, transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
   }
-
-  .page{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:16px;
+  .wrap{max-width:960px;margin:24px auto;padding:16px}
+  header{
+    display:flex;align-items:center;gap:12px;margin-bottom:14px;
   }
-
+  .logo{font-size:28px}
+  h1{font-size:28px;margin:0}
+  .sub{color:var(--muted);margin:6px 0 18px}
+  .grid{
+    display:grid;gap:14px;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  }
   .card{
-    width:100%;
-    max-width:720px;
-    background:#ffffffcc;
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-radius:24px;
-    box-shadow:0 18px 45px rgba(15,23,42,0.12);
-    border:1px solid rgba(148,163,184,0.25);
-    padding:22px 20px 24px;
-    animation:fadeIn .55s ease-out;
-  }
-
-  @keyframes fadeIn{
-    from{opacity:0;transform:translateY(10px) scale(.98);}
-    to{opacity:1;transform:translateY(0) scale(1);}
-  }
-
-  .headline{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin-bottom:10px;
-  }
-
-  .headline-emoji{
-    font-size:2rem;
-  }
-
-  .headline-text h1{
-    font-size:1.9rem;
-    font-weight:700;
-    color:#111827;
-  }
-  .headline-text span{
-    display:block;
-    font-size:0.95rem;
-    font-weight:400;
-    margin-top:4px;
-    color:#6b7280;
-  }
-
-  .info-banner{
-    margin:8px 0 18px;
-    font-size:0.9rem;
-    padding:10px 12px;
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:16px;
-    background:#eff6ff;
-    color:#1f2937;
-    border:1px solid #bfdbfe;
+    padding:16px 14px;
+    transition:.18s ease;
+    box-shadow:0 8px 18px rgba(17,24,39,.04);
   }
-  .info-banner b{color:#2563eb;}
-
-  .list-title{
-    font-size:0.95rem;
-    font-weight:600;
-    margin-bottom:8px;
-    color:#374151;
+  .card:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(17,24,39,.08)}
+  .row{display:flex;gap:12px;align-items:flex-start}
+  .emoji{
+    font-size:22px;line-height:1;width:40px;height:40px;border-radius:12px;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,#ede9fe,#eef2ff);
+    border:1px solid var(--border);
   }
-
-  .menu-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+  .ttl{font-weight:600}
+  .muted{color:var(--muted);font-size:14px;margin-top:2px}
+  .go{
+    margin-top:10px;display:inline-flex;align-items:center;gap:6px;
+    font-weight:600;color:var(--accent);
+    text-decoration:none;border-bottom:1.5px solid transparent;
   }
-
-  .menu-item{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    text-decoration:none;
-    background:#f9fafb;
-    border-radius:16px;
-    padding:10px 12px;
-    border:1px solid #e5e7eb;
-    transition:background .16s ease, box-shadow .16s ease, transform .12s ease, border-color .16s ease;
-    color:inherit;
+  .go:hover{border-bottom-color:var(--accent)}
+  .note{
+    margin-top:16px;font-size:13px;color:var(--muted)
   }
-
-  .menu-icon{
-    font-size:1.6rem;
-    margin-top:2px;
-  }
-
-  .menu-text{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-  }
-
-  .menu-text .title{
-    font-size:0.98rem;
-    font-weight:600;
-    color:#111827;
-  }
-
-  .menu-text .desc{
-    font-size:0.86rem;
-    color:#6b7280;
-  }
-
-  .menu-item small{
-    font-size:0.78rem;
-    color:#9ca3af;
-  }
-
-  .menu-item:hover{
-    background:#ffffff;
-    border-color:#c4b5fd;
-    box-shadow:0 12px 28px rgba(148,163,184,0.35);
-    transform:translateY(-2px);
-  }
-
-  .footer-note{
-    margin-top:18px;
-    font-size:0.8rem;
-    color:#9ca3af;
-    text-align:right;
-  }
-
-  @media (max-width:480px){
-    .card{padding:18px 16px 20px;border-radius:20px;}
-    .headline-text h1{font-size:1.6rem;}
+  .chipbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 2px}
+  .chip{
+    font-size:12px;color:#4338ca;background:#eef2ff;border:1px solid #e0e7ff;
+    padding:6px 10px;border-radius:999px
   }
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="card">
-    <div class="headline">
-      <div class="headline-emoji">😂</div>
-      <div class="headline-text">
-        <h1>Şakamatikler</h1>
-        <span>Buradan sonrası fıkralar, saçma testler, kelime oyunları ve komik bilgilerle dolu bir mola alanı.</span>
+<div class="wrap">
+  <header>
+    <div class="logo">😜</div>
+    <div>
+      <h1>Şakamatikler</h1>
+      <div class="sub">Bundan sonrası fıkralar, mizah testleri, komik bilgiler ve kelime oyunları.
+        Ciddiyet kapıda ayakkabısını çıkarıp beklesin. ✨</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- FIKRA -->
+    <article class="card">
+      <div class="row">
+        <div class="emoji">📖</div>
+        <div>
+          <div class="ttl">Fıkra Makinesi</div>
+          <div class="muted">Kısa, net, gerçekten komik fıkralar. Kategorili & favori eklemeli.</div>
+          <div class="chipbar">
+            <span class="chip">Klasik</span><span class="chip">Güncel</span><span class="chip">Tıp</span><span class="chip">Z Kuşağı</span>
+          </div>
+          <a class="go" href="fikra.html">Sayfayı aç →</a>
+        </div>
       </div>
-    </div>
+    </article>
 
-    <div class="info-banner">
-      💡 <b>Kural basit:</b> Buraya girince ciddiyeti kapıda bırakıyorsun.  
-      Çıkarken de sağ üstteki <b>Çıkış</b> tuşuna basmayı unutmuyorsun. 🙂
-    </div>
-
-    <p class="list-title">Ne açalım şimdi?</p>
-
-    <div class="menu-list">
-      <!-- URL'leri istediğin dosya adlarına göre değiştir -->
-      <a class="menu-item" href="fikra-makinesi.html">
-        <div class="menu-icon">📖</div>
-        <div class="menu-text">
-          <span class="title">Fıkra Makinesi</span>
-          <span class="desc">Kısa, bazen saçma ama çoğu zaman yerinde punchline’lar. Her tıklamada yeni bir fıkra.</span>
-          <small>Durum: Aktif sayfa (ilk yapmamız gereken burası)</small>
+    <!-- MİZAH TESTLERİ -->
+    <article class="card">
+      <div class="row">
+        <div class="emoji">🧪</div>
+        <div>
+          <div class="ttl">Mizah Testleri</div>
+          <div class="muted">“Ne kadar şakacısın?”, “Cringe ölçeri” ve daha fazlası.</div>
+          <a class="go" href="mizah-testleri.html">Sayfayı aç →</a>
         </div>
-      </a>
+      </div>
+    </article>
 
-      <a class="menu-item" href="mizah-testleri.html">
-        <div class="menu-icon">🧪</div>
-        <div class="menu-text">
-          <span class="title">Mizah Testleri</span>
-          <span class="desc">Ne kadar komiksin? Ne kadar cringesin? Bunu ölçmeye çok yaklaştık.</span>
-          <small>Durum: Tasarım aşamasında</small>
+    <!-- KOMİK BİLGİLER -->
+    <article class="card">
+      <div class="row">
+        <div class="emoji">🤓</div>
+        <div>
+          <div class="ttl">Komik Bilgiler</div>
+          <div class="muted">Bilimsel görünen ama güldüren minik bilgi hapları.</div>
+          <a class="go" href="komik-bilgiler.html">Sayfayı aç →</a>
         </div>
-      </a>
+      </div>
+    </article>
 
-      <a class="menu-item" href="komik-bilgiler.html">
-        <div class="menu-icon">🤓</div>
-        <div class="menu-text">
-          <span class="title">Komik Bilgiler</span>
-          <span class="desc">Gerçekten var olan ama “Bu ne ya?” dedirten mini bilgiler.</span>
-          <small>Durum: İçerik hazırlanıyor</small>
+    <!-- KELİME OYUNLARI -->
+    <article class="card">
+      <div class="row">
+        <div class="emoji">🔤</div>
+        <div>
+          <div class="ttl">Kelime Oyunları</div>
+          <div class="muted">Tekerlemeler, uydurma deyimler, absürt cümleler.</div>
+          <a class="go" href="kelime-oyunlari.html">Sayfayı aç →</a>
         </div>
-      </a>
-
-      <a class="menu-item" href="kelime-oyunlari.html">
-        <div class="menu-icon">🔤</div>
-        <div class="menu-text">
-          <span class="title">Kelime Oyunları</span>
-          <span class="desc">Dil dönmezlikler, anlamsız cümleler, saçma tekerlemeler. Dilin tutulabilir.</span>
-          <small>Durum: Taslak aşamasında</small>
-        </div>
-      </a>
-    </div>
-
-    <div class="footer-note">
-      Bu bölüm hâlâ yapım aşamasında; zamanla içi doldukça efsane olacak. ✨
-    </div>
+      </div>
+    </article>
   </div>
+
+  <p class="note">İpucu: Başlığa tıklayınca ilgili sayfa **yeni sekmede** açılsın istersen <code>target="_blank"</code> ekleyebilirsin.</p>
 </div>
 </body>
 </html>
