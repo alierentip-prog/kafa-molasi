@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Şakamatikler 😂</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{
+    height:100%;
+    font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+    background:#050007;
+    color:#fff;
+    overflow:hidden;
+  }
+
+  /* Arka plan – renk patlamalı ters evren vibe */
+  body{
+    background:
+      radial-gradient(circle at 10% 20%, #ff8a8a 0, transparent 55%),
+      radial-gradient(circle at 80% 80%, #ffdd57 0, transparent 60%),
+      radial-gradient(circle at 50% 120%, #ff4e50 0, transparent 70%),
+      #050007;
+    background-size:150% 150%;
+    animation:bgMove 8s ease-in-out infinite alternate;
+  }
+  @keyframes bgMove{
+    0%{background-position:0% 0%;}
+    50%{background-position:50% 100%;}
+    100%{background-position:100% 0%;}
+  }
+
+  /* Intro ekranı */
+  #intro{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    z-index:10;
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .glitch-title{
+    font-size:1.9rem;
+    max-width:90%;
+    color:#ff4d4d;
+    text-shadow:0 0 12px #ff0000,0 0 24px #ff6600;
+    animation:shake 0.6s infinite, glow 2s ease-in-out infinite alternate;
+  }
+  .glitch-title span{
+    display:block;
+    font-size:2.3rem;
+    margin-top:6px;
+  }
+
+  .warning{
+    margin-top:12px;
+    font-size:0.95rem;
+    color:#ffe2e2;
+    opacity:0.9;
+  }
+
+  .rule{
+    margin-top:10px;
+    font-size:1rem;
+    color:#ffd2ff;
+  }
+
+  .tiny{
+    margin-top:8px;
+    font-size:0.8rem;
+    opacity:0.8;
+  }
+
+  /* Yükleniyor halkası */
+  .loader{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    margin-top:18px;
+    border:6px solid rgba(255,255,255,0.18);
+    border-top-color:#ff4d4d;
+    border-right-color:#ffb347;
+    animation:spin 1s linear infinite, loaderGlow 1.4s ease-in-out infinite alternate;
+  }
+  @keyframes spin{
+    to{transform:rotate(360deg);}
+  }
+  @keyframes loaderGlow{
+    0%{box-shadow:0 0 10px rgba(255,255,255,0.25);}
+    100%{box-shadow:0 0 26px rgba(255,200,120,0.9);}
+  }
+
+  /* Ekran sarsıntı efekti */
+  @keyframes shake{
+    0%{transform:translate(0,0);}
+    20%{transform:translate(-2px,2px) rotate(-0.5deg);}
+    40%{transform:translate(2px,-2px) rotate(0.5deg);}
+    60%{transform:translate(-1px,2px) rotate(-0.3deg);}
+    80%{transform:translate(1px,-1px) rotate(0.3deg);}
+    100%{transform:translate(0,0);}
+  }
+  @keyframes glow{
+    0%{text-shadow:0 0 10px #ff4d4d,0 0 20px #ff6600;}
+    100%{text-shadow:0 0 24px #ff4d4d,0 0 40px #ffcc33;}
+  }
+
+  /* Konfeti / baloncuk efekti */
+  .bubble{
+    position:fixed;
+    border-radius:50%;
+    opacity:0.8;
+    pointer-events:none;
+    mix-blend-mode:screen;
+    animation:bubbleFloat linear forwards;
+  }
+  @keyframes bubbleFloat{
+    0%{transform:translate3d(0,0,0) scale(0.8);opacity:0;}
+    20%{opacity:0.9;}
+    100%{transform:translate3d(var(--tx),-120vh,0) scale(1.2);opacity:0;}
+  }
+
+  /* Quiz / menü alanı */
+  #main{
+    max-width:900px;
+    margin:40px auto;
+    padding:20px;
+    display:none; /* başta gizli */
+  }
+  .card{
+    background:rgba(5,0,10,0.85);
+    border-radius:18px;
+    border:2px solid rgba(255,255,255,0.2);
+    box-shadow:0 0 25px rgba(0,0,0,0.8);
+    padding:24px 26px;
+  }
+  .card h2{
+    text-align:center;
+    font-size:1.7rem;
+    margin-bottom:10px;
+    color:#ff9bd1;
+  }
+  .card p{
+    text-align:center;
+    font-size:0.95rem;
+    margin-bottom:16px;
+    color:#fef2ff;
+  }
+
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+  }
+
+  .menu-btn{
+    padding:10px 14px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    background:rgba(255,255,255,0.04);
+    color:#fff;
+    font-size:0.95rem;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    transition:.15s;
+  }
+  .menu-btn span.title{
+    font-weight:600;
+  }
+  .menu-btn span.sub{
+    font-size:0.8rem;
+    opacity:0.85;
+  }
+  .menu-btn:hover{
+    background:rgba(255,255,255,0.08);
+    transform:translateY(-2px);
+    box-shadow:0 0 16px rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+
+<!-- GİRİŞ EKRANI -->
+<div id="intro">
+  <div class="glitch-title">
+    💥 UYARI: Aşırı Saçmalık Tespit Edildi!
+    <span>Şakamatik Evrenine Hoş Geldin</span>
+  </div>
+  <p class="warning">Mantık kendini imha etti. Bu noktadan sonrası tamamen goygoy.</p>
+  <p class="rule">Burada tek kural: <b>Saçmalayan kazanır.</b></p>
+  <div class="loader"></div>
+  <p class="tiny">Mizah duygun güncelleniyor... Lütfen beynini ciddiyetten arındır.</p>
+</div>
+
+<!-- ANA MENÜ / İÇERİK (sonradan görünecek) -->
+<div id="main">
+  <div class="card">
+    <h2>😂 Şakamatikler</h2>
+    <p>Buradan sonrası fıkralar, saçma testler, kelime oyunları ve komik bilgilerle dolu bir evren.</p>
+    <div class="menu-grid">
+      <button class="menu-btn" onclick="alert('Buraya fıkra sayfasını bağlayacaksın 😈')">
+        <span class="title">Fıkra Makinesi</span>
+        <span class="sub">Kısa, saçma, bazen de aşırı yerinde punchline’lar.</span>
+      </button>
+      <button class="menu-btn" onclick="alert('Buraya mizah testlerini bağlayacaksın 😈')">
+        <span class="title">Mizah Testleri</span>
+        <span class="sub">Ne kadar şakacı, ne kadar cringe’sin? Ölçelim.</span>
+      </button>
+      <button class="menu-btn" onclick="alert('Buraya komik bilgi sayfasını bağlayacaksın 😈')">
+        <span class="title">Komik Bilgiler</span>
+        <span class="sub">“Bilim böyle diyor” deyip saçma şeyler okumalık.</span>
+      </button>
+      <button class="menu-btn" onclick="alert('Buraya kelime oyunları sayfasını bağlayacaksın 😈')">
+        <span class="title">Kelime Oyunları</span>
+        <span class="sub">Saçma tekerlemeler, dil dönmezlikler, absürt cümleler.</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Basit konfeti / baloncuk patlama efekti */
+function spawnBubbles(){
+  for(let i=0;i<25;i++){
+    const b=document.createElement("div");
+    b.className="bubble";
+    const size=8+Math.random()*18;
+    b.style.width=size+"px";
+    b.style.height=size+"px";
+    b.style.left=Math.random()*100+"vw";
+    b.style.bottom="-20px";
+    b.style.setProperty("--tx",(Math.random()*80-40)+"vw");
+    const colors=[
+      "rgba(255,99,132,0.9)",
+      "rgba(255, 206, 86,0.9)",
+      "rgba(54, 162, 235,0.9)",
+      "rgba(255, 159, 64,0.9)",
+      "rgba(199, 102, 255,0.9)"
+    ];
+    b.style.background=colors[Math.floor(Math.random()*colors.length)];
+    const dur=4+Math.random()*3;
+    b.style.animationDuration=dur+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),dur*1000);
+  }
+}
+
+/* 5 saniye sonra: intro kaybolsun, ekran hafif ters evren vibe’ına geçsin ve menü açılsın */
+window.addEventListener("load", () => {
+  // 2–3. saniye civarı ekranı biraz baloncukla patlatalım
+  setTimeout(spawnBubbles, 2200);
+  setTimeout(spawnBubbles, 3200);
+
+  setTimeout(()=>{
+    const intro=document.getElementById("intro");
+    intro.style.opacity="0";
+    intro.style.transform="rotate(180deg) scale(0.8)";
+    setTimeout(()=>{
+      intro.style.display="none";
+      document.getElementById("main").style.display="block";
+    },800);
+  },5000);
+});
+</script>
+
+</body>
+</html>
