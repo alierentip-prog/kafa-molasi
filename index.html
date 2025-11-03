@@ -11,47 +11,67 @@
       padding: 0;
     }
     body {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      background: radial-gradient(circle at top, #1b1f3b, #05060f 60%, #020308);
+      background: radial-gradient(circle at top, #ffffff 0, #eef3ff 50%, #dde5ff 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #f7f8fa;
+      color: #111827;
+    }
+    .wrap {
+      text-align: center;
+      padding: 32px 22px;
+      max-width: 480px;
     }
     .logo {
-      font-size: 1.8rem;
+      font-size: 2.1rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-    .subtitle {
-      font-size: 0.9rem;
-      opacity: 0.8;
+    .logo span {
+      font-size: 2.3rem;
+      margin-right: 6px;
+    }
+    .subtitle-top {
+      font-size: 1rem;
+      opacity: 0.75;
       margin-bottom: 26px;
     }
     .loader {
-      width: 46px;
-      height: 46px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      border: 3px solid rgba(255,255,255,0.15);
-      border-top-color: #ff6bd6;
-      animation: spin 0.9s linear infinite;
-      margin-bottom: 18px;
+      border: 4px solid rgba(15,23,42,0.12);
+      border-top-color: #ec4899;
+      border-right-color: #6366f1;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 22px auto;
     }
-    .msg {
-      font-size: 0.85rem;
-      text-align: center;
-      line-height: 1.5;
+    .lines {
+      transition: opacity 0.25s ease;
     }
-    .highlight {
-      color: #ffb86c;
+    .lines.fading {
+      opacity: 0;
+    }
+    .line-main {
+      font-size: 1.2rem;
       font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
     }
-    .small {
-      font-size: 0.78rem;
-      opacity: 0.8;
-      margin-top: 6px;
+    .line-sub {
+      font-size: 0.95rem;
+      color: #4b5563;
+    }
+    .brain {
+      font-size: 1.2rem;
+      margin-left: 4px;
+    }
+    .hint {
+      margin-top: 26px;
+      font-size: 0.8rem;
+      color: #6b7280;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -59,16 +79,51 @@
   </style>
 </head>
 <body>
-  <div class="logo">☕ Kafa Molası</div>
-  <div class="subtitle">ciddiyet bu molaya giremez</div>
+  <div class="wrap">
+    <div class="logo"><span>☕</span>Kafa Molası</div>
+    <div class="subtitle-top">kafanı bırak, molaya gel</div>
 
-  <div class="loader"></div>
+    <div class="loader"></div>
 
-  <div class="msg">
-    <div class="line">
-      <span class="highlight">Mantık devre dışı bırakılıyor…</span>
+    <div class="lines" id="lines">
+      <div class="line-main" id="line-main">Ciddiyet bu molaya giremez.</div>
+      <div class="line-sub" id="line-sub"></div>
     </div>
-    <div class="small">Lütfen bekleyiniz 🧠</div>
+
+    <div class="hint">
+      Mantık hafifçe söndürülüyor, lütfen cihazınızı kapatmayın. 😌
+    </div>
   </div>
+
+  <script>
+    const linesBox = document.getElementById('lines');
+    const lineMain = document.getElementById('line-main');
+    const lineSub  = document.getElementById('line-sub');
+
+    function swapText(mainText, subText) {
+      linesBox.classList.add('fading');
+      setTimeout(() => {
+        lineMain.textContent = mainText;
+        lineSub.innerHTML = subText;
+        linesBox.classList.remove('fading');
+      }, 250);
+    }
+
+    // 1. adım: Ciddiyet bu molaya giremez.
+    swapText('Ciddiyet bu molaya giremez.', '');
+
+    // 2. adım: Beynini yorma
+    setTimeout(() => {
+      swapText('Beynini yorma.', 'Biraz da güldür.');
+    }, 1800);
+
+    // 3. adım: Mantık devre dışı bırakılıyor… Lütfen bekleyiniz 🧠
+    setTimeout(() => {
+      swapText('Mantık devre dışı bırakılıyor…', 'Lütfen bekleyiniz <span class="brain">🧠</span>');
+    }, 3600);
+
+    // İleride buraya redirect ekleyebiliriz:
+    // setTimeout(() => { window.location.href = 'anasayfa.html'; }, 5200);
+  </script>
 </body>
 </html>
