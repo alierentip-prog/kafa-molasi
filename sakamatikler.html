@@ -11,7 +11,6 @@
     font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
     background:#120826;
     color:#fff;
-    overflow:hidden;
   }
 
   /* Pastel mor-pembe arka plan */
@@ -22,6 +21,7 @@
       radial-gradient(circle at 50% 120%, #a18cd1 0, transparent 65%),
       #120826;
     background-size:140% 140%;
+    background-attachment:fixed;
     animation:bgMove 10s ease-in-out infinite alternate;
   }
   @keyframes bgMove{
@@ -119,12 +119,12 @@
     100%{transform:translate3d(0,0,0) rotate(0deg);}
   }
 
-  /* Ana menü */
+  /* ANA KISIM */
   #main{
     max-width:900px;
     margin:32px auto;
     padding:16px;
-    display:none; /* başta gizli */
+    display:none; /* intro bitince açılacak */
   }
   .card{
     background:rgba(9,0,20,0.9);
@@ -133,13 +133,18 @@
     box-shadow:0 20px 40px rgba(0,0,0,0.5);
     padding:22px 20px 26px;
   }
-  .card h2{
+
+  /* MENÜ BÖLÜMÜ */
+  .section{display:none;}
+  #section-menu{display:block;}
+
+  #section-menu h2{
     font-size:1.8rem;
     text-align:center;
     margin-bottom:8px;
     color:#ffb3f5;
   }
-  .card p{
+  #section-menu p{
     text-align:center;
     font-size:0.95rem;
     margin-bottom:18px;
@@ -186,6 +191,92 @@
     transform:translateY(-2px);
     box-shadow:0 0 14px rgba(255,255,255,0.22);
   }
+
+  /* FIKRA MAKİNESİ STİLİ */
+  .subtitle{
+    text-align:center;
+    font-size:0.95rem;
+    color:#f7e7ff;
+    margin-bottom:16px;
+  }
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+  select{
+    padding:8px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.4);
+    background:rgba(15,5,35,0.9);
+    color:#fff;
+    font-size:0.9rem;
+    outline:none;
+  }
+  button.action{
+    border:none;
+    border-radius:999px;
+    padding:9px 16px;
+    font-size:0.95rem;
+    cursor:pointer;
+    font-weight:600;
+    background:linear-gradient(135deg,#ff6ba6,#ffcf71);
+    color:#190618;
+    box-shadow:0 10px 22px rgba(0,0,0,0.45);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  }
+  button.action:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 26px rgba(0,0,0,0.55);
+    filter:brightness(1.03);
+  }
+  .joke-box{
+    margin-top:10px;
+    background:rgba(255,255,255,0.04);
+    border-radius:18px;
+    padding:16px 14px;
+    min-height:90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .joke-category{
+    font-size:0.8rem;
+    opacity:0.8;
+    margin-bottom:6px;
+  }
+  .joke-text{
+    font-size:1rem;
+    line-height:1.5;
+  }
+  .hint{
+    margin-top:10px;
+    font-size:0.8rem;
+    opacity:0.8;
+    text-align:center;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:6px 11px;
+    border-radius:999px;
+    font-size:0.78rem;
+    background:rgba(255,255,255,0.06);
+    margin-bottom:10px;
+  }
+  .back-link{
+    display:inline-block;
+    margin-top:14px;
+    font-size:0.85rem;
+    opacity:0.85;
+    cursor:pointer;
+  }
+  .back-link:hover{
+    text-decoration:underline;
+  }
+
 </style>
 </head>
 <body>
@@ -209,13 +300,14 @@
   </div>
 </div>
 
-<!-- ANA MENÜ -->
+<!-- ANA KONUMLAR -->
 <div id="main">
-  <div class="card">
+  <!-- MENÜ -->
+  <div class="card section" id="section-menu">
     <h2>😂 Şakamatikler</h2>
     <p>Buradan sonrası fıkralar, saçma testler, kelime oyunları ve komik bilgilerle dolu bir evren.</p>
     <div class="menu-grid">
-      <button class="menu-btn" onclick="alert('Buraya fıkra sayfasını bağlayacaksın 😈')">
+      <button class="menu-btn" onclick="showSection('fikra')">
         <div class="menu-emoji">📖</div>
         <div class="menu-text">
           <span class="title">Fıkra Makinesi</span>
@@ -223,35 +315,97 @@
         </div>
       </button>
 
-      <button class="menu-btn" onclick="alert('Buraya mizah testlerini bağlayacaksın 😈')">
+      <button class="menu-btn" onclick="showSection('mizah')">
         <div class="menu-emoji">🧪</div>
         <div class="menu-text">
           <span class="title">Mizah Testleri</span>
-          <span class="sub">Ne kadar şakacı, ne kadar cringe’sin? Bilimsel ölçelim(!)</span>
+          <span class="sub">Ne kadar şakacı, ne kadar cringe’sin? Yakında burada.</span>
         </div>
       </button>
 
-      <button class="menu-btn" onclick="alert('Buraya komik bilgi sayfasını bağlayacaksın 😈')">
+      <button class="menu-btn" onclick="showSection('bilgi')">
         <div class="menu-emoji">🤓</div>
         <div class="menu-text">
           <span class="title">Komik Bilgiler</span>
-          <span class="sub">“Bilim böyle diyor” deyip saçma şeyler okumalık.</span>
+          <span class="sub">“Bilim böyle diyor” deyip saçma şeyler okumalık. (Yapım aşamasında)</span>
         </div>
       </button>
 
-      <button class="menu-btn" onclick="alert('Buraya kelime oyunları sayfasını bağlayacaksın 😈')">
+      <button class="menu-btn" onclick="showSection('kelime')">
         <div class="menu-emoji">🔤</div>
         <div class="menu-text">
           <span class="title">Kelime Oyunları</span>
-          <span class="sub">Saçma tekerlemeler, dil dönmezlikler, absürt cümleler.</span>
+          <span class="sub">Saçma tekerlemeler, dil dönmezlikler, absürt cümleler. (Hazırlanıyor)</span>
         </div>
       </button>
     </div>
   </div>
+
+  <!-- FIKRA MAKİNESİ -->
+  <div class="card section" id="section-fikra">
+    <h2>😂 Fıkra Makinesi</h2>
+    <p class="subtitle">
+      Ruh haline göre kategoriyi seç, butona bas, rastgele bir fıkra patlasın.
+      Beğenmezsen “bir tane daha” demek serbest. 😏
+    </p>
+
+    <div class="controls">
+      <select id="categorySelect">
+        <option value="hepsi">Tümü (karışık sos)</option>
+        <option value="klasik">Klasik Goygoy</option>
+        <option value="tip">Tıp Fakültesi Dramı</option>
+        <option value="sacma">Tam Saçma Sapan</option>
+        <option value="zeka">Sözde Zeki Fıkralar</option>
+      </select>
+      <button class="action" id="newJokeBtn">Bana bir fıkra patlat</button>
+    </div>
+
+    <div class="badge">💡 Beğenmezsen suç bizde değil, mizah anlayışında 😌</div>
+
+    <div class="joke-box">
+      <div class="joke-category" id="jokeCategory">Kategori: -</div>
+      <div class="joke-text" id="jokeText">
+        Başlamak için yukarıdan kategori seçip butona bas.  
+        Bugün kime güleceğiz, hep beraber görelim.
+      </div>
+    </div>
+
+    <p class="hint">İpucu: Aynı butona üst üste basarsan, beyin bir süre sonra kahkaha otomatik pilota geçebilir.</p>
+
+    <span class="back-link" onclick="showSection('menu')">← Şakamatik menüsüne geri dön</span>
+  </div>
+
+  <!-- DİĞER BÖLÜMLER PLACEHOLDER -->
+  <div class="card section" id="section-mizah">
+    <h2>🧪 Mizah Testleri</h2>
+    <p class="subtitle">
+      Buraya “Ne kadar şakacısın, ne kadar cringe’sin?” tarzı testler gelecek.
+      Şimdilik sadece haberin olsun, hazırlıklar sürüyor. 😎
+    </p>
+    <span class="back-link" onclick="showSection('menu')">← Şakamatik menüsüne geri dön</span>
+  </div>
+
+  <div class="card section" id="section-bilgi">
+    <h2>🤓 Komik Bilgiler</h2>
+    <p class="subtitle">
+      Bilimsel görünümlü ama hafif çarpık bilgilerle beynini gıdıklayacağız.  
+      Şu an laboratuvar kısmındayız, birazdan burası da dolar.
+    </p>
+    <span class="back-link" onclick="showSection('menu')">← Şakamatik menüsüne geri dön</span>
+  </div>
+
+  <div class="card section" id="section-kelime">
+    <h2>🔤 Kelime Oyunları</h2>
+    <p class="subtitle">
+      Saçma tekerlemeler, dil dönmezlikler, acayip cümleler bu köşede olacak.  
+      Henüz kelimeler toplanıyor, yakında başlıyoruz.
+    </p>
+    <span class="back-link" onclick="showSection('menu')">← Şakamatik menüsüne geri dön</span>
+  </div>
 </div>
 
 <script>
-  /* 4 saniye sonra intro kaybolsun, menü gelsin */
+  // Intro bitince ana kısım gelsin
   window.addEventListener("load", () => {
     setTimeout(() => {
       const intro = document.getElementById("intro");
@@ -260,9 +414,140 @@
       setTimeout(() => {
         intro.style.display = "none";
         document.getElementById("main").style.display = "block";
+        showSection('menu');
       }, 600);
     }, 4000);
   });
+
+  // Bölüm göster/gizle
+  function showSection(name){
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.style.display = "none";
+    });
+    const target = document.getElementById("section-" + name);
+    if(target){
+      target.style.display = "block";
+      // sayfayı hafif yukarı al
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+  }
+
+  // Fıkra verileri
+  const jokes = [
+    // KLASİK
+    {
+      cat:"klasik",
+      title:"Klasik Goygoy",
+      text:"Öğretmen: \"En hızlı şey nedir?\" Öğrenci: \"Düşünce hocam.\" Öğretmen: \"Neden?\" Öğrenci: \"Çünkü derste bir bakıyorum burdayım, bir bakıyorum teneffüste.\""
+    },
+    {
+      cat:"klasik",
+      title:"Klasik Goygoy",
+      text:"Adamın biri doktora gitmiş: \"Doktor, kendimi trafikte kırmızı ışık gibi hissediyorum.\" Doktor: \"O zaman biraz dur, geçer.\""
+    },
+    {
+      cat:"klasik",
+      title:"Klasik Goygoy",
+      text:"Garson: \"Yemeğinizden memnun kalmadıysanız başka bir şey getireyim mi?\" Müşteri: \"Yok, hesabı getir. Bundan daha ağırını kaldıramam.\""
+    },
+
+    // TIP
+    {
+      cat:"tip",
+      title:"Tıp Fakültesi Dramı",
+      text:"Tıp öğrencisi arkadaşına der ki: \"Ben biraz dinlenip sonra çalışacağım.\" Aradan üç yıl geçmiş, hâlâ o dinlenme fazı uzatılıyor."
+    },
+    {
+      cat:"tip",
+      title:"Tıp Fakültesi Dramı",
+      text:"Hoca: \"Bu konuyu anlamayan var mı?\" Sınıf sessiz. Hoca: \"Demek herkes anladı.\" İç sesler: \"Biz de öyle umuyoruz hocam...\""
+    },
+    {
+      cat:"tip",
+      title:"Tıp Fakültesi Dramı",
+      text:"Stajyer gece nöbetinde kahve içerken: \"Ben insanları yaşatmak için girdim bu okula.\" Saat 04.00: \"Şu an tek hayalim kendi uykumu yaşatmak.\""
+    },
+
+    // SAÇMA SAPAN
+    {
+      cat:"sacma",
+      title:"Tam Saçma Sapan",
+      text:"Dolabın kapağını niye yavaş kapatırız biliyor musun? Çünkü içerdeki makarnanın uyuduğunu hissederiz."
+    },
+    {
+      cat:"sacma",
+      title:"Tam Saçma Sapan",
+      text:"Sabah erken kalkmanın tek mantıklı açıklaması var: Kalkmayınca daha da geç oluyor."
+    },
+    {
+      cat:"sacma",
+      title:"Tam Saçma Sapan",
+      text:"Telefon şarj olurken biz de yanına koyup uzansak, belki biz de dolarız biraz kim bilir."
+    },
+
+    // ZEKÂ
+    {
+      cat:"zeka",
+      title:"Sözde Zeki Fıkra",
+      text:"Adam satranca başlamış, ilk gün: \"Temel hamleleri öğrendim.\" İkinci gün: \"Strateji çalışıyorum.\" Üçüncü gün: \"Bilgisayar beni kolay modda yine yendi.\""
+    },
+    {
+      cat:"zeka",
+      title:"Sözde Zeki Fıkra",
+      text:"Arkadaş: \"Ben duygularımı mantığımla yönetirim.\" İnternetten indirim görünce: \"Mantık biraz kenarda dursun, duyguların işi var.\""
+    },
+    {
+      cat:"zeka",
+      title:"Sözde Zeki Fıkra",
+      text:"Matematikçi: \"İlişkiler beni yormuyor, sadece değişken sayısı fazla.\""
+    },
+
+    // KARMA
+    {
+      cat:"klasik",
+      title:"Klasik Goygoy",
+      text:"Annem: \"İki dakika yardım etsen ölmezsin.\" Ben: \"Deney yapılmadan bilemeyiz anne.\""
+    },
+    {
+      cat:"sacma",
+      title:"Tam Saçma Sapan",
+      text:"Alarmı erteleyince kazandığımız 5 dakika aslında ruhumuzun tatili."
+    },
+    {
+      cat:"tip",
+      title:"Tıp Fakültesi Dramı",
+      text:"Tıp öğrencisi randevu iptal eder: \"Ben gelemeyeceğim, bendeki ben bile gelemiyor şu an.\""
+    }
+  ];
+
+  const categorySelect = document.getElementById("categorySelect");
+  const jokeCategoryEl = document.getElementById("jokeCategory");
+  const jokeTextEl = document.getElementById("jokeText");
+  const newJokeBtn = document.getElementById("newJokeBtn");
+
+  function getRandomJoke(){
+    const cat = categorySelect.value;
+    let pool = jokes;
+    if(cat !== "hepsi"){
+      pool = jokes.filter(j => j.cat === cat);
+    }
+    if(pool.length === 0) return null;
+    const index = Math.floor(Math.random() * pool.length);
+    return pool[index];
+  }
+
+  function showJoke(){
+    const joke = getRandomJoke();
+    if(!joke){
+      jokeCategoryEl.textContent = "Kategori: -";
+      jokeTextEl.textContent = "Buraya henüz fıkra eklemedik. Demek ki hayata karşı çok ciddiyiz… Bu da ayrı bir fıkra.";
+      return;
+    }
+    jokeCategoryEl.textContent = "Kategori: " + joke.title;
+    jokeTextEl.textContent = joke.text;
+  }
+
+  newJokeBtn.addEventListener("click", showJoke);
 </script>
 
 </body>
