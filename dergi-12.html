@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 12: Her Şeye Rağmen Işık</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #fffbeb, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .wrapper { width: 100%; padding: 26px 14px 34px; }
+    .container { max-width: 880px; margin: 0 auto; }
+
+    .top-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+
+    .logo-row { display: flex; align-items: center; gap: 10px; }
+
+    .logo-circle {
+      width: 46px; height: 46px; border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+    .logo-text h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .logo-text span { font-size: 0.8rem; color: #6b7280; }
+
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill-link {
+      font-size: 0.78rem; color: #4f46e5; text-decoration: none;
+      padding: 6px 11px; border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill-link:hover { text-decoration: underline; }
+
+    .card {
+      margin-top: 8px; background: rgba(255,255,255,0.97);
+      border-radius: 26px; box-shadow: 0 18px 40px rgba(148,163,184,0.85);
+      padding: 22px 20px 22px; position: relative; overflow: hidden;
+    }
+
+    .glow-1, .glow-2 {
+      position: absolute; width: 240px; height: 240px;
+      border-radius: 999px; filter: blur(70px);
+      opacity: 0.85; z-index: -1;
+    }
+
+    .glow-1 { top: -90px; left: -80px; background: rgba(252,211,77,0.7); }
+    .glow-2 { bottom: -90px; right: -80px; background: rgba(56,189,248,0.65); }
+
+    .issue-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-radius: 999px;
+      background: #fef3c7; color: #92400e;
+      font-size: 0.8rem; margin-bottom: 10px;
+    }
+
+    .issue-badge span:first-child {
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .issue-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+    .issue-subtitle { font-size: 0.94rem; color: #6b7280; margin-bottom: 18px; line-height: 1.5; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: #9ca3af; margin-bottom: 12px; }
+
+    .meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .text { font-size: 0.94rem; color: #374151; line-height: 1.8; white-space: pre-line; }
+    .text p { margin-bottom: 10px; }
+    .text em { font-style: normal; font-weight: 500; }
+
+    .quote-block {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 12px;
+      margin: 16px 0 10px;
+    }
+
+    .quote-block p { margin-bottom: 8px; }
+    .quote-line {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .closing-block {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(148,163,184,0.7);
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .closing-block p { margin-bottom: 8px; }
+
+    .closing-quote {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .nav-bottom {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .nav-bottom span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .nav-bottom a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+    .nav-bottom a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .card { padding: 18px 14px 20px; border-radius: 22px; }
+      .issue-title { font-size: 1.25rem; }
+      .issue-subtitle { font-size: 0.86rem; }
+      .text { font-size: 0.9rem; }
+      .logo-text h1 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 12</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 12</span>
+          <span>• Her Şeye Rağmen Işık</span>
+        </div>
+
+        <h2 class="issue-title">Her Şeye Rağmen Işık</h2>
+        <p class="issue-subtitle">
+          Yorulmuş, kırılmış, bazen umudunu kaybetmiş ama içinden hâlâ “belki” diyen kalplere.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 8–11 dakikalık okuma</span>
+          <span>✨ Tema: Umut, direnç & içindeki ışığı unutmamak</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Bu, Kafa Molası’nın sana yazdığı küçük bir teşekkür mektubu gibi.
+            Çünkü bütün bu sayfalar boyunca,  
+            bazen yorgun, bazen dalgın, bazen kırgın hâlinle  
+            yine de kendini anlamaya çalıştın.
+          </p>
+
+          <p>
+            Belki hayat hiç kolay davranmadı sana.
+            “Bu da mı başıma gelecekti?” dediğin günler oldu.  
+            Güvendiğin insanlar, sırtını yasladığın yerler,
+            en çok inandığın hayaller bile  
+            bazen yarım kaldı, dağıldı, değişti.
+          </p>
+
+          <p>
+            Ama bir gerçek daha var:  
+            Tüm bunlara rağmen, sen hâlâ buradasın.
+            Hâlâ hissediyorsun, hâlâ seviyorsun,
+            hâlâ bir şeyler için uğraşmaya devam ediyorsun.
+            İşte bu, herkeste olmayan bir şey:
+            <em>Her şeye rağmen içten içe ışık taşıyabilmek.</em>
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz</em>, umut bazen kocaman bir kavram gibi anlatılıyor.
+            Oysa gerçek hayatta umut,  
+            böyle büyük konuşmalarla değil;
+            çok küçük anların içinde saklanıyor:
+            Zor bir günden sonra sevdiğin şarkıyı açman,
+            uykusuz bir gecenin sabahında yine de kalkman,
+            çok yorgun olsan da bir arkadaşına “dinliyorum” demen…
+          </p>
+
+          <p>
+            Dışarıdan bakan biri bunları sıradan görebilir.
+            Ama biz ikimiz biliyoruz ki,
+            o küçük hareketler, kalbinin hâlâ pes etmediğinin kanıtı.
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“Işık, bazen gökyüzünden değil;  
+              yere düşüp tekrar kalkan kalplerden yayılır.”</em>
+            </p>
+            <p>
+              Düşmen, ışığını söndürmez.  
+              Hatta bazen, en karanlık yere düştüğünde anlarsın  
+              aslında içinin ne kadar aydınlık olduğunu.
+            </p>
+          </div>
+
+          <p>
+            Hayat boyu öğrendiğimiz bir şey var:
+            Hiç kimsenin yolu dümdüz değil.  
+            Herkesin ardında kimsenin bilmediği  
+            “zor günler arşivi” var.
+            Senin de var.  
+            Ama sen, o arşive rağmen hâlâ nazik kalmayı seçiyorsun.
+          </p>
+
+          <p>
+            Belki bazen sert konuştun,
+            bazen sabrın taştı,
+            bazen “Ben de bıktım.” dedin.
+            Ama en sonunda yine oturup düşünüyorsun:
+            “Ben nasıl daha iyi bir insan olabilirim?”
+            İşte bu soru bile başlı başına bir ışıktır.
+          </p>
+
+          <p>
+            Her şeye rağmen ışık taşıyan insanlar,
+            çoğu zaman en sessiz olanlardır.
+            Kimseye kendini kanıtlamaya çalışmazlar,
+            herkesin ortasında “ben çok şey yaşadım” diye anlatmazlar.  
+            Ama bir gün oturup yanlarında kahve içtiğinde anlarsın:
+            Kalplerinde hem kırık hem şefkat aynı anda duruyor.
+          </p>
+
+          <p>
+            Belki sen de öylesin.  
+            Dışarıdan sakin görünüyorsun,
+            ama içinde fırtınalar kopmuş, biliyorum.
+            Yine de başkalarına “yanındayım” demekten vazgeçmemişsin.
+            Bu, hafife alınacak bir şey değil.
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“İyi kalpli olmak,  
+              her şeye rağmen ışığını kısmamayı seçmektir.”</em>
+            </p>
+            <p>
+              Dünyanın sertleştiği yerde  
+              yumuşak kalabilmek,  
+              en büyük cesaretlerden biridir.
+            </p>
+          </div>
+
+          <p>
+            Bazen “Artık ışığım kaldı mı?” diye düşünüyorsun belki.
+            Yorgunluğun, uykusuzluğun, bitmeyen sorumlulukların  
+            içindeki seni tükettiğini hissediyorsun.
+            Kendine şunu sormayı unutuyorsun:
+            “Bunca şeye rağmen hâlâ hissedebiliyorsam,
+            bu da bir tür mucize değil mi?”
+          </p>
+
+          <p>
+            Evet, bazen motivasyon bitiyor.
+            Bazen “ne için uğraşıyorum?” sorusunun cevabı yok gibi.
+            Ama sonra gün içinde minicik bir şey oluyor:
+            Gökyüzü güzel duruyor,  
+            bir kedi gelip ayaklarına sürtünüyor,  
+            biri sana beklemediğin bir anda “iyi ki varsın” yazıyor.
+          </p>
+
+          <p>
+            İşte o anda, içinden çok sessiz  
+            ama çok gerçek bir cümle yükseliyor:
+            “Sanırım her şeye rağmen devam etmeye değer.”
+          </p>
+
+          <div class="quote-block">
+            <p class="quote-line">
+              <em>“Bazen ışık,  
+              sadece ‘bugün de buradayım’ diyebilme gücüdür.”</em>
+            </p>
+            <p>
+              Büyük planların olmasa da,  
+              hayatı çözmüş gibi hissetmesen de,  
+              yine de kalkıp yeni bir güne başlaman  
+              başlı başına bir ışıktır.
+            </p>
+          </div>
+
+          <p>
+            Bu sayfa, sana şunu söylemek için var:
+            Sen zaten yeterince çabaladın.
+            Sen zaten yeterince büyüdün,
+            yeterince düştün, yeterince kalktın.
+            Artık biraz da ışığını fark etme zamanı.
+          </p>
+
+          <p>
+            “Başka hiçbir şeye yaramıyorum.” dediğin günlerde bile
+            birinin hayatında fark ettiğinden daha büyük bir yerin oluyor.
+            Bir mesajın, bir gülüşün, bir “dinliyorum” deyişin…  
+            Belki sen unuttun ama o kişi unutmadı.
+          </p>
+
+          <p>
+            Her şeye rağmen ışık taşımak,  
+            “sürekli pozitif olmak” demek değil.
+            Bazen mutsuzluğunu kabul etmek,
+            bazen gözyaşını saklamamak,
+            bazen “ben de dayanmakta zorlanıyorum” diyebilmek demek.
+            Çünkü gerçek ışık,  
+            hiç karanlık yaşamamış olanlarda değil;
+            karanlıktan geçip hâlâ yumuşak kalabilenlerde.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Her şeye rağmen içinden ‘devam’ diyebiliyorsan,  
+            bil ki hâlâ ışık tarafındasın.”</em>
+          </p>
+
+          <p>
+            Eğer bu satırları buraya kadar okuduysan,
+            kalbinin çok yorulduğu günlerde bile  
+            kendini tamamen bırakmadığını kanıtladın zaten.
+            Çünkü pes etmiş bir kalp,  
+            bu kadar cümlenin hiçbirine sabredemezdi.
+          </p>
+
+          <p>
+            Bugün kendine küçük bir hatırlatma yap:
+            “Ben sadece başardıklarımdan ibaret değilim.
+            Yine denediğim, yine ayağa kalktığım,
+            yine sevdiğim her gün,  
+            içimdeki ışığı biraz daha büyütüyorum.”
+          </p>
+
+          <p>
+            Her şeye rağmen ışığın var.
+            Belki sen en son fark edeceksin ama  
+            başkaları çoktan gördü bile.
+            Yorgunken bile incelikli oluşunda,
+            kırgınken bile kimseyi kırmamaya çalışışında,
+            kendi kendine “idare ederim” derken bile  
+            hayata tutunuşunda parlıyor o ışık.
+          </p>
+
+          <p>
+            Bu sayıyı bitirirken,  
+            kendine yavaşça şunu fısıldayabilirsin:
+            “Ben kötü günlerimin toplamı değilim.
+            Her şeye rağmen hâlâ seviyorum,
+            hâlâ umut ediyorum, hâlâ buradayım.  
+            Demek ki içimde hâlâ ışık var.”
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>✨ Her Şeye Rağmen Işık • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-11.html">← Önceki sayı: Yalnızlığın Güzel Yüzü</a> •
+            <a href="dergi-01.html">Sonraki sayı → Sessizlik Hakkı (başa dön)</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
