@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fıkra Makinesi</title>
+<style>
+  :root{
+    --text:#111827;--muted:#6b7280;--border:#e5e7eb;--accent:#2563eb;
+    --surface:#ffffff;--bg:#fafafa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial}
+  .wrap{max-width:900px;margin:24px auto;padding:16px}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  a.back{color:var(--accent);text-decoration:none;font-weight:600}
+  h1{margin:0;font-size:26px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.04);padding:16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+  select,button{
+    border:1px solid var(--border);background:#fff;color:var(--text);
+    padding:10px 12px;border-radius:12px;font-size:14px
+  }
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .joke{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;min-height:90px}
+  .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:6px}
+  .favorite{margin-left:auto;cursor:pointer;color:#f59e0b}
+  .list{margin-top:16px}
+  .item{border-top:1px dashed var(--border);padding-top:10px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="sakamatik.html">← Şakamatikler</a>
+    <h1>📖 Fıkra Makinesi</h1>
+  </div>
+  <div class="card">
+    <p style="margin:4px 0 10px;color:#374151">Kategoriyi seç, “Fıkra getir”e bas. Beğendiğini ⭐ ile kaydet; aşağıda Favoriler’de dursun.</p>
+    <div class="row">
+      <select id="cat">
+        <option value="hepsi">Tümü</option>
+        <option value="klasik">Klasik</option>
+        <option value="guncel">Güncel</option>
+        <option value="tip">Tıp</option>
+        <option value="zeka">Zekice</option>
+        <option value="sacma">Absürt</option>
+      </select>
+      <button class="primary" id="get">Fıkra getir</button>
+      <button id="clearFav">Favorileri temizle</button>
+    </div>
+
+    <div class="joke" id="jokeBox">
+      <div class="meta"><span id="catName">Kategori: -</span><span class="favorite" id="favBtn" title="Favoriye ekle">⭐</span></div>
+      <div id="jokeText">Hazır olduğunda getiriyorum…</div>
+    </div>
+
+    <div class="list" id="favList"></div>
+  </div>
+</div>
+
+<script>
+const data = [
+  {cat:"klasik", text:"Garson: ‘Yemeğiniz nasıl efendim?’—Müşteri: ‘Bedava olsa on numara!’"},
+  {cat:"klasik", text:"Öğretmen: ‘En hızlı şey nedir?’—Öğrenci: ‘Teneffüs hocam. Gelir gelmez biter.’"},
+  {cat:"guncel", text:"Arkadaş: ‘Diyete başladım.’—Diğeri: ‘Hayırlı olsun, kaç saatlik?’"},
+  {cat:"guncel", text:"Uygulama: ‘Kabul ediyor musun?’—Ben: ‘Koşulsuz şartsız mutluluk varsa, kabul.’"},
+  {cat:"tip", text:"Stajyer: ‘İnsanları yaşatacağım.’—Gece 04:00: ‘Önce kendimi yaşatabilir miyim?’"},
+  {cat:"tip", text:"Hoca: ‘Sorusu olan?’—İç sesler: ‘Sorularımız hayatla ilgili hocam…’"},
+  {cat:"zeka", text:"Matematikçi: ‘İlişkiler beni yormuyor; sadece değişken sayısı fazla.’"},
+  {cat:"zeka", text:"Satranççı: ‘Bilgisayarı yendim…’—‘Fişi çekmişsin kanka.’"},
+  {cat:"sacma", text:"Dolap kapağını yavaş kapatırız; içerdeki makarna uyandırılmasın diye."},
+  {cat:"sacma", text:"Telefonu şarja koyup yanına uzansak biz de dolar mıyız azıcık?"}
+];
+
+const catEl = document.getElementById('cat');
+const jokeBox = document.getElementById('jokeBox');
+const jokeText = document.getElementById('jokeText');
+const catName = document.getElementById('catName');
+const favBtn = document.getElementById('favBtn');
+const favList = document.getElementById('favList');
+
+let current = null;
+
+function pick(){
+  const cat = catEl.value;
+  const pool = cat === 'hepsi' ? data : data.filter(d=>d.cat===cat);
+  if(!pool.length){ current=null; jokeText.textContent="Bu kategori boş görünüyor."; catName.textContent="Kategori: -"; return; }
+  current = pool[Math.floor(Math.random()*pool.length)];
+  jokeText.textContent = current.text;
+  catName.textContent = "Kategori: " + current.cat.toUpperCase();
+}
+
+document.getElementById('get').onclick = pick;
+
+function renderFav(){
+  const favs = JSON.parse(localStorage.getItem('favs')||'[]');
+  favList.innerHTML = "<h3 style='margin:8px 0'>⭐ Favoriler</h3>" + (favs.length? "" : "<div style='color:#6b7280'>Henüz yok.</div>");
+  favs.forEach((t,i)=>{
+    const div = document.createElement('div');
+    div.className='item';
+    div.innerHTML = `<div style="display:flex;gap:8px;align-items:center">
+      <span style="font-size:13px;color:#6b7280">#${i+1}</span>
+      <span>${t}</span>
+      <button style="margin-left:auto" data-i="${i}">Sil</button>
+    </div>`;
+    favList.appendChild(div);
+  });
+  favList.querySelectorAll('button').forEach(b=>{
+    b.onclick = e=>{
+      const i = +e.target.dataset.i;
+      const arr = JSON.parse(localStorage.getItem('favs')||'[]');
+      arr.splice(i,1);
+      localStorage.setItem('favs', JSON.stringify(arr));
+      renderFav();
+    };
+  });
+}
+
+favBtn.onclick = ()=>{
+  if(!current) return;
+  const arr = JSON.parse(localStorage.getItem('favs')||'[]');
+  arr.unshift(current.text);
+  localStorage.setItem('favs', JSON.stringify(arr));
+  renderFav();
+};
+
+document.getElementById('clearFav').onclick = ()=>{
+  localStorage.removeItem('favs'); renderFav();
+};
+
+pick(); renderFav();
+</script>
+</body>
+</html>
