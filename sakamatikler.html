@@ -9,20 +9,20 @@
   html,body{
     height:100%;
     font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-    background:#050007;
+    background:#120826;
     color:#fff;
     overflow:hidden;
   }
 
-  /* Arka plan – renk patlamalı ters evren vibe */
+  /* Pastel mor-pembe arka plan */
   body{
     background:
-      radial-gradient(circle at 10% 20%, #ff8a8a 0, transparent 55%),
-      radial-gradient(circle at 80% 80%, #ffdd57 0, transparent 60%),
-      radial-gradient(circle at 50% 120%, #ff4e50 0, transparent 70%),
-      #050007;
-    background-size:150% 150%;
-    animation:bgMove 8s ease-in-out infinite alternate;
+      radial-gradient(circle at 0% 0%, #ff9a9e 0, transparent 55%),
+      radial-gradient(circle at 100% 100%, #fad0c4 0, transparent 55%),
+      radial-gradient(circle at 50% 120%, #a18cd1 0, transparent 65%),
+      #120826;
+    background-size:140% 140%;
+    animation:bgMove 10s ease-in-out infinite alternate;
   }
   @keyframes bgMove{
     0%{background-position:0% 0%;}
@@ -30,157 +30,161 @@
     100%{background-position:100% 0%;}
   }
 
-  /* Intro ekranı */
+  /* Giriş kartı */
   #intro{
     position:fixed;
     inset:0;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    text-align:center;
+    padding:16px;
     z-index:10;
-    transition:opacity .8s ease, transform .8s ease;
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .intro-card{
+    max-width:420px;
+    width:100%;
+    background:rgba(255,255,255,0.14);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:0 22px 45px rgba(0,0,0,0.35);
+    padding:24px 22px 26px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
   }
 
-  .glitch-title{
-    font-size:1.9rem;
-    max-width:90%;
-    color:#ff4d4d;
-    text-shadow:0 0 12px #ff0000,0 0 24px #ff6600;
-    animation:shake 0.6s infinite, glow 2s ease-in-out infinite alternate;
+  .intro-title{
+    font-size:1.8rem;
+    margin-bottom:6px;
+    color:#ffe4ff;
   }
-  .glitch-title span{
+  .intro-title span{
     display:block;
-    font-size:2.3rem;
-    margin-top:6px;
+    font-size:2.1rem;
   }
-
-  .warning{
-    margin-top:12px;
+  .intro-sub{
     font-size:0.95rem;
-    color:#ffe2e2;
+    margin-bottom:4px;
+    color:#ffeefc;
+  }
+  .intro-joke{
+    font-size:0.9rem;
+    color:#fdfcff;
     opacity:0.9;
-  }
-
-  .rule{
-    margin-top:10px;
-    font-size:1rem;
-    color:#ffd2ff;
-  }
-
-  .tiny{
-    margin-top:8px;
-    font-size:0.8rem;
-    opacity:0.8;
   }
 
   /* Yükleniyor halkası */
   .loader{
     width:64px;
     height:64px;
+    margin:14px auto 10px;
     border-radius:50%;
-    margin-top:18px;
-    border:6px solid rgba(255,255,255,0.18);
-    border-top-color:#ff4d4d;
-    border-right-color:#ffb347;
+    border:6px solid rgba(255,255,255,0.2);
+    border-top-color:#ff6ba6;
+    border-right-color:#ffd36b;
     animation:spin 1s linear infinite, loaderGlow 1.4s ease-in-out infinite alternate;
   }
   @keyframes spin{
     to{transform:rotate(360deg);}
   }
   @keyframes loaderGlow{
-    0%{box-shadow:0 0 10px rgba(255,255,255,0.25);}
-    100%{box-shadow:0 0 26px rgba(255,200,120,0.9);}
+    0%{box-shadow:0 0 8px rgba(255,255,255,0.2);}
+    100%{box-shadow:0 0 18px rgba(255,170,200,0.9);}
   }
 
-  /* Ekran sarsıntı efekti */
-  @keyframes shake{
-    0%{transform:translate(0,0);}
-    20%{transform:translate(-2px,2px) rotate(-0.5deg);}
-    40%{transform:translate(2px,-2px) rotate(0.5deg);}
-    60%{transform:translate(-1px,2px) rotate(-0.3deg);}
-    80%{transform:translate(1px,-1px) rotate(0.3deg);}
-    100%{transform:translate(0,0);}
-  }
-  @keyframes glow{
-    0%{text-shadow:0 0 10px #ff4d4d,0 0 20px #ff6600;}
-    100%{text-shadow:0 0 24px #ff4d4d,0 0 40px #ffcc33;}
+  .tiny{
+    margin-top:8px;
+    font-size:0.8rem;
+    opacity:0.85;
   }
 
-  /* Konfeti / baloncuk efekti */
-  .bubble{
-    position:fixed;
-    border-radius:50%;
-    opacity:0.8;
-    pointer-events:none;
-    mix-blend-mode:screen;
-    animation:bubbleFloat linear forwards;
+  /* Uçuşan emojiler */
+  .float-emoji{
+    position:absolute;
+    font-size:1.8rem;
+    opacity:0.9;
+    animation:floatEmoji linear infinite;
   }
-  @keyframes bubbleFloat{
-    0%{transform:translate3d(0,0,0) scale(0.8);opacity:0;}
-    20%{opacity:0.9;}
-    100%{transform:translate3d(var(--tx),-120vh,0) scale(1.2);opacity:0;}
+  .float-emoji.e1{top:10px;left:16px;animation-duration:7s;}
+  .float-emoji.e2{top:14px;right:14px;animation-duration:8s;}
+  .float-emoji.e3{bottom:8px;left:40px;animation-duration:9s;}
+  .float-emoji.e4{bottom:6px;right:38px;animation-duration:6.5s;}
+
+  @keyframes floatEmoji{
+    0%{transform:translate3d(0,0,0) rotate(0deg);}
+    50%{transform:translate3d(0,-10px,0) rotate(-5deg);}
+    100%{transform:translate3d(0,0,0) rotate(0deg);}
   }
 
-  /* Quiz / menü alanı */
+  /* Ana menü */
   #main{
     max-width:900px;
-    margin:40px auto;
-    padding:20px;
+    margin:32px auto;
+    padding:16px;
     display:none; /* başta gizli */
   }
   .card{
-    background:rgba(5,0,10,0.85);
-    border-radius:18px;
-    border:2px solid rgba(255,255,255,0.2);
-    box-shadow:0 0 25px rgba(0,0,0,0.8);
-    padding:24px 26px;
+    background:rgba(9,0,20,0.9);
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    padding:22px 20px 26px;
   }
   .card h2{
+    font-size:1.8rem;
     text-align:center;
-    font-size:1.7rem;
-    margin-bottom:10px;
-    color:#ff9bd1;
+    margin-bottom:8px;
+    color:#ffb3f5;
   }
   .card p{
     text-align:center;
     font-size:0.95rem;
-    margin-bottom:16px;
-    color:#fef2ff;
+    margin-bottom:18px;
+    color:#f8e9ff;
   }
 
   .menu-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:10px;
   }
-
   .menu-btn{
-    padding:10px 14px;
-    border-radius:12px;
     border:none;
-    cursor:pointer;
+    border-radius:14px;
+    padding:10px 12px;
     text-align:left;
-    background:rgba(255,255,255,0.04);
+    background:rgba(255,255,255,0.05);
     color:#fff;
-    font-size:0.95rem;
+    display:flex;
+    flex-direction:row;
+    gap:8px;
+    cursor:pointer;
+    transition:.16s;
+  }
+  .menu-emoji{
+    font-size:1.4rem;
+    margin-top:2px;
+  }
+  .menu-text{
     display:flex;
     flex-direction:column;
-    gap:4px;
-    transition:.15s;
+    gap:3px;
   }
-  .menu-btn span.title{
+  .menu-text .title{
     font-weight:600;
+    font-size:0.95rem;
   }
-  .menu-btn span.sub{
+  .menu-text .sub{
     font-size:0.8rem;
     opacity:0.85;
   }
   .menu-btn:hover{
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.09);
     transform:translateY(-2px);
-    box-shadow:0 0 16px rgba(255,255,255,0.2);
+    box-shadow:0 0 14px rgba(255,255,255,0.22);
   }
 </style>
 </head>
@@ -188,85 +192,77 @@
 
 <!-- GİRİŞ EKRANI -->
 <div id="intro">
-  <div class="glitch-title">
-    💥 UYARI: Aşırı Saçmalık Tespit Edildi!
-    <span>Şakamatik Evrenine Hoş Geldin</span>
+  <div class="intro-card">
+    <div class="float-emoji e1">😜</div>
+    <div class="float-emoji e2">🤡</div>
+    <div class="float-emoji e3">😂</div>
+    <div class="float-emoji e4">🙃</div>
+
+    <div class="intro-title">
+      😂 Şakamatik Yükleniyor...
+      <span>Ciddiyet Çöp Kutusuna Gönderiliyor</span>
+    </div>
+    <p class="intro-sub">Mantık sistemden kaldırılıyor, goygoy güncellemesi yapılıyor.</p>
+    <div class="loader"></div>
+    <p class="intro-joke">Birazdan gireceğin şey “site” değil, toplu saçmalama seansı.</p>
+    <p class="tiny">Devam ederek alınmama, darılmama ve gerektiğinde kendine gülme şartlarını kabul etmiş olursun. 😏</p>
   </div>
-  <p class="warning">Mantık kendini imha etti. Bu noktadan sonrası tamamen goygoy.</p>
-  <p class="rule">Burada tek kural: <b>Saçmalayan kazanır.</b></p>
-  <div class="loader"></div>
-  <p class="tiny">Mizah duygun güncelleniyor... Lütfen beynini ciddiyetten arındır.</p>
 </div>
 
-<!-- ANA MENÜ / İÇERİK (sonradan görünecek) -->
+<!-- ANA MENÜ -->
 <div id="main">
   <div class="card">
     <h2>😂 Şakamatikler</h2>
     <p>Buradan sonrası fıkralar, saçma testler, kelime oyunları ve komik bilgilerle dolu bir evren.</p>
     <div class="menu-grid">
       <button class="menu-btn" onclick="alert('Buraya fıkra sayfasını bağlayacaksın 😈')">
-        <span class="title">Fıkra Makinesi</span>
-        <span class="sub">Kısa, saçma, bazen de aşırı yerinde punchline’lar.</span>
+        <div class="menu-emoji">📖</div>
+        <div class="menu-text">
+          <span class="title">Fıkra Makinesi</span>
+          <span class="sub">Kısa, saçma, bazen de aşırı yerinde punchline’lar.</span>
+        </div>
       </button>
+
       <button class="menu-btn" onclick="alert('Buraya mizah testlerini bağlayacaksın 😈')">
-        <span class="title">Mizah Testleri</span>
-        <span class="sub">Ne kadar şakacı, ne kadar cringe’sin? Ölçelim.</span>
+        <div class="menu-emoji">🧪</div>
+        <div class="menu-text">
+          <span class="title">Mizah Testleri</span>
+          <span class="sub">Ne kadar şakacı, ne kadar cringe’sin? Bilimsel ölçelim(!)</span>
+        </div>
       </button>
+
       <button class="menu-btn" onclick="alert('Buraya komik bilgi sayfasını bağlayacaksın 😈')">
-        <span class="title">Komik Bilgiler</span>
-        <span class="sub">“Bilim böyle diyor” deyip saçma şeyler okumalık.</span>
+        <div class="menu-emoji">🤓</div>
+        <div class="menu-text">
+          <span class="title">Komik Bilgiler</span>
+          <span class="sub">“Bilim böyle diyor” deyip saçma şeyler okumalık.</span>
+        </div>
       </button>
+
       <button class="menu-btn" onclick="alert('Buraya kelime oyunları sayfasını bağlayacaksın 😈')">
-        <span class="title">Kelime Oyunları</span>
-        <span class="sub">Saçma tekerlemeler, dil dönmezlikler, absürt cümleler.</span>
+        <div class="menu-emoji">🔤</div>
+        <div class="menu-text">
+          <span class="title">Kelime Oyunları</span>
+          <span class="sub">Saçma tekerlemeler, dil dönmezlikler, absürt cümleler.</span>
+        </div>
       </button>
     </div>
   </div>
 </div>
 
 <script>
-/* Basit konfeti / baloncuk patlama efekti */
-function spawnBubbles(){
-  for(let i=0;i<25;i++){
-    const b=document.createElement("div");
-    b.className="bubble";
-    const size=8+Math.random()*18;
-    b.style.width=size+"px";
-    b.style.height=size+"px";
-    b.style.left=Math.random()*100+"vw";
-    b.style.bottom="-20px";
-    b.style.setProperty("--tx",(Math.random()*80-40)+"vw");
-    const colors=[
-      "rgba(255,99,132,0.9)",
-      "rgba(255, 206, 86,0.9)",
-      "rgba(54, 162, 235,0.9)",
-      "rgba(255, 159, 64,0.9)",
-      "rgba(199, 102, 255,0.9)"
-    ];
-    b.style.background=colors[Math.floor(Math.random()*colors.length)];
-    const dur=4+Math.random()*3;
-    b.style.animationDuration=dur+"s";
-    document.body.appendChild(b);
-    setTimeout(()=>b.remove(),dur*1000);
-  }
-}
-
-/* 5 saniye sonra: intro kaybolsun, ekran hafif ters evren vibe’ına geçsin ve menü açılsın */
-window.addEventListener("load", () => {
-  // 2–3. saniye civarı ekranı biraz baloncukla patlatalım
-  setTimeout(spawnBubbles, 2200);
-  setTimeout(spawnBubbles, 3200);
-
-  setTimeout(()=>{
-    const intro=document.getElementById("intro");
-    intro.style.opacity="0";
-    intro.style.transform="rotate(180deg) scale(0.8)";
-    setTimeout(()=>{
-      intro.style.display="none";
-      document.getElementById("main").style.display="block";
-    },800);
-  },5000);
-});
+  /* 4 saniye sonra intro kaybolsun, menü gelsin */
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const intro = document.getElementById("intro");
+      intro.style.opacity = "0";
+      intro.style.transform = "scale(0.96)";
+      setTimeout(() => {
+        intro.style.display = "none";
+        document.getElementById("main").style.display = "block";
+      }, 600);
+    }, 4000);
+  });
 </script>
 
 </body>
