@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kafa Molası – Mini Dergi / Sayı 9: Kırgın Kalplere Bir Mektup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #fdf2f8, #fce7f3);
+      color: #0f172a;
+    }
+
+    .wrapper { width: 100%; padding: 26px 14px 34px; }
+    .container { max-width: 880px; margin: 0 auto; }
+
+    .top-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+
+    .logo-row { display: flex; align-items: center; gap: 10px; }
+
+    .logo-circle {
+      width: 46px; height: 46px; border-radius: 999px;
+      background: rgba(248,250,252,0.96);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 22px rgba(148,163,184,0.7);
+      font-size: 1.8rem;
+    }
+
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+    .logo-text h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .logo-text span { font-size: 0.8rem; color: #6b7280; }
+
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill-link {
+      font-size: 0.78rem; color: #4f46e5; text-decoration: none;
+      padding: 6px 11px; border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 8px 18px rgba(148,163,184,0.6);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill-link:hover { text-decoration: underline; }
+
+    .card {
+      margin-top: 8px; background: rgba(255,255,255,0.96);
+      border-radius: 26px; box-shadow: 0 18px 40px rgba(148,163,184,0.8);
+      padding: 22px 20px 22px; position: relative; overflow: hidden;
+    }
+
+    .glow-1, .glow-2 {
+      position: absolute; width: 240px; height: 240px;
+      border-radius: 999px; filter: blur(70px);
+      opacity: 0.8; z-index: -1;
+    }
+
+    .glow-1 { top: -90px; left: -80px; background: rgba(251,207,232,0.7); }
+    .glow-2 { bottom: -90px; right: -80px; background: rgba(252,231,243,0.7); }
+
+    .issue-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-radius: 999px;
+      background: #fbcfe8; color: #831843;
+      font-size: 0.8rem; margin-bottom: 10px;
+    }
+
+    .issue-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+    .issue-subtitle { font-size: 0.94rem; color: #6b7280; margin-bottom: 18px; line-height: 1.5; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: #9ca3af; margin-bottom: 12px; }
+
+    .text { font-size: 0.94rem; color: #374151; line-height: 1.8; white-space: pre-line; }
+    .text p { margin-bottom: 10px; }
+    .text em { font-style: normal; font-weight: 500; }
+
+    .closing-block { margin-top: 18px; padding-top: 12px; border-top: 1px dashed rgba(148,163,184,0.7); font-size: 0.9rem; color: #4b5563; }
+    .closing-quote { font-size: 0.96rem; font-weight: 500; margin-top: 6px; }
+
+    .nav-bottom { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-size: 0.8rem; color: #9ca3af; }
+    .nav-bottom a { color: #4f46e5; text-decoration: none; }
+    .nav-bottom a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="top-row">
+        <div class="logo-row">
+          <div class="logo-circle">📰</div>
+          <div class="logo-text">
+            <h1>Mini Dergi</h1>
+            <span>Kafa Molası • Sayı 9</span>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="mini-dergi.html" class="pill-link">← Diğer sayılara dön</a>
+          <a href="menu.html" class="pill-link">☕ Ana menü</a>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="issue-badge">
+          <span>SAYI 9</span>
+          <span>• Kırgın Kalplere Bir Mektup</span>
+        </div>
+
+        <h2 class="issue-title">Kırgın Kalplere Bir Mektup</h2>
+        <p class="issue-subtitle">
+          “İyiyim” derken aslında kırık olanlara; içi sessizce kanayanlara.
+        </p>
+
+        <div class="meta-row">
+          <span>⏳ 5–8 dakikalık okuma</span>
+          <span>💌 Tema: Kırgınlık & kalpten affetmek</span>
+        </div>
+
+        <div class="text">
+          <p>
+            Bu mektup sana, kırgın kalpli güzel insana.  
+            Evet, sen — gülümserken bile içinde bir “keşke” taşıyan,  
+            kimseye belli etmeden iyileşmeye çalışan o incelikli ruha.  
+            Belki kimse fark etmiyor ama ben biliyorum:  
+            sen bazen sadece yoruldun.
+          </p>
+
+          <p>
+            Yoruldun iyi olmaya çalışmaktan,  
+            her şeyi anlayışla karşılamaktan,  
+            kendini hep ikinci sıraya koymaktan.  
+            Ve evet, bazen güçlü görünmek bile  
+            başlı başına bir savaş haline geldi senin için.
+          </p>
+
+          <p>
+            <em>İkimiz de biliyoruz</em> kırgınlık kolay geçmiyor.  
+            Zaman siliyor belki ama iz kalıyor.  
+            Kırıldığın insanlar unutuluyor ama o his,  
+            bazen bir şarkının içinde, bazen bir sokakta  
+            sessizce karşına çıkıyor.
+          </p>
+
+          <p>
+            Ama bilmen gereken bir şey var:  
+            sen kırıldığın hâlde nezaketini kaybetmeyenlerdensin.  
+            Bu, zayıflık değil; bu, asalet.  
+            Herkes öfkeyle bağırabilir,  
+            ama herkes sessiz kalırken zarif kalamaz.
+          </p>
+
+          <p>
+            Belki seni anlamadılar.  
+            Belki sesini duymadılar.  
+            Belki “çok alıngan”, “çok hassas” dediler.  
+            Ama o hassasiyet, kalbinin güzelliğiyle ilgilidir.  
+            Her şey seni bu kadar etkilemeseydi,  
+            bu kadar derin sevemezdin.
+          </p>
+
+          <p>
+            Affetmek istemiyorsan acele etme.  
+            Affetmek, “haklıydı” demek değildir.  
+            Affetmek, “artık kalbimi bu yükle taşımak istemiyorum.” demektir.  
+            Çünkü bazen affetmek, karşıya değil —  
+            kendine yapılmış bir iyiliktir.
+          </p>
+
+          <p>
+            Ve bazen de affetmemen gerekir.  
+            Çünkü her yara kapanmaz.  
+            Ama en azından artık kanamasın diye  
+            üzerini özenle sarmayı öğrenirsin.  
+            Bu da bir tür iyileşmedir.
+          </p>
+
+          <p>
+            Sen kalbini kolay açmadın.  
+            Ama açtığında da gerçekten sevdin,  
+            samimi oldun, saf oldun, içten oldun.  
+            Şimdi belki kalbinin üstünde  
+            görünmez bir kabuk var — ama bu kötü değil.  
+            Kabuk, kalbin hâlâ yaşadığını gösterir.
+          </p>
+
+          <p>
+            Kırgınlık seni değiştirmiş olabilir.  
+            Artık daha temkinlisin, daha sessizsin.  
+            Ama unutma, bu hâlin de güzel.  
+            Çünkü sen, artık susmanın gücünü biliyorsun.  
+            Ve bazen konuşmamak,  
+            en zarif “ben bittim” deme şeklidir.
+          </p>
+
+          <p>
+            Bu mektup sana bir şey öğretmek için değil,  
+            sadece hatırlatmak için yazıldı:  
+            Kalbin hâlâ çalışıyor.  
+            Hâlâ sevebiliyorsun, hâlâ inanabiliyorsun,  
+            hâlâ içten bir tebessüm atabiliyorsun.  
+            Bu kadar yara alıp hâlâ iyi kalmak…  
+            Bu, mucizeden biraz daha fazlası.
+          </p>
+        </div>
+
+        <div class="closing-block">
+          <p class="closing-quote">
+            <em>“Kırılmış olman seni eksiltmez.  
+            Kırık parçalarınla bile ışık saçabiliyorsun.”</em>
+          </p>
+
+          <p>
+            Bu satırları okurken belki sessizce gözlerin doldu,  
+            belki sadece içinden bir “evet, tam ben.” geçti.  
+            O his bile yeter —  
+            çünkü kırgınlığını fark etmek,  
+            iyileşmenin ilk adımıdır.
+          </p>
+
+          <p>
+            Bugün kendine biraz daha nazik ol.  
+            Geçmişi değil, kendini affet.  
+            Ve bil ki, bir gün biri  
+            kalbindeki o kırıkları fark edecek,  
+            “ne kadar güzel parlıyorsun” diyecek.  
+            Çünkü ışık, hep çatlaklardan sızar.
+          </p>
+        </div>
+
+        <div class="nav-bottom">
+          <span>💌 Kırgın Kalplere Bir Mektup • Kafa Molası Mini Dergi</span>
+          <span>
+            <a href="dergi-08.html">← Önceki sayı: Gülerken İçten İçe Düşünenler</a> •
+            <a href="dergi-10.html">Sonraki sayı → Hayata Yeniden Başlamak</a>
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
