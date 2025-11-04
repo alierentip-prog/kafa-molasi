@@ -3,111 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zihin Labirenti – Bilinçaltının Yankısı</title>
+<title>Bilinçaltı: Başlangıç</title>
 <style>
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: radial-gradient(ellipse at center, #000 0%, #020202 100%);
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    color: #f2f2f2;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0d0d0d 0%, #000 80%);
+  height: 100vh;
+  width: 100vw;
+  color: #e0d8cf;
+  font-family: 'Poppins', sans-serif;
+}
 
-  /* Fade-in kararma efekti */
-  .fade {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    animation: fadeIn 8s ease-out forwards;
-  }
-  @keyframes fadeIn {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-  }
+#scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  /* Yavaş nabız efekti */
-  .heartbeat {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%);
-    animation: pulse 3s infinite ease-in-out;
-  }
-  @keyframes pulse {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-    50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.6; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-  }
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  animation: float 8s infinite ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 0.2; }
+  50% { transform: translateY(-80px) scale(1.3); opacity: 0.8; }
+  100% { transform: translateY(0) scale(1); opacity: 0.2; }
+}
 
-  /* Alt yazılar */
-  .subtitle {
-    position: absolute;
-    bottom: 20%;
-    width: 100%;
-    text-align: center;
-    font-size: 1.2rem;
-    opacity: 0;
-    animation: subtitleFade 20s linear forwards;
-  }
-  @keyframes subtitleFade {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
-  }
+#light {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+  transition: transform 0.05s ease;
+  mix-blend-mode: screen;
+}
 
-  /* Göz açılma efekti */
-  .eye {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 30%, transparent 100%);
-    animation: blink 9s ease-out forwards;
-    pointer-events: none;
-  }
-  @keyframes blink {
-    0% { clip-path: ellipse(0% 0% at 50% 50%); opacity: 1; }
-    50% { clip-path: ellipse(80% 40% at 50% 50%); opacity: 0.9; }
-    100% { clip-path: ellipse(120% 80% at 50% 50%); opacity: 0; }
-  }
+.fade-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
+  opacity: 0;
+  transition: opacity 2s ease;
+  text-align: center;
+  width: 80%;
+  line-height: 1.6;
+}
 
-  /* Ortadaki yavaş ışık */
-  .light {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, #f5e5c4 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: glow 10s ease-in-out forwards;
-  }
-  @keyframes glow {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(2); }
-    100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.5); }
-  }
+#continue {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 12px 28px;
+  border-radius: 30px;
+  color: #e0d8cf;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 2s ease, background 0.3s;
+}
+#continue:hover {
+  background: rgba(255,255,255,0.25);
+}
 </style>
 </head>
 <body>
-
-<div class="fade"></div>
-<div class="heartbeat"></div>
-<div class="light"></div>
-<div class="eye"></div>
-
-<div class="subtitle">
-  “Uyanmak, hatırlamak kadar zor değildir.”
+<div id="scene">
+  <div id="light"></div>
+  <div id="text" class="fade-text"></div>
+  <button id="continue">Devam Et</button>
 </div>
 
-<audio autoplay>
-  <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_c02f8a4a40.mp3" type="audio/mpeg">
-</audio>
+<script>
+// Fare ışığı
+const light = document.getElementById('light');
+document.addEventListener('mousemove', (e) => {
+  light.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
+});
 
+// Partiküller
+const scene = document.getElementById('scene');
+for(let i=0; i<120; i++){
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.left = Math.random()*100 + '%';
+  p.style.top = Math.random()*100 + '%';
+  p.style.animationDelay = `${Math.random()*8}s`;
+  p.style.opacity = Math.random()*0.7;
+  scene.appendChild(p);
+}
+
+// Yazılar
+const texts = [
+  "Zihnin kapıları yavaşça aralanıyor...",
+  "Karanlık, seni tanımak için bekliyor.",
+  "Her düşünce bir yankıdır, duvarlardan döner.",
+  "Sessizlik... belki de en yüksek sestir.",
+  "Korkma. Burada yalnızsın, ama güvendesin.",
+  "Her şey bir hayal. Ama hangisi seninki?",
+  "Gerçek, uyanmakla başlamaz; fark etmekle başlar.",
+  "Zaman eriyor. Sadece sen ve nefesin kaldı.",
+  "Bilinçaltı konuşuyor... dinliyor musun?",
+  "Ve şimdi... derinlere inme zamanı."
+];
+
+let index = 0;
+const textEl = document.getElementById('text');
+const nextText = () => {
+  if (index < texts.length) {
+    textEl.style.opacity = 0;
+    setTimeout(()=>{
+      textEl.innerText = texts[index];
+      textEl.style.opacity = 1;
+      index++;
+      setTimeout(nextText, 6000);
+    }, 2000);
+  } else {
+    document.getElementById('continue').style.opacity = 1;
+  }
+};
+setTimeout(nextText, 3000);
+
+// Devam butonu
+document.getElementById('continue').addEventListener('click', () => {
+  window.location.href = "bilincin-yankisi.html";
+});
+</script>
 </body>
 </html>
