@@ -1,121 +1,125 @@
 <!DOCTYPE html>
 <html lang="tr">
->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kafa Molası – Orta Seviye Beyin Egzersizi</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-body{font-family:'Poppins',sans-serif;background:linear-gradient(to bottom right,#fef3c7,#e0f2fe);margin:0;padding:0;color:#0f172a;}
-.container{max-width:800px;margin:40px auto;background:white;padding:20px 25px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
-h1{text-align:center;margin-bottom:10px;font-size:1.6rem;}
-.question{margin-bottom:20px;}
-.options button{display:block;margin:6px 0;padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#f9fafb;cursor:pointer;transition:0.2s;}
-.options button:hover{background:#f1f5f9;}
-.result{font-weight:600;margin-top:6px;}
-.hidden{display:none;}
-#finish{display:block;margin:20px auto;padding:10px 20px;border:none;border-radius:10px;background:#f97316;color:white;font-weight:600;cursor:pointer;}
-#finish:hover{background:#ea580c;}
-#summary{margin-top:25px;padding:15px;background:#fff7ed;border-radius:12px;border:1px solid #fed7aa;}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <title>Günün Beyin Egzersizi – Orta | Kafa Molası</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:linear-gradient(135deg,#e0f2fe,#ddd6fe);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 12px;
+      color:#111827;
+    }
+    .card{
+      max-width:720px;
+      width:100%;
+      background:rgba(255,255,255,0.97);
+      border-radius:22px;
+      padding:24px 20px;
+      box-shadow:0 12px 32px rgba(129,140,248,0.6);
+    }
+    h1{text-align:center;font-size:1.4rem;margin-bottom:6px;}
+    .tag{text-align:center;font-size:0.85rem;color:#6b7280;margin-bottom:16px;}
+    .date{text-align:center;font-size:0.8rem;color:#9ca3af;margin-bottom:12px;}
+    .question-box{
+      background:#eef2ff;
+      border-radius:16px;
+      border:1px solid #c7d2fe;
+      padding:14px 12px;
+      margin-bottom:16px;
+      font-size:0.97rem;
+    }
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:8px 16px;
+      font-size:0.9rem;
+      font-weight:500;
+      background:linear-gradient(to right,#6366f1,#8b5cf6);
+      color:#eef2ff;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(79,70,229,0.6);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .answer{
+      display:none;
+      margin-top:14px;
+      padding:12px 10px;
+      border-radius:14px;
+      background:#f5f3ff;
+      border:1px solid #ddd6fe;
+      font-size:0.95rem;
+    }
+    .footer{
+      margin-top:18px;
+      font-size:0.82rem;
+      color:#6b7280;
+      text-align:center;
+    }
+    .back{
+      margin-top:14px;
+      text-align:center;
+      font-size:0.85rem;
+    }
+    .back a{
+      color:#4f46e5;
+      text-decoration:none;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<h1>🧠 Orta Seviye – “Ateş Yakabilirim”</h1>
-<p>Burada işler kızışıyor. Sorular biraz daha akıl ve sabır istiyor.  
-Tıklayınca sadece doğru mu yanlış mı göreceksin, sonunda ateşin ne kadar yandığını anlayacağız 🔥</p>
-<hr>
 
-<div id="quiz"></div>
+<div class="card">
+  <h1>🧠 Günün Beyin Egzersizi – Orta</h1>
+  <div class="tag">“Bir tık daha kas, hâlâ keyif modu.”</div>
+  <div class="date" id="todayText"></div>
 
-<button id="finish">Testi Bitir</button>
-<div id="summary" class="hidden"></div>
+  <div id="questionBox" class="question-box">Yükleniyor...</div>
+
+  <button class="btn" id="showAnswerBtn">🧩 Cevabı Göster</button>
+
+  <div id="answerBox" class="answer"></div>
+
+  <div class="footer">
+    Orta seviye sorular, beynini “ısınma”dan “hafif terleme” moduna geçirir.
+  </div>
+
+  <div class="back">
+    <a href="beyin-egzersizi.html">← Beyin Egzersizi menüsüne dön</a>
+  </div>
 </div>
 
+<script src="beyin-havuzlar.js"></script>
 <script>
-const questions=[
-{q:"Bir çiftçinin 17 koyunu vardır, 9 tanesi hariç hepsi ölür. Kaç koyun kalır?",options:["8","9","17","0"],correct:1},
-{q:"Bir odada 3 lamba ve dışarıda 3 anahtar var. Odaya sadece bir kez girebilirsin. Hangi anahtar hangi lambayı yakıyor nasıl anlarsın?",options:["Şansına bakarsın","Elinle ısı kontrolü yaparsın","Hepsini aynı anda yakarsın","İmkansız"],correct:1},
-{q:"Bir düzende 1→4, 2→16, 3→64 ise 4→?",options:["128","256","512","1024"],correct:1},
-{q:"Bir bisiklet tekeri 10 tur atarsa 15 metre gidiyor. 40 turda kaç metre gider?",options:["45","60","75","120"],correct:1},
-{q:"Sadece bir kibritin var. İçeride bir gaz lambası, bir mum ve bir soba var. Hangisini önce yakarsın?",options:["Mum","Gaz lambası","Soba","Kibrit"],correct:3},
-{q:"Bir gölde nilüfer çiçekleri her gün iki katına çıkıyor. 48. günde göl doluysa, yarısı kaçıncı gündedir?",options:["46","47","48","45"],correct:1},
-{q:"Bir saatin akrebi 12 saatlik turu 360°’de tamamlıyorsa, 3 saatte kaç derece döner?",options:["30","60","90","120"],correct:2},
-{q:"Bir kelime düşün: BAŞ. Buna bir harf eklersen yanlış, iki harf eklersen doğru olur. Nedir?",options:["BAŞAR","BAŞA","BAŞARMA","BAŞARISIZ"],correct:2},
-{q:"Bir gemi 10 km kuzeye, 10 km doğuya, 10 km güneye giderse, nerede olur?",options:["Başladığı yerde","10 km batıda","Kuzey kutbunda","Karada"],correct:0},
-{q:"Bir ailede 5 erkek çocuğun her birinin bir kız kardeşi var. Ailede toplam kaç çocuk var?",options:["6","10","5","7"],correct:0},
-{q:"Bir köprüden geçmek 1 dakika sürüyor. Aynı anda en fazla 2 kişi geçebiliyor. 4 kişi var: 1,2,5,10 dakikalık hızlarda. Minimum sürede nasıl geçerler?",options:["17 dk","19 dk","16 dk","15 dk"],correct:2},
-{q:"Bir kelimenin ilk harfini sona alırsan 9 fazlası oluyor: ONE → NEO gibi. Sayı kaç?",options:["109","108","1090","190"],correct:0},
-{q:"Bir çocuğun yaşı annesinin yaşının beşte biri. 5 yıl sonra anne 35 olacak. Çocuk şu an kaç yaşında?",options:["5","6","7","8"],correct:1},
-{q:"Bir terzinin 4 metre kumaşı var. Her elbise için 1.2 metre gerekiyor. Kaç tam elbise dikebilir?",options:["3","4","2","5"],correct:0},
-{q:"Bir zincirin her halkası 2 cm. 12 halkalı bir zincirin uzunluğu kaç cm olur?",options:["24","26","20","22"],correct:3},
-];
+  const now = new Date();
+  const gunler = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+  const aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+  document.getElementById("todayText").textContent =
+    gunler[now.getDay()] + ", " + now.getDate() + " " + aylar[now.getMonth()] + " " + now.getFullYear();
 
-let score=0;
-const quizDiv=document.getElementById('quiz');
-questions.forEach((q,i)=>{
- const qDiv=document.createElement('div');
- qDiv.classList.add('question');
- qDiv.innerHTML=`<p><b>${i+1}.</b> ${q.q}</p>`;
- const optDiv=document.createElement('div');
- optDiv.classList.add('options');
- q.options.forEach((opt,idx)=>{
-   const btn=document.createElement('button');
-   btn.textContent=opt;
-   btn.addEventListener('click',()=>{
-     if(!btn.classList.contains('answered')){
-       if(idx===q.correct){
-         btn.style.background="#bbf7d0";
-         qDiv.insertAdjacentHTML('beforeend',`<div class='result'>✔ Doğru!</div>`);
-         score++;
-       }else{
-         btn.style.background="#fecaca";
-         qDiv.insertAdjacentHTML('beforeend',`<div class='result'>❌ Yanlış</div>`);
-       }
-       const allBtns=optDiv.querySelectorAll('button');
-       allBtns.forEach(b=>b.disabled=true);
-     }
-   });
-   optDiv.appendChild(btn);
- });
- qDiv.appendChild(optDiv);
- quizDiv.appendChild(qDiv);
-});
+  const havuz = ORTA_HAVUZ;
+  const index = now.getDate() % havuz.length;
+  const soru = havuz[index];
 
-document.getElementById('finish').addEventListener('click',()=>{
- let msg="";
- if(score<=5) msg="🔥 Alev almışsın ama yanlış yerden. Düşünce var ama sabır eksik.";
- else if(score<=9) msg="💭 Zekân çalışıyor, bazen fazla hızlı gidiyorsun ama iyi yoldasın.";
- else if(score<=12) msg="🧠 Akıl var mantık var, ateş yakmışsın harbiden.";
- else msg="🚀 Dâhi seviyesine ulaştın. Biz seni NASA’ya öneriyoruz.";
+  document.getElementById("questionBox").textContent = soru.q;
 
- document.getElementById('summary').classList.remove('hidden');
- document.getElementById('summary').innerHTML=`
- <h3>Test Sonucu</h3>
- <p><b>${score}/15</b> doğru cevap verdin.</p>
- <p>${msg}</p>
- <hr>
- <h4>Soru Çözümleri</h4>
- <ul>
- <li>1️⃣ 9 tanesi hariç hepsi ölür → 9 tanesi hayatta 🐑</li>
- <li>2️⃣ Birini açıp kapat, diğeri açık kalsın, üçüncüyü dokunma; ısıyı kontrol et.</li>
- <li>3️⃣ 4→256, her seferinde 4^n gibi gidiyor.</li>
- <li>4️⃣ 1 tur=1.5 m, 40 tur=60 m 🚴‍♂️</li>
- <li>5️⃣ Önce kibriti yakarsın 😉</li>
- <li>6️⃣ 47. gün yarısı doludur çünkü ertesi gün iki katına çıkar.</li>
- <li>7️⃣ 360°/12=30° saatte, 3 saatte 90° döner.</li>
- <li>8️⃣ “BAŞ” + “ARMA” = BAŞARMA → mantıken doğru olur ✅</li>
- <li>9️⃣ Kuzey kutbuna yakın başlarsa başladığı yere döner 🌍</li>
- <li>🔟 5 erkek + 1 kız kardeş = 6 çocuk 👨‍👩‍👧</li>
- <li>11️⃣ 1+2 karşıya geçer (2), 1 geri (3), 5+10 geçer (13), 2 geri (15), 1+2 geçer (17) → 17 dk</li>
- <li>12️⃣ ONE → NEO benzetmesiyle sayı 109 🧩</li>
- <li>13️⃣ Anne şu an 30, çocuk 6 yaşında.</li>
- <li>14️⃣ 4 ÷ 1.2 = 3 elbise dikebilir ✂️</li>
- <li>15️⃣ 12 halka = 11 boşluk + 2 = 22 cm zincir ⛓️</li>
- </ul>
- `;
- window.scrollTo(0,document.body.scrollHeight);
-});
+  const answerBox = document.getElementById("answerBox");
+  answerBox.innerHTML = "<b>Cevap:</b> " + soru.a + "<br><br><b>Açıklama:</b> " + soru.exp;
+
+  document.getElementById("showAnswerBtn").onclick = () => {
+    answerBox.style.display = "block";
+    document.getElementById("showAnswerBtn").style.display = "none";
+  };
 </script>
+
 </body>
 </html>
