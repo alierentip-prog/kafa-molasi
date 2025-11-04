@@ -1,142 +1,157 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kahve Sohbetleri – Sabahın İlk Yudumu</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(to bottom right, #f7f3ef, #eaddcf);
-    color: #3f2f27;
-    padding: 40px 20px;
-    line-height: 1.7;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kahve Sohbetleri 01 | Kafa Molası</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f5ebe0, #e3caa5);
+      color: #4a3728;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
 
-  .container {
-    max-width: 780px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(100, 80, 60, 0.25);
-    margin: 0 auto;
-    padding: 50px 40px;
-    backdrop-filter: blur(6px);
-  }
+    .container {
+      max-width: 760px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(5px);
+      margin: auto;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(120,90,60,0.25);
+      padding: 40px 30px;
+      text-align: justify;
+    }
 
-  h1 {
-    text-align: center;
-    font-size: 1.9rem;
-    color: #5e4632;
-    margin-bottom: 10px;
-  }
+    h1 {
+      text-align: center;
+      color: #5e412f;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
 
-  h2 {
-    text-align: center;
-    font-weight: 500;
-    color: #7b5e47;
-    margin-top: 0;
-    margin-bottom: 40px;
-  }
+    h2 {
+      font-size: 1rem;
+      text-align: center;
+      color: #7b5e43;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
 
-  p {
-    margin-bottom: 16px;
-  }
+    p {
+      margin-bottom: 18px;
+      font-size: 1rem;
+    }
 
-  .coffee-line {
-    text-align: center;
-    font-size: 2.2rem;
-    margin: 20px 0;
-  }
+    .choices {
+      text-align: center;
+      margin: 28px 0;
+    }
 
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 50px;
-  }
+    .choices button {
+      background: #d6b792;
+      color: #3e2c1a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 5px;
+      transition: all 0.2s;
+    }
 
-  .btn {
-    background: #c7a27c;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 14px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 5px 12px rgba(100, 70, 40, 0.3);
-  }
+    .choices button:hover {
+      background: #c49a6c;
+    }
 
-  .btn:hover {
-    background: #a57f5b;
-    box-shadow: 0 7px 16px rgba(100, 70, 40, 0.4);
-    transform: translateY(-1px);
-  }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
 
-  .footer-note {
-    text-align: center;
-    color: #8b7353;
-    margin-top: 40px;
-    font-size: 0.9rem;
-  }
-</style>
+    .nav-buttons a {
+      text-decoration: none;
+      color: #fff;
+      background: #a27b5c;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .nav-buttons a:hover {
+      background: #7b583e;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #7b5e43;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>☕ Kahve Sohbetleri</h1>
-    <h2>Sabahın İlk Yudumu</h2>
+    <h1>☕ Kahve Sohbetleri #1</h1>
+    <h2>“Bir yudum kahve, bir ömürlük farkındalık.”</h2>
 
-    <p>Kahven hazır mı? Sade mi içiyorsun hâlâ, yoksa benim gibi uykusuz gecelerin telafisini süte boğdun mu bu sabah?
-    Fark ettin mi, bazı sabahlar kahve sadece içecek değildir. O, "bugün de geldim" deme şeklidir.
-    Hayata küçük bir selam, kendine bir teşekkürdür. Kahve, sessizliğin tercümanıdır bazen.
-    Çünkü çoğu şeyi anlatmaya gerek kalmadan, sadece yudumlar anlatır.</p>
+    <p>
+      Bugün biraz yavaşlamaya ne dersin?  
+      Hani bazen sadece kahveni karıştırırken bile dünyayı düşünürsün ya — işte o anı yakalayalım.
+    </p>
 
-    <p>Bu sabah nasılsın, gerçekten? Bak öylesine sormuyorum, “iyiyim” deyip geçme.
-    İyilik artık o kadar kolay söylenen bir kelime ki, bazen tadı bile kaçıyor.
-    Ama biliyor musun? İyilik tam da bu anda gizli. O elindeki kupada, pencerenin kenarındaki ışıkta,
-    ve belki şu satırları okurken gözünü kırpmadığın bir saniyede.</p>
+    <p>
+      Bir kahve seç bakalım:  
+    </p>
 
-    <p>Ben hep düşünürüm… Kahvenin ilk yudumu, insana neden bu kadar iyi gelir?
-    Belki de o ilk yudum, günün en dürüst anıdır. Henüz kimse bizden bir şey istememiştir.
-    Telefon çalmamıştır, kimse bir şey sormamıştır. Henüz sadece biz ve kahve vardır.
-    İşte o yüzden o yudumun tadı başka.</p>
-
-    <p>Hatırlıyor musun çocukken sabahları uyanmak bir eziyet değildi?
-    O zamanlar dünya daha yavaştı, kahve kokusu bile yoktu belki ama
-    her şey daha sıcaktı. Şimdi büyüdük. Kahveyi içiyoruz, ama uyanmak hâlâ zor.
-    Belki de uykudan değil, hayal kırıklıklarından kalkamıyoruz. Ama olsun. Biz yine kalkıyoruz.
-    Çünkü bir umut, kahve gibi — hep yeniden demleniyor.</p>
-
-    <p>Sen kahveni nasıl içersin mesela? Sıcak mı, ılık mı?
-    Ben genelde biraz unutuyorum, ılıyınca içiyorum. Hayat da öyle zaten, sıcakken yakıyor, soğuyunca anlamsızlaşıyor.
-    Ilık olan anlar var ya, işte onlar kıymetli. Ne fazla yanan ne donan. Tam kararında yaşanan anlar.</p>
-
-    <p>Şimdi bir soru: Bugün kime kahve ısmarlamak isterdin?
-    Birine özlem mi var içinde, yoksa sadece kendine mi?
-    Bak, kendine kahve ısmarlamak dünyanın en zarif direnişidir.
-    Kimseye değil, sadece “ben buradayım” demektir. Kendine biraz sevgi, biraz mola, biraz da “olabilir” hakkı tanımaktır.</p>
-
-    <p>Şimdi düşün; Bu sabah kaç yaşındasın? Ruhun kaçta kaldı, gözlerin kaçta açıldı?
-    Belki on sekizinde, belki kırkında, belki dünle bugünün ortasında. Yaş değil mesele…
-    Yüreğini kaç kere topladın yerden, kaç kere yeniden kahve koydun kendine, işte asıl yaş o.</p>
-
-    <p>Bir şey diyeyim mi sana? Bugün mucizeler olmayabilir.
-    Belki sadece kahvenin kokusu eşlik eder sana. Ama bazen o koku bile bir mucizedir.
-    Çünkü o an, yalnız değilsin. Ben buradayım, sen oradasın, kahve ortada — ve bu sohbet, belki de günün en insanca kısmı.</p>
-
-    <p>O yüzden kahveni yavaş iç, olur mu? Zamanı değil, kendini kaçırırsın yoksa.
-    Ve eğer bir gün biri sana “neden bu kadar kahve içiyorsun?” derse, gülümse ve şöyle de:
-    “Çünkü sabahın ilk yudumu bana, yaşamanın hâlâ güzel olduğunu hatırlatıyor.” ☕</p>
-
-    <div class="nav-buttons">
-      <a href="kahve-sohbet-15.html"><button class="btn">← Önceki Sohbet</button></a>
-      <a href="kahve-sohbet-2.html"><button class="btn">Sonraki Sohbet →</button></a>
+    <div class="choices">
+      <button>☕ Türk Kahvesi</button>
+      <button>🥛 Latte</button>
+      <button>🍫 Mocha</button>
+      <button>🧊 Soğuk Brew</button>
     </div>
 
-    <div class="footer-note">Kupa bitti, ama sohbet bitmedi. Yeni bir sayfada buluşuruz. ☕</div>
+    <p>
+      Şimdi diyelim ki sen **Latte**’yi seçtin.  
+      Süt köpüğü kadar yumuşak, ama altındaki kahve kadar derin bir insansın belki.  
+      Yorgunsun, ama hâlâ sevecensin. Biraz sakinlik, biraz yalnızlık arıyorsun belki de.
+    </p>
+
+    <p>
+      Peki ya yaşını sorsam?  
+      Yaş dediğin şey sadece rakam değil aslında; içindeki “çocuk” hâlâ kahkahalar atabiliyor mu, onu gösteriyor.
+    </p>
+
+    <p>
+      Eğer şu an “evet, hâlâ gülebiliyorum” diyorsan — o zaman bu sohbet tam sana göre.  
+      Çünkü hayat bazen büyük kararlarla değil, küçük gülümsemelerle toparlanıyor.
+    </p>
+
+    <p>
+      Belki bugün konuşacak kimsen yoktu.  
+      Belki de sadece sessizliğe bir dost aradın.  
+      O zaman şunu bil: Burada hep biri var. Sessiz ama anlayan biri.
+    </p>
+
+    <p>
+      Şimdi derin bir nefes al,  
+      kahveni yudumla,  
+      ve şunu hatırla: “Kahve bitse de, sohbet devam eder.”
+    </p>
+
+    <div class="nav-buttons">
+      <a href="kahve-sohbetleri-00.html">☕ Önceki Sohbet</a>
+      <a href="kahve-sohbetleri-02.html">Sonraki Sohbet 🍪</a>
+    </div>
   </div>
+
+  <footer>© 2025 Kafa Molası | Kahve Sohbetleri</footer>
 
 </body>
 </html>
