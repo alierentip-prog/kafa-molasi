@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kitap Alıntıları | Kafa Molası</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:linear-gradient(135deg,#f5f3ff,#fee2e2);
+      color:#111827;
+      min-height:100vh;
+      padding:32px 16px 40px;
+    }
+    .wrapper{
+      max-width:960px;
+      margin:0 auto;
+      background:rgba(255,255,255,0.94);
+      border-radius:24px;
+      box-shadow:0 14px 32px rgba(148,163,184,0.6);
+      padding:26px 20px 30px;
+    }
+    @media (min-width:768px){
+      .wrapper{padding:30px 30px 34px;}
+    }
+    h1{
+      text-align:center;
+      font-size:1.7rem;
+      margin-bottom:6px;
+    }
+    .subtitle{
+      text-align:center;
+      font-size:0.9rem;
+      color:#6b7280;
+      margin-bottom:16px;
+    }
+    .intro{
+      font-size:0.92rem;
+      color:#4b5563;
+      line-height:1.7;
+      max-width:780px;
+      margin:0 auto 18px auto;
+      text-align:justify;
+    }
+    .soft-note{
+      font-size:0.85rem;
+      color:#9ca3af;
+      text-align:center;
+      margin-bottom:22px;
+    }
+    .category-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:6px;
+    }
+    .cat-card{
+      display:block;
+      background:#f9fafb;
+      border-radius:20px;
+      padding:14px 14px 16px;
+      box-shadow:0 10px 22px rgba(148,163,184,0.5);
+      border:1px solid #e5e7eb;
+      text-decoration:none;
+      color:#111827;
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .cat-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 28px rgba(148,163,184,0.75);
+      background:#ffffff;
+    }
+    .cat-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .cat-emoji{
+      width:36px;
+      height:36px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+    }
+    .bg-pink{background:#fee2e2;}
+    .bg-purple{background:#ede9fe;}
+    .bg-green{background:#dcfce7;}
+    .bg-blue{background:#dbeafe;}
+    .bg-amber{background:#fef3c7;}
+    .bg-sage{background:#e5f4ec;}
+
+    .cat-title{
+      font-size:0.98rem;
+      font-weight:600;
+    }
+    .cat-tag{
+      font-size:0.74rem;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      color:#9ca3af;
+    }
+    .cat-body{
+      font-size:0.85rem;
+      color:#6b7280;
+      margin-top:4px;
+      line-height:1.45;
+    }
+    .cat-footer{
+      margin-top:8px;
+      font-size:0.8rem;
+      color:#9ca3af;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .cat-footer span:last-child{
+      font-size:0.9rem;
+    }
+
+    .back-link{
+      margin-top:22px;
+      text-align:center;
+      font-size:0.85rem;
+    }
+    .back-link a{
+      color:#2563eb;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <h1>📚 Kitap Alıntıları</h1>
+  <div class="subtitle">
+    Kitaplardan düşen cümleleri toplayıp küçük bir mola masasına koyduk.
+  </div>
+
+  <p class="intro">
+    Bazen bir kitap sayfasındaki tek bir cümle, bütün gün bize eşlik eder.
+    Kahvenin yanında, derste, otobüste, uykuya dalmadan hemen önce…
+    <br><br>
+    Bu köşede; aşkı, yalnızlığı, geceyi, değişimi ve kendine şefkat etmeyi
+    anlatan alıntıları <b>moduna göre</b> ayırdık. Aşağıdaki kategorilerden
+    birini seçtiğinde, sadece o duyguya ait satırlar olan sayfaya gideceksin.
+    İstersen hepsini dolaşır, istersen aynı kategoriye hep yeniden dönersin.
+  </p>
+
+  <p class="soft-note">
+    Hazırsan, bugün kalbin hangi raftan bir cümle çekmek istiyor? Aşağıdan bir kategori seç. 💭
+  </p>
+
+  <div class="category-grid">
+
+    <!-- Aşk & İlişki -->
+    <a href="kitap-alintilari-ask.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-pink">❤️</div>
+        <div>
+          <div class="cat-title">Aşk &amp; İlişki</div>
+          <div class="cat-tag">Kalp tarafı</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Yan yana susmalar, yanlış anlaşılmalar, içten dokunan cümleler…
+        İlişkilere, sevgiye ve kalp yorgunluğuna dair alıntılar.
+      </div>
+      <div class="cat-footer">
+        <span>Kalbinle oku.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+    <!-- Yalnızlık & İç Dünya -->
+    <a href="kitap-alintilari-yalnizlik.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-purple">🌙</div>
+        <div>
+          <div class="cat-title">Yalnızlık &amp; İç Dünya</div>
+          <div class="cat-tag">İç ses bölümü</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Kalabalıkta bile içi sessiz olanlara… İç dünyayı, kırılganlığı ve
+        içten içe konuşmaları anlatan satırlar.
+      </div>
+      <div class="cat-footer">
+        <span>Yalnız değilsin.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+    <!-- Umut & Güç Toplama -->
+    <a href="kitap-alintilari-umut.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-green">🌱</div>
+        <div>
+          <div class="cat-title">Umut &amp; Güç Toplama</div>
+          <div class="cat-tag">Derin nefes</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Yorulmuş ama vazgeçmemiş ruhlara… Toparlanmayı, yeniden denemeyi
+        ve küçük güç anlarını hatırlatan alıntılar.
+      </div>
+      <div class="cat-footer">
+        <span>Biraz umut al.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+    <!-- Gece & Sessizlik -->
+    <a href="kitap-alintilari-gece.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-blue">🕯️</div>
+        <div>
+          <div class="cat-title">Gece &amp; Sessizlik</div>
+          <div class="cat-tag">Loş sayfalar</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Lambası sönmeyen odalara… Geceyi, sessizliği, düşüncelerle baş başa kalmayı
+        anlatan yumuşak cümleler.
+      </div>
+      <div class="cat-footer">
+        <span>Geceye eşlik et.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+    <!-- Yolculuk & Değişim -->
+    <a href="kitap-alintilari-yolculuk.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-amber">🚶‍♂️</div>
+        <div>
+          <div class="cat-title">Yolculuk &amp; Değişim</div>
+          <div class="cat-tag">Yoldaki hâl</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Taşınmalar, başlangıçlar, bitişler… Değişmeyi, kaybolmayı ve
+        yön bulmayı anlatan satırlar.
+      </div>
+      <div class="cat-footer">
+        <span>Yola devam.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+    <!-- Kendine İyi Davran -->
+    <a href="kitap-alintilari-kendine.html" class="cat-card">
+      <div class="cat-top">
+        <div class="cat-emoji bg-sage">🤍</div>
+        <div>
+          <div class="cat-title">Kendine İyi Davran</div>
+          <div class="cat-tag">Şefkat köşesi</div>
+        </div>
+      </div>
+      <div class="cat-body">
+        Kendini hep en sona bırakanlara… Öz-değer, şefkat, hata yapma hakkı
+        ve kendini affetmeye dair cümleler.
+      </div>
+      <div class="cat-footer">
+        <span>Önce sen.</span>
+        <span>➡️</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Ana menüye dön</a>
+  </div>
+</div>
+
+</body>
+  </html>
