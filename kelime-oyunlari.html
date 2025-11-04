@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Yanlış Duyulan Sözler Oyunu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{
+    --bg:#f9fafb;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --text:#111827;
+    --muted:#6b7280;
+    --accent:#6366f1;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  .wrap{
+    max-width:960px;
+    margin:20px auto 32px;
+    padding:16px;
+  }
+  h1{
+    font-size:26px;
+    margin:0 0 6px;
+  }
+  .sub{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:16px;
+  }
+  a.back{
+    display:inline-block;
+    margin-bottom:6px;
+    text-decoration:none;
+    color:var(--accent);
+    font-size:14px;
+    font-weight:600;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(15,23,42,0.06);
+    padding:18px 16px 22px;
+  }
+  .question{
+    padding:10px 0 12px;
+    border-bottom:1px dashed var(--border);
+  }
+  .question:last-child{border-bottom:none;}
+  .question p{
+    margin:0 0 6px;
+    font-weight:500;
+  }
+  .phrase{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .options label{
+    display:block;
+    font-size:14px;
+    color:var(--text);
+    margin:2px 0;
+    cursor:pointer;
+  }
+  .options input{
+    margin-right:6px;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .btn{
+    margin-top:18px;
+    padding:10px 18px;
+    border-radius:999px;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+    box-shadow:0 10px 20px rgba(99,102,241,0.35);
+    transition:.15s;
+  }
+  .btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 14px 24px rgba(99,102,241,0.45);
+  }
+  .result{
+    margin-top:20px;
+    padding:14px 12px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#eef2ff;
+    display:none;
+  }
+  .result h2{
+    margin:0 0 6px;
+    font-size:18px;
+  }
+  .result p{
+    margin:4px 0;
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="kelime-oyunlari.html" class="back">← Kelime Oyunları</a>
+  <h1>Yanlış Duyulan / Yanlış Anlaşılan Sözler</h1>
+  <div class="sub">
+    Burada cümleler ciddi, ama senin kafandaki çeviri değil 😏  
+    Her soruda en çok hoşuna giden “yanlış anlamı” işaretle; sonunda ne tarz bir kelime oynatıcısı olduğun çıkacak.
+  </div>
+
+  <div class="card" id="quiz">
+
+    <!-- 1 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“İçinde ukde kalmasın.”</b></div>
+      <p>Bu cümleyi sokak ağzıyla en saçma nasıl yanlış anlarsın?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="A"> “Ukde kim lan, niye içime giriyor?”</label>
+        <label><input type="radio" name="q1" value="B"> “İçimde zaten açlık var, ukdeye yer kalmadı.”</label>
+        <label><input type="radio" name="q1" value="C"> “Demek ki midemde duygusal kitle oluşmuş.”</label>
+        <label><input type="radio" name="q1" value="D"> “Ukde falan kalmasın, kira zaten yetiyor.”</label>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Kendine iyi bak.”</b></div>
+      <p>Bu veda cümlesini nasıl yanlış çözümlersin?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="A"> “Demek ki artık beni kimse bakmayacak, kendi kendimin bakıcısıyım.”</label>
+        <label><input type="radio" name="q2" value="B"> “Kendime iyi bakarsam başkası bana hiç bakmayacak gibi.”</label>
+        <label><input type="radio" name="q2" value="C"> “Bu ‘yolun açık olsun, daha da yazma’ demenin kibar hali.”</label>
+        <label><input type="radio" name="q2" value="D"> “Kendime iyi bakarsam zaten ayrılmazdık, geç kaldın.”</label>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Hayat kısa, kuşlar uçuyor.”</b></div>
+      <p>Bu havalı cümle senden geçince neye dönüşür?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="A"> “Hayat kısa, borçlar uzun; kuş da uçarken bana bakmıyor.”</label>
+        <label><input type="radio" name="q3" value="B"> “Kuşlar uçuyor da bizim bilet niye tek yön?”</label>
+        <label><input type="radio" name="q3" value="C"> “Hayat kısa, uykum uzun; ben kalkamıyorum ondan.”</label>
+        <label><input type="radio" name="q3" value="D"> “Kuşlar uçuyor, biz hâlâ alarmla kavga ediyoruz.”</label>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Zaman her şeyin ilacıdır.”</b></div>
+      <p>Bu cümleyi nasıl bozar, başka yere çekersin?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="A"> “O zaman doktor değil, saatçi olsaydık.”</label>
+        <label><input type="radio" name="q4" value="B"> “Zaman ilaçsa benim doz aşımı çoktan oldu.”</label>
+        <label><input type="radio" name="q4" value="C"> “Zaman ilacı yazmışlar da yanına kahve vermeyi unutmuşlar.”</label>
+        <label><input type="radio" name="q4" value="D"> “İlacını zaman veriyorsa, eczane neden bu kadar pahalı?”</label>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Düşün taşın, sonra karar ver.”</b></div>
+      <p>Bu öğüt sana gelince nasıl saçma bir şeye dönüşür?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="A"> “Ben düşünürken taşınırım, karar veremem.”</label>
+        <label><input type="radio" name="q5" value="B"> “Taşınacak halim yok, düşünce de yoruyor.”</label>
+        <label><input type="radio" name="q5" value="C"> “Düşündüm, taşındım, yine aynı hatayı kiraladım.”</label>
+        <label><input type="radio" name="q5" value="D"> “Ben direkt karar veriyorum, sonra düşünmek için pişman oluyorum.”</label>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Kalbini dinle.”</b></div>
+      <p>Bu romantik tavsiye senin dilinde ne oluyor?</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="A"> “Dinledim, sadece ‘küt küt’ ritm atıyor, söz yok.”</label>
+        <label><input type="radio" name="q6" value="B"> “Kalbimi dinledim, ‘uyuyalım’ dedi, ben de hak verdim.”</label>
+        <label><input type="radio" name="q6" value="C"> “Kalbim konuşunca mantık oyundan atılıyor.”</label>
+        <label><input type="radio" name="q6" value="D"> “Kalbimi dinledim, playlist bozuk; hep aynı şarkı.”</label>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Sen bilirsin.”</b></div>
+      <p>Bu cümlenin aslında ne demek olduğunu en toksik nasıl yorumlarsın?</p>
+      <div class="options">
+        <label><input type="radio" name="q7" value="A"> “%100 ‘yanlış yapacaksın ama susuyorum’ demek.”</label>
+        <label><input type="radio" name="q7" value="B"> “Bu, ‘sonra başıma kakacağım’ın alt yazısı.”</label>
+        <label><input type="radio" name="q7" value="C"> “Aslında ‘bence yapma’ demek ama gurur izin vermiyor.”</label>
+        <label><input type="radio" name="q7" value="D"> “Bu cümlenin sonunda kesin ‘ben demiştim’ var.”</label>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Canın sağ olsun.”</b></div>
+      <p>Bu laf sana gelince nasıl komik bir yere çekersin?</p>
+      <div class="options">
+        <label><input type="radio" name="q8" value="A"> “Canım sağ ama psikolojim yoğun bakımda.”</label>
+        <label><input type="radio" name="q8" value="B"> “Can sağ, banka hesabı koma halinde.”</label>
+        <label><input type="radio" name="q8" value="C"> “Canım sağ olsun da, geçmişim iptal olsa keşke.”</label>
+        <label><input type="radio" name="q8" value="D"> “Can sağ, enerji düşük; şarj aleti lazım.”</label>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Oluruna bırak.”</b></div>
+      <p>Bu rehavet cümlesini hangi yanlış anlam en iyi anlatır?</p>
+      <div class="options">
+        <label><input type="radio" name="q9" value="A"> “Yani ‘sal gitsin, kader bakar’ demek bu.”</label>
+        <label><input type="radio" name="q9" value="B"> “Bırakınca daha beter olur ama olsun, deneyelim.”</label>
+        <label><input type="radio" name="q9" value="C"> “Yani aslında ‘yapmayalım’ diyemedi.”</label>
+        <label><input type="radio" name="q9" value="D"> “Bu cümle tembelliğin felsefi hali gibi.”</label>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question">
+      <div class="phrase">Orijinal söz: <b>“Seni zamana bıraktım.”</b></div>
+      <p>Bu cümleyi duyunca aklından geçen en acı-komik çeviri hangisi?</p>
+      <div class="options">
+        <label><input type="radio" name="q10" value="A"> “Çöpe atamadım, rafa kaldırdım demek istiyor.”</label>
+        <label><input type="radio" name="q10" value="B"> “‘Silmedim ama aramam’ı edebi söylemiş.”</label>
+        <label><input type="radio" name="q10" value="C"> “Beni ‘son kullanma tarihi belirsiz’ klasörüne attı.”</label>
+        <label><input type="radio" name="q10" value="D"> “Bu, ‘ben gittim, sen sonra anlarsın’ın şiirsel hali.”</label>
+      </div>
+    </div>
+
+    <p class="hint">İpucu: Burada doğru cevap yok, sadece kafanın ne kadar yamuk çalıştığını ölçüyoruz. 🙂</p>
+
+    <button class="btn" id="finishBtn">Sonucu Gör</button>
+
+    <div class="result" id="resultBox">
+      <h2>Kelime Oynatma Seviyen 🎭</h2>
+      <p id="resultTitle"></p>
+      <p id="resultText"></p>
+      <p style="font-size:12px;color:#6b7280;margin-top:8px;">
+        İstersen ekran görüntüsü al; “ben cümleleri böyle bozuyordum zaten” diye hava atarsın. 😏
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('finishBtn').addEventListener('click', function(){
+  const counts = {A:0,B:0,C:0,D:0};
+  for(let i=1;i<=10;i++){
+    const sel = document.querySelector('input[name="q'+i+'"]:checked');
+    if(sel){
+      counts[sel.value]++;
+    }
+  }
+
+  const totalAnswered = counts.A + counts.B + counts.C + counts.D;
+  if(totalAnswered === 0){
+    alert("En az birkaç tanesini işaretle kanka; beynin boşta çalışmasın. 🙂");
+    return;
+  }
+
+  let maxLetter = 'A';
+  for(const k of ['B','C','D']){
+    if(counts[k] > counts[maxLetter]) maxLetter = k;
+  }
+
+  let title = "";
+  let text = "";
+
+  if(maxLetter === 'A'){
+    title = "Yanlış Anlam Ustası 😎";
+    text = "Cümle sana bir gelir, senden çıkarken bambaşka bir şeye dönüşür. Klasik sözleri bile mahalle arası yoruma çeviriyorsun. İnsanlar seninle konuşurken ne diyeceklerini değil, senin onu nasıl çarpıtacağını merak ediyor. Tehlikeli ama çok eğlencelisin.";
+  } else if(maxLetter === 'B'){
+    title = "Sokak Çevirmeni 😂";
+    text = "Senin beynin sürekli ‘normal Türkçe → sokak Türkçesi’ çevirisi yapıyor. Ciddi cümleyi alıp gülünç hale getiriyorsun, ama içinde her zaman minik bir gerçek payı var. Arkadaş ortamında altyazı geçsen kimse itiraz etmez.";
+  } else if(maxLetter === 'C'){
+    title = "Dram-Komedi Yorumcusu 🎭";
+    text = "Senin yorumların hem komik, hem hafif acı. Cümleleri eğip büküp içinden duygusal, hafif kırık ama aşırı komik bir şey çıkarıyorsun. İnsanlar sana gülerken ‘dur lan, bu biraz da beni anlattı’ diye düşünmeden edemiyor.";
+  } else if(maxLetter === 'D'){
+    title = "Soğuk Zeka, Sinsi Mizahçı 🧊";
+    text = "Sen kelimeyle kavga etmiyorsun; sakin sakin bakıp en tokatlı haliyle çeviriyorsun. Yorumların kısa, net ve yerinde. Bir cümleyi öyle bir yana çekiyorsun ki, herkes önce susup sonra kahkaha atıyor. Sessiz ama öldürücü mizah sendeki.";
+  }
+
+  const resultBox = document.getElementById('resultBox');
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultText').textContent = text;
+  resultBox.style.display = 'block';
+  resultBox.scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+  </html>
