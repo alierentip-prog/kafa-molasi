@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Şaka Manyağı Mizah Testi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{
+    --bg:#f9fafb;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --text:#111827;
+    --muted:#6b7280;
+    --accent:#2563eb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  .wrap{
+    max-width:960px;
+    margin:20px auto 32px;
+    padding:16px;
+  }
+  h1{
+    font-size:28px;
+    margin:0 0 6px;
+  }
+  .sub{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(15,23,42,0.06);
+    padding:18px 16px 22px;
+  }
+  .question{
+    padding:10px 0 12px;
+    border-bottom:1px dashed var(--border);
+  }
+  .question:last-child{border-bottom:none;}
+  .question p{
+    margin:0 0 6px;
+    font-weight:500;
+  }
+  .options label{
+    display:block;
+    font-size:14px;
+    color:var(--text);
+    margin:2px 0;
+    cursor:pointer;
+  }
+  .options input{
+    margin-right:6px;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .btn{
+    margin-top:18px;
+    padding:10px 18px;
+    border-radius:999px;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+    box-shadow:0 10px 20px rgba(37,99,235,0.35);
+    transition:.15s;
+  }
+  .btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 14px 24px rgba(37,99,235,0.45);
+  }
+  .result{
+    margin-top:20px;
+    padding:14px 12px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#eff6ff;
+    display:none;
+  }
+  .result h2{
+    margin:0 0 6px;
+    font-size:18px;
+  }
+  .result p{
+    margin:4px 0;
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>😂 Şaka Manyağı Mizah Testi</h1>
+  <div class="sub">
+    Soruları okurken ayrı, şıkları okurken ayrı gül diye yazıldı.  
+    İçinden geldiği gibi işaretle; bilimsel değil ama baya eğlenceli bir sonuç alacaksın.
+  </div>
+
+  <div class="card" id="quiz">
+
+    <!-- 1 -->
+    <div class="question">
+      <p>1. Kanka diyor ki: “Diyete başladım.” Elinde de 2 dürüm, 1 ayran var. Ne diyorsun?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="A"> “Diyetisyenin seni görse mesleği bırakır.”</label>
+        <label><input type="radio" name="q1" value="B"> “Bu diyet değil, mideyle barış anlaşması.”</label>
+        <label><input type="radio" name="q1" value="C"> “Lahana suyu story’si de at bari, tam olsun.”</label>
+        <label><input type="radio" name="q1" value="D"> “Kanka bu hızla tartı değil, vicdan çöker.”</label>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question">
+      <p>2. Sınava çalışmak için masaya oturdun, 40 dakika oldu. Kaç dakikası telefonda geçti?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="A"> 39.5, yarım dakika vicdan azabı.</label>
+        <label><input type="radio" name="q2" value="B"> Çalışmaya mı oturmuşum, fark etmemişim.</label>
+        <label><input type="radio" name="q2" value="C"> Sadece bildirim sayısını saydım.</label>
+        <label><input type="radio" name="q2" value="D"> Masaya oturdum, ruhum koltukta kaldı.</label>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question">
+      <p>3. Hoca “neden geç kaldın?” diye sordu. Sen?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="A"> “Hocam ben erken geldim, zaman geç kaldı.”</label>
+        <label><input type="radio" name="q3" value="B"> “Hocam kalbim derse geldi ama vücut yolda kaldı.”</label>
+        <label><input type="radio" name="q3" value="C"> “Hocam alarm çaldı da ben dinlememe kararı aldım.”</label>
+        <label><input type="radio" name="q3" value="D"> “Hocam geç kalmak kader, gelmek irade.”</label>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question">
+      <p>4. Kantin sırası 40 kişi, cebinde 5 TL var. Nasıl ayakta kalıyorsun?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="A"> “Ben para değil, umutla besleniyorum.”</label>
+        <label><input type="radio" name="q4" value="B"> “Belki fiyatlar düşer diye bekliyorum.”</label>
+        <label><input type="radio" name="q4" value="C"> “En azından sosyal deney yapıyorum.”</label>
+        <label><input type="radio" name="q4" value="D"> “Sıranın sonuna değil, hayata girdim.”</label>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question">
+      <p>5. Arkadaşın diyor: “Ben cool bir insanım.” Tepkin?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="A"> “Aynen, dondurma gibisin; iki dakika sonra erirsin.”</label>
+        <label><input type="radio" name="q5" value="B"> “Cool değil, boşta çalışan klima gibisin.”</label>
+        <label><input type="radio" name="q5" value="C"> “Bu havayla en fazla cereyan yaparsın.”</label>
+        <label><input type="radio" name="q5" value="D"> “Cool değil, üşütmüşsün kanka, biraz ısın.”</label>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question">
+      <p>6. Sabah alarm çalıyor, 06:30. İlk düşüncen?</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="A"> “Bu hayatı kim sabah başlatmaya karar verdi?”</label>
+        <label><input type="radio" name="q6" value="B"> “Snooze’a değil, hayata erteleme bastım.”</label>
+        <label><input type="radio" name="q6" value="C"> “Alarm çalıyor, ruh offline.”</label>
+        <label><input type="radio" name="q6" value="D"> “Uyananlara başarı belgesi verilmeli.”</label>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question">
+      <p>7. Arkadaşın “ben duygusalım” diyor, WhatsApp durumunda da siyah-beyaz şarkı sözü var.</p>
+      <div class="options">
+        <label><input type="radio" name="q7" value="A"> “Sen duygusal değilsin, TRT 1 dizisisin.”</label>
+        <label><input type="radio" name="q7" value="B"> “Her gün sezon finali yaşıyorsun galiba.”</label>
+        <label><input type="radio" name="q7" value="C"> “Duygusal değil, dram influencer’ısın.”</label>
+        <label><input type="radio" name="q7" value="D"> “Kalbin değil, story’nin kan ağlıyor.”</label>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question">
+      <p>8. Sınavdan 18 aldın, hoca “çalışsaydın yapardın” dedi. Ne diyorsun içinden?</p>
+      <div class="options">
+        <label><input type="radio" name="q8" value="A"> “Hocam ben çalışınca da kader izin vermiyor.”</label>
+        <label><input type="radio" name="q8" value="B"> “Bu notla moralim, senin maaştan fazla düştü.”</label>
+        <label><input type="radio" name="q8" value="C"> “Ben değil, genlerim tembel.”</label>
+        <label><input type="radio" name="q8" value="D"> “Hocam bu ilişki yürümüyor, ben kalmaya aşığım.”</label>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question">
+      <p>9. Bir ortamda kimse konuşmuyor, sessizlik ağır. Ne yaparsın?</p>
+      <div class="options">
+        <label><input type="radio" name="q9" value="A"> “Bu sessizliği bile taksitle alsak daha hareketli olurdu.”</label>
+        <label><input type="radio" name="q9" value="B"> “Biri nefes alsın, ortam canlansın.”</label>
+        <label><input type="radio" name="q9" value="C"> “Bu ortamı intörn psikoloğa versen ağlar.”</label>
+        <label><input type="radio" name="q9" value="D"> “Ben konuşursam ya komik olur ya atılırız, risk yüksek.”</label>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question">
+      <p>10. Kanka diyor: “Ben aşkı buldum.”</p>
+      <div class="options">
+        <label><input type="radio" name="q10" value="A"> “Nereden aldın, link at bana da.”</label>
+        <label><input type="radio" name="q10" value="B"> “Garanti belgesi var mı, bozulursa iade?”</label>
+        <label><input type="radio" name="q10" value="C"> “Aldığın yer fiş kesmiş mi, sahte olmasın.”</label>
+        <label><input type="radio" name="q10" value="D"> “Bulduysan kaybetmeden kaydet.”</label>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="question">
+      <p>11. Kütüphanede biri sandalyeyi çekip duruyor, 10. kez “cııırt” sesi geldi.</p>
+      <div class="options">
+        <label><input type="radio" name="q11" value="A"> “Sandalye değil, sinirim zımparalanıyor.”</label>
+        <label><input type="radio" name="q11" value="B"> “Kardeşim sandalyeyi değil, hayatını düzelt.”</label>
+        <label><input type="radio" name="q11" value="C"> “Biraz daha çekersen aramızda bağ kuracaksın.”</label>
+        <label><input type="radio" name="q11" value="D"> “O sesle ders değil, cin çağırırsın.”</label>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="question">
+      <p>12. Arkadaşın: “Ben spora başladım.” diyor, elinde 2 gazlı içecek.</p>
+      <div class="options">
+        <label><input type="radio" name="q12" value="A"> “Kanka iç organlarını mı pump’luyorsun?”</label>
+        <label><input type="radio" name="q12" value="B"> “Bu spor değil, içten patlama.”</label>
+        <label><input type="radio" name="q12" value="C"> “Kas yapmıyorsun, karbonhidrat şişiriyorsun.”</label>
+        <label><input type="radio" name="q12" value="D"> “Senin spor ‘forklift’ sporu galiba, hep kaldır indir.”</label>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="question">
+      <p>13. Sınıfta biri çok kötü espri yaptı, birkaç kişi zorla güldü.</p>
+      <div class="options">
+        <label><input type="radio" name="q13" value="A"> “Bu şakaya gülenin zekasına üzülürüm.”</label>
+        <label><input type="radio" name="q13" value="B"> “Zorla gülenlerin sigorta primi yatmalı.”</label>
+        <label><input type="radio" name="q13" value="C"> “Bu şakadan sonra beyin hücrelerim istifa etti.”</label>
+        <label><input type="radio" name="q13" value="D"> “Bu espriye gülmek sağlık riski.”</label>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="question">
+      <p>14. Arkadaşın seni tagleyip “en komik sensin” yazmış. Ne düşünüyorsun?</p>
+      <div class="options">
+        <label><input type="radio" name="q14" value="A"> “Demek ki çevren çok dar.”</label>
+        <label><input type="radio" name="q14" value="B"> “Ben değil, hayat komik.”</label>
+        <label><input type="radio" name="q14" value="C"> “Kanka beni överek sorumluluk yükleme.”</label>
+        <label><input type="radio" name="q14" value="D"> “Mizahın SGK’sı yok, yorulursam kapatırım.”</label>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="question">
+      <p>15. Derse geç kaldın, sınıf dolu, kapıyı açtın herkes sana bakıyor.</p>
+      <div class="options">
+        <label><input type="radio" name="q15" value="A"> “Toplantı mı var, ben niye çağrılmadım?”</label>
+        <label><input type="radio" name="q15" value="B"> “Selam, rezilliğe ben de geldim.”</label>
+        <label><input type="radio" name="q15" value="C"> “Gözler üzerimde, Oscar’ımı alıp çıkıyorum.”</label>
+        <label><input type="radio" name="q15" value="D"> “Geç geldim ama karizmam erken gitti.”</label>
+      </div>
+    </div>
+
+    <!-- 16 -->
+    <div class="question">
+      <p>16. Kanka: “Ben artık olgun bir insanım” diyor, 2 dakika sonra trip atıyor.</p>
+      <div class="options">
+        <label><input type="radio" name="q16" value="A"> “Olgun muz gibi, çabuk çürüyorsun.”</label>
+        <label><input type="radio" name="q16" value="B"> “Olgunluk değil bu, çabuk alınmak.”</label>
+        <label><input type="radio" name="q16" value="C"> “Büyümek başka, şişmek başka kanka.”</label>
+        <label><input type="radio" name="q16" value="D"> “Sen olgun değilsin, sadece yaşın ilerlemiş.”</label>
+      </div>
+    </div>
+
+    <!-- 17 -->
+    <div class="question">
+      <p>17. Yolda yürürken ayağın tökezledi, ama düşmemiş gibi yapıyorsun.</p>
+      <div class="options">
+        <label><input type="radio" name="q17" value="A"> “Parke bozuk, ben değil.”</label>
+        <label><input type="radio" name="q17" value="B"> “Yer çekimiyle kavgalıyız.”</label>
+        <label><input type="radio" name="q17" value="C"> “Şarjım az, o yüzden sendeledim.”</label>
+        <label><input type="radio" name="q17" value="D"> “Düşmedim, sadece yerle yakınlaştım.”</label>
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="question">
+      <p>18. Grup fotoğrafında herkes güzel çıkmış, sen yamuksun.</p>
+      <div class="options">
+        <label><input type="radio" name="q18" value="A"> “Ben mizah unsuru olarak konulmuşum.”</label>
+        <label><input type="radio" name="q18" value="B"> “Silin demiyorum ama üstüme emoji koyun.”</label>
+        <label><input type="radio" name="q18" value="C"> “Ben filtre öncesi hâlini temsil ediyorum.”</label>
+        <label><input type="radio" name="q18" value="D"> “Estetik için önce kamerayla konuşmam lazım.”</label>
+      </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="question">
+      <p>19. Kanka “ben romantik biriyim” diyor, sevgilisine Excel tablosu atmış.</p>
+      <div class="options">
+        <label><input type="radio" name="q19" value="A"> “Bu ne lan, duygusal bilanço mu?”</label>
+        <label><input type="radio" name="q19" value="B"> “Sevgiyle faiz hesaplamışsın.”</label>
+        <label><input type="radio" name="q19" value="C"> “Romantiklik değil, muhasebe bu.”</label>
+        <label><input type="radio" name="q19" value="D"> “Aşkı da vergiye bağlamışsın.”</label>
+      </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="question">
+      <p>20. Bir buluşmaya geç kaldın, “Geliyorum” yazıp 20 dakika daha yatakta kaldın.</p>
+      <div class="options">
+        <label><input type="radio" name="q20" value="A"> “Yalan değil, geliyorum… bir gün.”</label>
+        <label><input type="radio" name="q20" value="B"> “Ruhum önden gitti, beden arkadan gelir.”</label>
+        <label><input type="radio" name="q20" value="C"> “Ben değil, zaman trafiğe takıldı.”</label>
+        <label><input type="radio" name="q20" value="D"> “Geç kalmak benim imza hareketim.”</label>
+      </div>
+    </div>
+
+    <!-- 21 -->
+    <div class="question">
+      <p>21. Arkadaş “ben çok değiştim” diyor, hala aynı saçma şakaları yapıyor.</p>
+      <div class="options">
+        <label><input type="radio" name="q21" value="A"> “Değişen sadece saç şeklin.”</label>
+        <label><input type="radio" name="q21" value="B"> “Update atmışsın ama aynı bug duruyor.”</label>
+        <label><input type="radio" name="q21" value="C"> “Versiyon 2.0 ama içi aynı.”</label>
+        <label><input type="radio" name="q21" value="D"> “Değişmişsin, sadece fark edilmemiş.”</label>
+      </div>
+    </div>
+
+    <!-- 22 -->
+    <div class="question">
+      <p>22. Kütüphanede masaya kafanı koydun, 5 dakika dinleneceğim dedin, 1 saat geçti.</p>
+      <div class="options">
+        <label><input type="radio" name="q22" value="A"> “Uyumadım, bilince ara verdim.”</label>
+        <label><input type="radio" name="q22" value="B"> “Benim RAM doldu, reset attım.”</label>
+        <label><input type="radio" name="q22" value="C"> “Kafamı kitaba koyunca bilgi osmoz oldu.”</label>
+        <label><input type="radio" name="q22" value="D"> “Zaman değil, ben donmuşum.”</label>
+      </div>
+    </div>
+
+    <!-- 23 -->
+    <div class="question">
+      <p>23. Arkadaşların: “Kanka sen çok komiksin” dedi. Ne cevap verirsin?</p>
+      <div class="options">
+        <label><input type="radio" name="q23" value="A"> “Hayat komik, ben tercümanıyım.”</label>
+        <label><input type="radio" name="q23" value="B"> “Gülmek bedava olduğu için seviniyorum.”</label>
+        <label><input type="radio" name="q23" value="C"> “Siz de ucuz eğlence seviyorsunuz.”</label>
+        <label><input type="radio" name="q23" value="D"> “Ben komik değilim, siz fazla yorgunsunuz.”</label>
+      </div>
+    </div>
+
+    <!-- 24 -->
+    <div class="question">
+      <p>24. Biri sana “şaka mısın?” dedi.</p>
+      <div class="options">
+        <label><input type="radio" name="q24" value="A"> “Yok kanka, tadı kaçmış gerçekim.”</label>
+        <label><input type="radio" name="q24" value="B"> “Şakaysam bile senden daha anlamlıyım.”</label>
+        <label><input type="radio" name="q24" value="C"> “Ben şakayım, sen dipnot.”</label>
+        <label><input type="radio" name="q24" value="D"> “Hayatın bana yaptığı tüm şakalara cevabımım.”</label>
+      </div>
+    </div>
+
+    <!-- 25 -->
+    <div class="question">
+      <p>25. Sınav sonuçlarına bakarken yan sıradaki 90 almış, sen 32.</p>
+      <div class="options">
+        <label><input type="radio" name="q25" value="A"> “O sorular bana gelmemiş.”</label>
+        <label><input type="radio" name="q25" value="B"> “Benim kağıtla onlarınki farklı diziden.”</label>
+        <label><input type="radio" name="q25" value="C"> “Kader bana spoiler vermedi.”</label>
+        <label><input type="radio" name="q25" value="D"> “Ben espri, onlar başarı insanı.”</label>
+      </div>
+    </div>
+
+    <!-- 26 -->
+    <div class="question">
+      <p>26. Birine espri yaptın, hiç gülmedi. Ne düşünürsün?</p>
+      <div class="options">
+        <label><input type="radio" name="q26" value="A"> “Gülmedi ama kalbinden belki güldü.”</label>
+        <label><input type="radio" name="q26" value="B"> “İçine atıyorsun, patlayacaksın.”</label>
+        <label><input type="radio" name="q26" value="C"> “Bu şakayı anlamak için güncelleme lazım.”</label>
+        <label><input type="radio" name="q26" value="D"> “Ben sana göre fazla HD’yim.”</label>
+      </div>
+    </div>
+
+    <!-- 27 -->
+    <div class="question">
+      <p>27. Metroda kulaklık takmayı unutmuşsun ve video sesli açıldı.</p>
+      <div class="options">
+        <label><input type="radio" name="q27" value="A"> “Toplu taşımaya ücretsiz yayın yaptım.”</label>
+        <label><input type="radio" name="q27" value="B"> “Bu da benim halka hizmetim.”</label>
+        <label><input type="radio" name="q27" value="C"> “Artık hepimiz aynı videoyu izliyoruz, kaynaştık.”</label>
+        <label><input type="radio" name="q27" value="D"> “Utanmadım, sadece premium utanma kapalı.”</label>
+      </div>
+    </div>
+
+    <!-- 28 -->
+    <div class="question">
+      <p>28. Biri: “Ben sakin bir insanım.” diyor, 10 dakika sonra kavga ediyor.</p>
+      <div class="options">
+        <label><input type="radio" name="q28" value="A"> “Sakinliği deneme sürümüymüş.”</label>
+        <label><input type="radio" name="q28" value="B"> “Sakinliğin garanti süresi dolmuş.”</label>
+        <label><input type="radio" name="q28" value="C"> “Küp şeker gibisin, çabuk eriyorsun.”</label>
+        <label><input type="radio" name="q28" value="D"> “Sakin değil, sessiz öfkeliymişsin.”</label>
+      </div>
+    </div>
+
+    <!-- 29 -->
+    <div class="question">
+      <p>29. Telefonun %1, powerbank de %2.</p>
+      <div class="options">
+        <label><input type="radio" name="q29" value="A"> “Bu ilişki yürümüyor, üçüncü şahıs lazım.”</label>
+        <label><input type="radio" name="q29" value="B"> “İki yorgun savaşçı gibiyiz.”</label>
+        <label><input type="radio" name="q29" value="C"> “Şarja değil mucizeye ihtiyaç var.”</label>
+        <label><input type="radio" name="q29" value="D"> “Bu yüzdeyle hayata bile girmem normalde.”</label>
+      </div>
+    </div>
+
+    <!-- 30 -->
+    <div class="question">
+      <p>30. Kanka, “ben toksik değilim, sadece dürüstüm” diyor.</p>
+      <div class="options">
+        <label><input type="radio" name="q30" value="A"> “Dürüstlükle moral bozmayı karıştırmışsın.”</label>
+        <label><input type="radio" name="q30" value="B"> “Sen gerçekçi değilsin, negatif influencer’sın.”</label>
+        <label><input type="radio" name="q30" value="C"> “Doğruyu söylemek başka, kalp kırmak başka.”</label>
+        <label><input type="radio" name="q30" value="D"> “Toksik değilsin, kimyasal savaş gibisin.”</label>
+      </div>
+    </div>
+
+    <!-- 31 -->
+    <div class="question">
+      <p>31. Arkadaşın “
