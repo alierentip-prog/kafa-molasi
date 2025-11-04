@@ -1,130 +1,149 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bir Dakikalık Mola | Kafa Molası</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(120deg, #1b1b1b, #252a2e, #181818);
-      background-size: 300% 300%;
-      animation: bgFlow 12s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: #fff;
-      font-family: "Poppins", sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bir Dakikalık Mola | Gerçek Zamanlı EKG</title>
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at center, #000000 60%, #010a00 100%);
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  color: #00ff99;
+}
 
-    @keyframes bgFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* Başlık */
+h1 {
+  text-align: center;
+  margin-top: 18px;
+  color: #00ff99;
+  font-weight: 600;
+  text-shadow: 0 0 10px #00ff99;
+}
 
-    canvas {
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 0 40px rgba(255, 0, 50, 0.2);
-    }
+/* EKG ızgarası */
+.grid {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  background-image: linear-gradient(rgba(0,255,80,0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,255,80,0.1) 1px, transparent 1px);
+  background-size: 30px 20px;
+  z-index: 1;
+}
 
-    .breath {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 30px;
-      animation: breathing 6s ease-in-out infinite;
-      color: rgba(255,255,255,0.75);
-      font-size: 1rem;
-    }
+/* EKG çizim alanı */
+canvas {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: 2;
+}
 
-    @keyframes breathing {
-      0%, 100% { transform: scale(1); opacity: 0.6; }
-      50% { transform: scale(1.25); opacity: 1; }
-    }
+/* Nefes dairesi */
+#breath {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00ff99;
+  box-shadow: 0 0 15px #00ff99;
+  opacity: 0.6;
+  animation: breathe 6s ease-in-out infinite;
+  z-index: 3;
+}
 
-    .flash {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.05);
-      opacity: 0;
-      pointer-events: none;
-    }
-  </style>
+@keyframes breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+}
+
+/* Alt yazı */
+footer {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  color: #00ffaa;
+  text-shadow: 0 0 10px #00ff99;
+}
+</style>
 </head>
 <body>
+  <h1>🫀 Gerçek Zamanlı Kalp Ritim Ekranı</h1>
+  <div class="grid"></div>
+  <canvas id="ekg"></canvas>
+  <div id="breath"></div>
+  <footer>Bir dakikalık molan devam ediyor...</footer>
 
-  <div class="breath">Nefes al...</div>
-  <canvas id="ekg" width="900" height="250"></canvas>
-  <div class="flash" id="flash"></div>
+<script>
+const canvas = document.getElementById('ekg');
+const ctx = canvas.getContext('2d');
+let width, height;
+let t = 0;
 
-  <script>
-    const canvas = document.getElementById("ekg");
-    const ctx = canvas.getContext("2d");
-    const flash = document.getElementById("flash");
-    const width = canvas.width;
-    const height = canvas.height;
-    let x = 0;
-    let points = [];
+function resize() {
+  width = window.innerWidth;
+  height = window.innerHeight * 0.75;
+  canvas.width = width;
+  canvas.height = height;
+}
+resize();
+window.addEventListener('resize', resize);
 
-    function ekgWave(t) {
-      // temel sinüs ritmi + hafif rastgele varyasyon
-      const base = Math.sin(t * 0.05) * 0.2;
-      const noise = (Math.random() - 0.5) * 0.05;
-      let y = base + noise;
+const leads = [
+  "I","II","III","aVR","aVL","aVF","V1","V2","V3","V4","V5","V6"
+];
+const spacing = height / (leads.length + 1);
+const colors = ["#00ff99","#00ff80","#00ffaa","#00ff99","#00ffb3","#00ff80",
+                "#00ffaa","#00ff99","#00ff80","#00ffb3","#00ffaa","#00ff99"];
 
-      // R dalgası (yaklaşık her 120px’de bir)
-      if (t % 120 === 0) {
-        y = -1.5;
-        flashPulse();
-      }
-      // S-T segment
-      if (t % 120 === 2) y = 1;
-      if (t % 120 === 8) y = 0.4;
+function drawECG() {
+  ctx.clearRect(0, 0, width, height);
+  t += 0.03;
 
-      return y;
+  for (let i = 0; i < leads.length; i++) {
+    const yBase = (i + 1) * spacing;
+    ctx.beginPath();
+    ctx.moveTo(0, yBase);
+    for (let x = 0; x < width; x++) {
+      const signal = Math.sin(x * 0.03 + t + i * 0.5) * 8 + // dalga
+                     (Math.random() - 0.5) * 1.5 +          // rastgele gürültü
+                     ekgPulse(x, t + i);                     // QRS kompleksi
+      ctx.lineTo(x, yBase - signal);
     }
+    ctx.strokeStyle = colors[i];
+    ctx.lineWidth = 1.3;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = colors[i];
+    ctx.stroke();
 
-    function flashPulse() {
-      flash.style.opacity = 0.5;
-      setTimeout(() => (flash.style.opacity = 0), 100);
-    }
+    // Lead etiketi
+    ctx.font = "14px Poppins";
+    ctx.fillStyle = "#00ffaa";
+    ctx.fillText(leads[i], 10, yBase - 25);
+  }
 
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-      ctx.fillRect(0, 0, width, height);
+  requestAnimationFrame(drawECG);
+}
 
-      ctx.beginPath();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#ff0033";
-      let t = points.length;
-      const y = height / 2 + ekgWave(t) * 80;
-      points.push(y);
+function ekgPulse(x, time) {
+  const phase = (x / width + time * 0.15) % 1;
+  if (phase < 0.02) return -20; // Q
+  if (phase < 0.04) return 35;  // R
+  if (phase < 0.07) return -15; // S
+  if (phase < 0.1) return 5;    // T
+  return 0;
+}
 
-      if (points.length > width) points.shift();
-
-      ctx.moveTo(0, points[0]);
-      for (let i = 1; i < points.length; i++) {
-        ctx.lineTo(i, points[i]);
-      }
-
-      ctx.stroke();
-      requestAnimationFrame(draw);
-    }
-
-    draw();
-  </script>
-
+drawECG();
+</script>
 </body>
 </html>
