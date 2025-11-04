@@ -1,138 +1,130 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kafa Molası – Kolay Beyin Egzersizi</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to bottom right, #e0f2fe, #fef3c7);
-    margin: 0; padding: 0;
-    color: #0f172a;
-  }
-  .container {
-    max-width: 800px;
-    margin: 40px auto;
-    background: white;
-    padding: 20px 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  }
-  h1 { text-align: center; margin-bottom: 10px; font-size: 1.6rem; }
-  .question { margin-bottom: 20px; }
-  .options button {
-    display: block;
-    margin: 6px 0;
-    padding: 8px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    background: #f9fafb;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .options button:hover { background: #f1f5f9; }
-  .result { font-weight: 600; margin-top: 6px; }
-  .hidden { display: none; }
-  #finish { display: block; margin: 20px auto; padding: 10px 20px; border: none; border-radius: 10px; background: #2563eb; color: white; font-weight: 600; cursor: pointer; }
-  #finish:hover { background: #1d4ed8; }
-  #summary {
-    margin-top: 25px; padding: 15px;
-    background: #f0fdfa; border-radius: 12px;
-    border: 1px solid #a7f3d0;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Günün Beyin Egzersizi – Kolay | Kafa Molası</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:linear-gradient(135deg,#e0f2fe,#fef9c3);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 12px;
+      color:#111827;
+    }
+    .card{
+      max-width:720px;
+      width:100%;
+      background:rgba(255,255,255,0.96);
+      border-radius:22px;
+      padding:24px 20px;
+      box-shadow:0 12px 30px rgba(148,163,184,0.6);
+    }
+    h1{text-align:center;font-size:1.4rem;margin-bottom:6px;}
+    .tag{text-align:center;font-size:0.85rem;color:#6b7280;margin-bottom:16px;}
+    .date{text-align:center;font-size:0.8rem;color:#9ca3af;margin-bottom:12px;}
+    .question-box{
+      background:#eff6ff;
+      border-radius:16px;
+      border:1px solid #bfdbfe;
+      padding:14px 12px;
+      margin-bottom:16px;
+      font-size:0.97rem;
+    }
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:8px 16px;
+      font-size:0.9rem;
+      font-weight:500;
+      background:linear-gradient(to right,#22c55e,#14b8a6);
+      color:#ecfdf5;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(34,197,94,0.5);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .answer{
+      display:none;
+      margin-top:14px;
+      padding:12px 10px;
+      border-radius:14px;
+      background:#ecfdf5;
+      border:1px solid #bbf7d0;
+      font-size:0.95rem;
+    }
+    .footer{
+      margin-top:18px;
+      font-size:0.82rem;
+      color:#6b7280;
+      text-align:center;
+    }
+    .back{
+      margin-top:14px;
+      text-align:center;
+      font-size:0.85rem;
+    }
+    .back a{
+      color:#2563eb;
+      text-decoration:none;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>🧠 Kolay Seviye – “Maymundan Farkın Var mı?”</h1>
-  <p>Her sorudan sonra sadece doğru/yanlış göreceksin.  
-  Test bitince de senin zekâya ufak bir tahlil yapacağız 😏</p>
-  <hr>
 
-  <div id="quiz"></div>
+<div class="card">
+  <h1>🧠 Günün Beyin Egzersizi – Kolay</h1>
+  <div class="tag">“Maymundan farkımızı nazikçe hatırlatıyoruz.”</div>
+  <div class="date" id="todayText"></div>
 
-  <button id="finish">Testi Bitir</button>
+  <div id="questionBox" class="question-box">
+    Yükleniyor...
+  </div>
 
-  <div id="summary" class="hidden"></div>
+  <button class="btn" id="showAnswerBtn">✨ Cevabı Göster</button>
+
+  <div id="answerBox" class="answer"></div>
+
+  <div class="footer">
+    Her gün tek soru, minik bir ısınma.  
+    Beynini yakmadan, hafifçe dürtüyoruz sadece.
+  </div>
+
+  <div class="back">
+    <a href="beyin-egzersizi.html">← Beyin Egzersizi menüsüne dön</a>
+  </div>
 </div>
 
+<script src="beyin-havuzlar.js"></script>
 <script>
-const questions = [
-  {q: "Bir kilo pamuk mu daha ağırdır, bir kilo demir mi?", options: ["Pamuk", "Demir", "Eşit", "Bilmiyorum"], correct: 2},
-  {q: "Tavuk önce mi gelir, yumurta mı?", options: ["Tavuk", "Yumurta", "İkisi aynı anda", "Bu soru saçma"], correct: 1},
-  {q: "Bir masada 5 elma var, 2'sini alırsan kaç elman olur?", options: ["3", "2", "5", "Hiç"], correct: 1},
-  {q: "Ayşe’nin babasının 5 kızı var: Lala, Lili, Lolo, Lulu ve ...?", options: ["Lala", "Lili", "Lulu", "Ayşe"], correct: 3},
-  {q: "Bir otobüste 10 kişi var. 3 kişi indi, 5 kişi bindi. Şoför dahil kaç kişi var?", options: ["12", "13", "11", "10"], correct: 0},
-  {q: "Bir yarışta 2.’yi geçersen kaçıncı olursun?", options: ["1.", "2.", "3.", "5."], correct: 1},
-  {q: "Türkiye'nin başkenti hangisidir?", options: ["İstanbul", "Ankara", "İzmir", "Bursa"], correct: 1},
-  {q: "5’in yarısının yarısı kaçtır?", options: ["1", "1.25", "2.5", "0.5"], correct: 1},
-  {q: "Bir saat 12 kere çalıyor, 12 çalması 12 saniye sürüyor. 6 kere çalması kaç saniye sürer?", options: ["6", "7", "5", "3"], correct: 1},
-  {q: "Aşağıdakilerden hangisi suyun hali değildir?", options: ["Katı", "Sıvı", "Gaz", "Lazanya"], correct: 3}
-];
+  // Tarih yazısı
+  const now = new Date();
+  const gunler = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+  const aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+  document.getElementById("todayText").textContent =
+    gunler[now.getDay()] + ", " + now.getDate() + " " + aylar[now.getMonth()] + " " + now.getFullYear();
 
-let score = 0;
+  // Bugüne göre soru seç
+  const havuz = KOLAY_HAVUZ;
+  const index = now.getDate() % havuz.length; // ay gününe göre
+  const soru = havuz[index];
 
-const quizDiv = document.getElementById('quiz');
-questions.forEach((q, i) => {
-  const qDiv = document.createElement('div');
-  qDiv.classList.add('question');
-  qDiv.innerHTML = `<p><b>${i+1}.</b> ${q.q}</p>`;
-  const optDiv = document.createElement('div');
-  optDiv.classList.add('options');
-  q.options.forEach((opt, idx) => {
-    const btn = document.createElement('button');
-    btn.textContent = opt;
-    btn.addEventListener('click', () => {
-      if (!btn.classList.contains('answered')) {
-        if (idx === q.correct) {
-          btn.style.background = "#bbf7d0";
-          qDiv.insertAdjacentHTML('beforeend', `<div class='result'>✔ Doğru!</div>`);
-          score++;
-        } else {
-          btn.style.background = "#fecaca";
-          qDiv.insertAdjacentHTML('beforeend', `<div class='result'>❌ Yanlış</div>`);
-        }
-        const allBtns = optDiv.querySelectorAll('button');
-        allBtns.forEach(b => b.disabled = true);
-      }
-    });
-    optDiv.appendChild(btn);
-  });
-  qDiv.appendChild(optDiv);
-  quizDiv.appendChild(qDiv);
-});
+  document.getElementById("questionBox").textContent = soru.q;
 
-document.getElementById('finish').addEventListener('click', () => {
-  let msg = "";
-  if (score <= 3) msg = "Maymundan hallice... Ama seviyoruz seni, az daha düşün hacım 🐒";
-  else if (score <= 6) msg = "Zekâ yerinde ama bazen kafan karpuz gibi dağınık 🍉";
-  else if (score <= 8) msg = "Sen zekiymişsin be! Hafif şapşallık karizmaya dönüşmüş 😎";
-  else msg = "Sen dâhisin hacım, hatta biz bile soruları sana sorabiliriz 🧠🔥";
+  const answerBox = document.getElementById("answerBox");
+  answerBox.innerHTML = "<b>Cevap:</b> " + soru.a + "<br><br><b>Açıklama:</b> " + soru.exp;
 
-  document.getElementById('summary').classList.remove('hidden');
-  document.getElementById('summary').innerHTML = `
-    <h3>Test Sonucu</h3>
-    <p><b>${score}/10</b> doğru cevap verdin.</p>
-    <p>${msg}</p>
-    <hr>
-    <h4>Soru Çözümleri</h4>
-    <ul>
-      <li>1️⃣ İkisi de 1 kilo – fizik kurallarıyla dalga geçilmez 😏</li>
-      <li>2️⃣ Yumurta çünkü tavuk ondan çıkar, Darwin ağlar.</li>
-      <li>3️⃣ Sen 2 elmayı aldın, senin elinde 2 elma var mantık burda 🍎</li>
-      <li>4️⃣ Ayşe’nin babasıydı, beşinci kız Ayşe.</li>
-      <li>5️⃣ 10 - 3 + 5 = 12, şoför dahil 12 kişi 🚌</li>
-      <li>6️⃣ 2.’yi geçersen 2. olursun, hayal kurma Usain Bolt değilsin 😅</li>
-      <li>7️⃣ Ankara, İstanbul’un gölgesinde kaldı ama başkenttir.</li>
-      <li>8️⃣ 5’in yarısı 2.5, onun yarısı 1.25 💡</li>
-      <li>9️⃣ 11 aralık var, yani 11 saniyede 12 çalıyor. 6 çalmak için 5 aralık = 5.5–6 sn arası ⏰</li>
-      <li>🔟 Lazanya çünkü mutfakta suyun hâli değil, senin akşam yemeğin 🍝</li>
-    </ul>
-  `;
-  window.scrollTo(0, document.body.scrollHeight);
-});
+  document.getElementById("showAnswerBtn").onclick = () => {
+    answerBox.style.display = "block";
+    document.getElementById("showAnswerBtn").style.display = "none";
+  };
 </script>
+
 </body>
 </html>
