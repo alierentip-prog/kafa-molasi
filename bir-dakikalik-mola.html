@@ -1,143 +1,130 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1 Dakikalık Mola | 12 Derivasyonlu EKG</title>
-<style>
-  * {margin:0; padding:0; box-sizing:border-box;}
-  body {
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(-45deg,#f6d365,#fda085,#84fab0,#8fd3f4);
-    background-size:400% 400%;
-    animation:bgShift 15s ease infinite;
-    overflow:hidden;
-    font-family:"Poppins", sans-serif;
-    color:white;
-  }
-  @keyframes bgShift {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bir Dakikalık Mola | Kafa Molası</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(120deg, #1b1b1b, #252a2e, #181818);
+      background-size: 300% 300%;
+      animation: bgFlow 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+    }
 
-  h1 {
-    font-size:1.6rem;
-    margin-bottom:15px;
-    text-shadow:0 0 8px rgba(255,255,255,0.5);
-  }
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  .ekg-container {
-    width:95%;
-    max-width:900px;
-    height:70%;
-    display:grid;
-    grid-template-columns:repeat(1,1fr);
-    grid-auto-rows:minmax(30px,auto);
-    overflow:hidden;
-    border-radius:10px;
-    background:rgba(255,255,255,0.05);
-    box-shadow:0 0 15px rgba(0,0,0,0.3) inset;
-    padding:15px;
-  }
+    canvas {
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 0 40px rgba(255, 0, 50, 0.2);
+    }
 
-  .lead {
-    display:flex;
-    align-items:center;
-    font-size:0.8rem;
-    color:rgba(255,255,255,0.8);
-    margin-bottom:4px;
-  }
+    .breath {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      animation: breathing 6s ease-in-out infinite;
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+    }
 
-  .lead-name {
-    width:50px;
-    text-align:right;
-    margin-right:10px;
-  }
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.25); opacity: 1; }
+    }
 
-  .wave {
-    flex:1;
-    height:30px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .wave svg {
-    position:absolute;
-    top:0;
-    left:0;
-    width:200%;
-    height:100%;
-    stroke:white;
-    stroke-width:2;
-    fill:none;
-    opacity:0.85;
-    animation:move 3s linear infinite;
-  }
-
-  @keyframes move {
-    from {transform:translateX(0);}
-    to {transform:translateX(-50%);}
-  }
-
-  .circle {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.1);
-    box-shadow:0 0 25px rgba(255,255,255,0.2);
-    animation:breath 8s ease-in-out infinite;
-    z-index:1;
-  }
-
-  @keyframes breath {
-    0% {transform:translate(-50%,-50%) scale(1);}
-    50% {transform:translate(-50%,-50%) scale(1.2);}
-    100% {transform:translate(-50%,-50%) scale(1);}
-  }
-
-  .overlay-text {
-    position:absolute;
-    top:40%;
-    font-size:1.2rem;
-    opacity:0;
-    animation:fadeText 10s ease-in-out infinite;
-    text-align:center;
-  }
-
-  @keyframes fadeText {
-    0%,20% {opacity:0;}
-    25%,45% {opacity:1;}
-    60%,100% {opacity:0;}
-  }
-
-</style>
+    .flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.05);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="circle"></div>
-  <div class="overlay-text">Kalp hâlâ çalışıyor.<br>Sen de nefes al.</div>
-  <h1>1 Dakikalık Mola – 12 Derivasyonlu EKG</h1>
-  <div class="ekg-container">
-    <div class="lead"><div class="lead-name">I</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 20,10 30,4 35,16 40,10 80,10 100,8 110,12 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">II</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 25,10 35,2 45,18 55,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">III</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 30,10 40,6 50,14 60,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">aVR</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 25,10 30,14 35,6 40,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">aVL</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 30,10 40,6 50,14 60,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">aVF</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 20,10 30,3 40,17 50,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V1</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 25,10 35,8 40,12 45,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V2</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 30,10 35,2 45,18 55,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V3</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 30,10 38,3 46,17 52,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V4</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 25,10 35,1 45,18 55,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V5</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 25,10 35,1 45,18 55,10 200,10"/></svg></div></div>
-    <div class="lead"><div class="lead-name">V6</div><div class="wave"><svg viewBox="0 0 200 20"><polyline points="0,10 20,10 30,2 40,17 50,10 200,10"/></svg></div></div>
-  </div>
+
+  <div class="breath">Nefes al...</div>
+  <canvas id="ekg" width="900" height="250"></canvas>
+  <div class="flash" id="flash"></div>
+
+  <script>
+    const canvas = document.getElementById("ekg");
+    const ctx = canvas.getContext("2d");
+    const flash = document.getElementById("flash");
+    const width = canvas.width;
+    const height = canvas.height;
+    let x = 0;
+    let points = [];
+
+    function ekgWave(t) {
+      // temel sinüs ritmi + hafif rastgele varyasyon
+      const base = Math.sin(t * 0.05) * 0.2;
+      const noise = (Math.random() - 0.5) * 0.05;
+      let y = base + noise;
+
+      // R dalgası (yaklaşık her 120px’de bir)
+      if (t % 120 === 0) {
+        y = -1.5;
+        flashPulse();
+      }
+      // S-T segment
+      if (t % 120 === 2) y = 1;
+      if (t % 120 === 8) y = 0.4;
+
+      return y;
+    }
+
+    function flashPulse() {
+      flash.style.opacity = 0.5;
+      setTimeout(() => (flash.style.opacity = 0), 100);
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ff0033";
+      let t = points.length;
+      const y = height / 2 + ekgWave(t) * 80;
+      points.push(y);
+
+      if (points.length > width) points.shift();
+
+      ctx.moveTo(0, points[0]);
+      for (let i = 1; i < points.length; i++) {
+        ctx.lineTo(i, points[i]);
+      }
+
+      ctx.stroke();
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+
 </body>
 </html>
