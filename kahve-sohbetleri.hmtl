@@ -1,152 +1,99 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kahve Sohbetleri | Kafa Molası</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to bottom right, #f5ebe0, #e3caa5);
-      color: #4a3728;
-      line-height: 1.7;
-      padding: 40px 20px;
-    }
-
-    .container {
-      max-width: 760px;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(6px);
-      margin: auto;
-      border-radius: 22px;
-      box-shadow: 0 10px 25px rgba(120,90,60,0.25);
-      padding: 40px 30px;
-      text-align: justify;
-    }
-
-    h1 {
-      text-align: center;
-      color: #5e412f;
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-size: 1rem;
-      text-align: center;
-      color: #7b5e43;
-      margin-bottom: 30px;
-      font-weight: 400;
-    }
-
-    p { margin-bottom: 18px; font-size: 1rem; }
-
-    .choices {
-      text-align: center;
-      margin: 28px 0;
-    }
-
-    .choices button {
-      background: #d6b792;
-      color: #3e2c1a;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      margin: 5px;
-      transition: all 0.2s;
-    }
-
-    .choices button:hover { background: #c49a6c; }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 40px;
-    }
-
-    .nav-buttons a {
-      text-decoration: none;
-      color: #fff;
-      background: #a27b5c;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-
-    .nav-buttons a:hover { background: #7b583e; }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      color: #7b5e43;
-      font-size: 0.85rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kahve Sohbetleri | Kafa Molası</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #e5c9a4, #f7f3eb);
+  color: #4a3728;
+  line-height: 1.7;
+  padding: 40px 20px;
+}
+.container {
+  max-width: 760px;
+  margin: auto;
+  background: rgba(255,255,255,0.9);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 40px 30px;
+}
+h1 {
+  text-align: center;
+  color: #5e412f;
+  font-size: 1.8rem;
+}
+h2 {
+  text-align: center;
+  color: #7b5e43;
+  margin-bottom: 25px;
+}
+p { margin-bottom: 18px; font-size: 1rem; }
+.choices { text-align: center; margin: 25px 0; }
+.choices button {
+  background: #d6b792;
+  color: #3e2c1a;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 5px;
+  transition: 0.2s;
+}
+.choices button:hover { background: #c49a6c; }
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.nav-buttons a {
+  text-decoration: none;
+  color: #fff;
+  background: #a27b5c;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+footer {
+  text-align: center;
+  margin-top: 50px;
+  color: #7b5e43;
+  font-size: 0.85rem;
+}
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>☕ Kahve Sohbetleri #1</h1>
-    <h2>“Bir yudum kahve, bir ömürlük farkındalık.”</h2>
+<div class="container">
+  <h1>☕ Kahve Sohbetleri #1</h1>
+  <h2>“Bir yudum kahve, bir ömürlük farkındalık.”</h2>
 
-    <p>
-      Bugün biraz yavaşlamaya ne dersin?  
-      Hani bazen sadece kahveni karıştırırken bile dünyayı düşünürsün ya — işte o anı yakalayalım.
-    </p>
+  <p>Bugün biraz yavaşlamaya ne dersin? Hani bazen sadece kahveni karıştırırken bile dünyayı düşünürsün ya — işte o anı yakalayalım.</p>
+  <p>Bir kahve seç bakalım:</p>
 
-    <p>
-      Bir kahve seç bakalım:
-    </p>
-
-    <div class="choices">
-      <button>☕ Türk Kahvesi</button>
-      <button>🥛 Latte</button>
-      <button>🍫 Mocha</button>
-      <button>🧊 Soğuk Brew</button>
-    </div>
-
-    <p>
-      Diyelim ki Latte seçtin.  
-      Süt köpüğü kadar yumuşak, ama altındaki kahve kadar derin bir ruhun var.  
-      Yorgunsun belki ama hâlâ sevecensin. Belki biraz sessizlik, biraz huzur arıyorsun.
-    </p>
-
-    <p>
-      Kaç yaşındasın?  
-      Düşünme bile — yaş değil, kahkahanın tınısı anlatır seni.  
-      Hâlâ içindeki çocuğa gülümseyebiliyorsan, bu sohbet tam sana göre.
-    </p>
-
-    <p>
-      Çünkü biliyor musun, hayat bazen büyük kararlarla değil, küçük gülümsemelerle toparlanır.  
-      Bugün sadece bir kahve molası değil, küçük bir farkındalık da alıyorsun aslında.
-    </p>
-
-    <p>
-      Belki kimseyle konuşmadın bugün. Belki sadece sessizliğe bir dost aradın.  
-      O dost burda, şu cümlenin içinde saklı.  
-      Sadece “merhaba” desen bile, anlaşıldığını hissedeceksin.
-    </p>
-
-    <p>
-      Şimdi derin bir nefes al,  
-      kahveni yudumla,  
-      ve unutma: Kahve biter, ama sohbet kalır.
-    </p>
-
-    <div class="nav-buttons">
-      <a href="mini-dergi.html">☕ Ana Menüye Dön</a>
-      <a href="kahve-sohbetleri-02.html">Sonraki Sohbet 🍪</a>
-    </div>
+  <div class="choices">
+    <button>☕ Türk Kahvesi</button>
+    <button>🥛 Latte</button>
+    <button>🍫 Mocha</button>
+    <button>🧊 Soğuk Brew</button>
   </div>
 
-  <footer>© 2025 Kafa Molası | Kahve Sohbetleri</footer>
+  <p>Diyelim ki Latte seçtin. Süt köpüğü kadar yumuşak, ama altındaki kahve kadar derin bir ruhun var. Yorgunsun belki ama hâlâ sevecensin.</p>
+  <p>Kaç yaşındasın? Yaş değil, kahkahanın tınısı anlatır seni. Hâlâ içindeki çocuğa gülümseyebiliyorsan, bu sohbet tam sana göre.</p>
+  <p>Belki kimseyle konuşmadın bugün. Belki sadece sessizliğe bir dost aradın. O dost burada, bu cümlenin içinde.</p>
+
+  <div class="nav-buttons">
+    <a href="index.html">🏡 Ana Menü</a>
+    <a href="kahve-sohbetleri-02.html">Sonraki Sohbet 🍪</a>
+  </div>
+</div>
+
+<footer>© 2025 Kafa Molası | Kahve Sohbetleri</footer>
 
 </body>
 </html>
