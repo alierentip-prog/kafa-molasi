@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kahve Sohbetleri 01 | Kafa Molası</title>
+  <title>Kahve Sohbetleri | Kafa Molası</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -18,7 +19,7 @@
     .container {
       max-width: 760px;
       background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(6px);
       margin: auto;
       border-radius: 22px;
       box-shadow: 0 10px 25px rgba(120,90,60,0.25);
@@ -41,10 +42,7 @@
       font-weight: 400;
     }
 
-    p {
-      margin-bottom: 18px;
-      font-size: 1rem;
-    }
+    p { margin-bottom: 18px; font-size: 1rem; }
 
     .choices {
       text-align: center;
@@ -63,9 +61,7 @@
       transition: all 0.2s;
     }
 
-    .choices button:hover {
-      background: #c49a6c;
-    }
+    .choices button:hover { background: #c49a6c; }
 
     .nav-buttons {
       display: flex;
@@ -83,9 +79,7 @@
       transition: background 0.2s;
     }
 
-    .nav-buttons a:hover {
-      background: #7b583e;
-    }
+    .nav-buttons a:hover { background: #7b583e; }
 
     footer {
       text-align: center;
@@ -107,7 +101,7 @@
     </p>
 
     <p>
-      Bir kahve seç bakalım:  
+      Bir kahve seç bakalım:
     </p>
 
     <div class="choices">
@@ -118,35 +112,36 @@
     </div>
 
     <p>
-      Şimdi diyelim ki sen **Latte**’yi seçtin.  
-      Süt köpüğü kadar yumuşak, ama altındaki kahve kadar derin bir insansın belki.  
-      Yorgunsun, ama hâlâ sevecensin. Biraz sakinlik, biraz yalnızlık arıyorsun belki de.
+      Diyelim ki Latte seçtin.  
+      Süt köpüğü kadar yumuşak, ama altındaki kahve kadar derin bir ruhun var.  
+      Yorgunsun belki ama hâlâ sevecensin. Belki biraz sessizlik, biraz huzur arıyorsun.
     </p>
 
     <p>
-      Peki ya yaşını sorsam?  
-      Yaş dediğin şey sadece rakam değil aslında; içindeki “çocuk” hâlâ kahkahalar atabiliyor mu, onu gösteriyor.
+      Kaç yaşındasın?  
+      Düşünme bile — yaş değil, kahkahanın tınısı anlatır seni.  
+      Hâlâ içindeki çocuğa gülümseyebiliyorsan, bu sohbet tam sana göre.
     </p>
 
     <p>
-      Eğer şu an “evet, hâlâ gülebiliyorum” diyorsan — o zaman bu sohbet tam sana göre.  
-      Çünkü hayat bazen büyük kararlarla değil, küçük gülümsemelerle toparlanıyor.
+      Çünkü biliyor musun, hayat bazen büyük kararlarla değil, küçük gülümsemelerle toparlanır.  
+      Bugün sadece bir kahve molası değil, küçük bir farkındalık da alıyorsun aslında.
     </p>
 
     <p>
-      Belki bugün konuşacak kimsen yoktu.  
-      Belki de sadece sessizliğe bir dost aradın.  
-      O zaman şunu bil: Burada hep biri var. Sessiz ama anlayan biri.
+      Belki kimseyle konuşmadın bugün. Belki sadece sessizliğe bir dost aradın.  
+      O dost burda, şu cümlenin içinde saklı.  
+      Sadece “merhaba” desen bile, anlaşıldığını hissedeceksin.
     </p>
 
     <p>
       Şimdi derin bir nefes al,  
       kahveni yudumla,  
-      ve şunu hatırla: “Kahve bitse de, sohbet devam eder.”
+      ve unutma: Kahve biter, ama sohbet kalır.
     </p>
 
     <div class="nav-buttons">
-      <a href="kahve-sohbetleri-00.html">☕ Önceki Sohbet</a>
+      <a href="mini-dergi.html">☕ Ana Menüye Dön</a>
       <a href="kahve-sohbetleri-02.html">Sonraki Sohbet 🍪</a>
     </div>
   </div>
