@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komik Bilgiler 🤪 | Kafa Molası</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #fff7ed, #fff0f6);
+    color: #333;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    color: #42210b;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: #6b4226;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--color);
+    color: #2b1d0e;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #6b4226;
+  }
+
+  footer a {
+    text-decoration: none;
+    background: #a27b5c;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    margin: 0 6px;
+    transition: 0.2s;
+  }
+
+  footer a:hover {
+    background: #7b583e;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤪 Komik Bilgiler – Renkli Edisyon</h1>
+  <p>Her kutu ayrı kafa, her bilgi ayrı kahkaha 💫</p>
+</header>
+
+<div class="container">
+<script>
+const colors = [
+  "#FFE6E6", "#E3F2FD", "#FFF9C4", "#E8F5E9", "#F3E5F5",
+  "#FFF3E0", "#E0F2F1", "#FCE4EC", "#EDE7F6", "#F1F8E9",
+  "#FFFDE7", "#E1F5FE", "#F9FBE7", "#E8EAF6", "#FFF8E1"
+];
+
+const facts = [
+"Finlandiya’da karını sırtında taşıyarak yarış kazanan adamlar, eşlerinin kilosu kadar bira kazanıyor.",
+"Timsahlar dillerini dışarı çıkaramaz çünkü dil kemiklere bağlıdır.",
+"Pepsi, bir ara Sovyetler Birliği’ne denizaltı karşılığında satıldı.",
+"Bir sümüklüböcek 3 yıl boyunca uyuyabilir (tıp öğrencisi modu).",
+"Fransa’da ölüyle evlenmek yasaldır.",
+"İsviçre’de yalnız kobay faresi beslemek yasak, yalnız kalmasın diye çift almak zorundasın.",
+"Koalalar günde 22 saat uyur — kalan 2 saatte de kararsızdır.",
+"Penguenler aşklarını taşla ilan eder. (Taş = evlilik teklifi 💍)",
+"Koalaların parmak izleri insanınkine o kadar benzer ki, bazen karıştırılır.",
+"Yunuslar birbirlerine isim verir.",
+"İnsan dili, vücuttaki en güçlü kastır (ama en çok yanlış yerde çalışır).",
+"Çekirgelerin kulakları dizlerindedir.",
+"Finlandiya’da ‘telefon fırlatma’ sporu resmi etkinliktir.",
+"Japonya’da ‘sessiz karaoke’ diye bir şey var: şarkı söylüyorsun ama ses çıkmıyor.",
+"İngiltere’de ‘inekleri korkutmak’ yasaktır.",
+"Bir karınca asla uyumaz ama duraklar.",
+"İskoçya’nın ulusal hayvanı tek boynuzlu attır.",
+"Fransa’da bir fırıncı bageti uzun yaptığı için 7 yıl hapis yedi.",
+"Kanada’da kazlara saldırmak devlete saldırı sayılır.",
+"ABD’de bir kadın kedisine 7 milyon dolar miras bıraktı, kocasına 0.",
+"Hindistan’da ‘gülerek yoga’ var, sabah 6’da 50 kişi kahkaha atıyor.",
+"İtalya’da 1950’de ‘makarna ağaçta yetişiyor’ haberi yapılmış, herkes inanmış.",
+"Rusya’da kar temizleme yarışları var.",
+"Finlandiya’da ‘eşya fırlatma’ diye spor var.",
+"Avustralya’da ‘timsah dansı’ düğün geleneği olmuş.",
+"Norveç’te ‘balıkla konuşmak’ meditasyon yöntemi sayılıyor.",
+"Japonya’da ‘göz teması terapisi’ moda: 10 dakika bakışıyorsun.",
+"Kanada’da ‘kar topu savaşı’ belediye tarafından lisanslı.",
+"İsrail’de kedi psikoloğu resmi meslek.",
+"Türkiye’de ‘şemsiye kaybedenler derneği’ kurulmuş.",
+"Japonya’da çorba içerken ses çıkarmak nezaket göstergesidir.",
+"Arılar sarhoş olabilir, bal fazlası uçamamalarına neden olur.",
+"Yarasalar her zaman sağa döner.",
+"Zebra desenleri parmak izi gibidir, her zebra farklı.",
+"İnekler en iyi arkadaşlarıyla ayrılınca stres olur.",
+"Kargalar insan yüzlerini hatırlar.",
+"Bir inek ömrü boyunca 200 bin bardak süt verir ama bir damlasını bile içmez.",
+"İnsan kalbi sevdiğini görünce 8 milisaniye erken atar.",
+"Koalalar ‘ağaç sarılma’ modunda terapi yapar gibi görünür ama sadece serinlerler.",
+"Penguenler 3 km yürüyüp bir taş seçer, sevgilisine verir.",
+"İnsan DNA’sının %60’ı muzla aynı.",
+"Rusya’da bir ayı bira dükkanı açtı (inanmak istedik).",
+"Fransa’da bir adam peynirden heykel yapıp ‘laktik sanat’ akımı başlattı.",
+"Finlandiya’da ‘kar altı kahkaha günü’ resmi tatil oldu.",
+"Hindistan’da ‘inekten özür dileme günü’ var.",
+"Türkiye’de ortalama bir insan günde 96 kere telefonuna bakıyor.",
+"Finlandiya’da ‘taş gibi sessizlik’ ihracatı gerçekten var.",
+"ABD’de bir kadın hayaletle evlenip ‘aldattı’ diye boşandı.",
+"Almanya’da ‘kavanoz kapağı açma yarışması’ var.",
+"Norveç’te ‘balonla yürüyüş günü’ düzenleniyor.",
+"Avustralya’da kangurular yüzebilir.",
+"İskoçya’da düğünlerde damat çamura bulanıyor.",
+"Japonya’da ‘çorap müzesi’ var.",
+"Türkiye’de ‘kahveyle dilek tutma gecesi’ geleneği yayılıyor.",
+"ABD’de bir adam karısına sevgisini göstermek için 1 milyon post-it’le evi kapladı.",
+"Finlandiya’da ‘sessiz disko’ var: herkes kulaklıkla dans ediyor.",
+"Norveç’te ‘göz kırpma maratonu’ düzenleniyor.",
+"Fransa’da bir kasaba ‘zaman yok’ konseptiyle saat yasağı getirdi.",
+"İsveç’te kahve molası devlet tarafından kutsal sayılıyor.",
+"ABD’de ‘yastık altı fısıltısı’ adlı uyku yarışması var.",
+"Almanya’da ‘soğan dansı’ festivali kutlanıyor.",
+"Japonya’da ‘yağmur dinleme odası’ diye sessiz mekânlar var.",
+"Kanada’da ‘ay ışığında karpuz kesme’ ritüeli var.",
+"Hindistan’da 500 kişi aynı gün ölü taklidi yapıp Guinness’e girdi.",
+"Rusya’da ‘kar tanesi yakalama’ yarışması var.",
+"Fransa’da ‘kediyle konuşan kahve’ kafe var, kediler dert dinliyor.",
+"Finlandiya’da ‘terlik fırlatma’ şampiyonası var.",
+"Çin’de panda ödünç almak için milyon dolar teminat gerekiyor.",
+"Japonya’da ‘boşluk terapisi’ var: 3 saat duvara bakıyorsun.",
+"İngiltere’de parlamentoda ölmek yasak.",
+"Türkiye’de ‘sessiz kahkaha günü’ trend oldu.",
+"Fransa’da ‘kahveye kaşıkla bakmak’ nezaketsizlik.",
+"ABD’de bir kasaba kediyi belediye başkanı yaptı — 20 yıl yönetti.",
+"Finlandiya’da ‘sauna yarışması’ vardı, kazanan… kaynadı.",
+"Norveç’te ‘yavaş kayak’ diye yarış var, en yavaş inen kazanır.",
+"Çin’de ‘uyku maratonu’ düzenlendi, kazanan uyuyakaldı.",
+"Fransa’da 1980’lerde ‘uzaylı iniş alanı’ yapılmış, hâlâ bekliyorlar.",
+"İngiltere’de ‘çay demleme hızı olimpiyatları’ yapılıyor.",
+"Türkiye’de ‘çayla alkışlama töreni’ var (kim düşünmüşse helal olsun).",
+"Finlandiya’da ‘balıkla yüzleşme günü’ resmi tatil.",
+"Japonya’da ‘balıkla meditasyon’ trend oldu.",
+"Hindistan’da ‘gölgeyle selamlaşma’ günü var.",
+"Almanya’da ‘bira meditasyonu’ akımı var.",
+"İsviçre’de ‘şemsiye açıp dans eden tavşan’ çizgi karakter.",
+"ABD’de ‘bebek atma’ yarışması vardı (peluş oyuncak tabii).",
+"Rusya’da bir adam 20 yıl boyunca her sabah ‘günaydın dünya!’ diye bağırmış.",
+"Brezilya’da ‘rüzgara fısıldama’ terapisi var.",
+"Çin’de ‘bambu fısıltısı gecesi’ kutlanıyor.",
+"İtalya’da ‘makarna ile flört etmek’ deyimi var.",
+"Finlandiya’da ‘kar altı kahkaha günü’ tatil ilan edildi."
+];
+
+facts.forEach((fact, i) => {
+  const color = colors[i % colors.length];
+  document.write(`<div class="card" style="--color:${color}">${i + 1}. ${fact}</div>`);
+});
+</script>
+</div>
+
+<footer>
+  <a href="komik-bilgiler-1.html">⬅️ Önceki Bölüm</a>
+  <a href="#">Sonraki Bölüm ➡️</a>
+</footer>
+
+</body>
+</html>
