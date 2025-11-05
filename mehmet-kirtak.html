@@ -3,129 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siyah Altın II | Karanlığın Yankısı</title>
+<title>Siyah Altın I | Mehmet Kırtak</title>
 <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Metal Mania',cursive;
-  background:radial-gradient(circle at center,#000,#1a0000,#330000);
-  color:#f2e6d9;
-  overflow:hidden;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Metal Mania', cursive;
+  background: radial-gradient(circle at center, #0a0000, #1c0000, #000);
+  color: #f0e6d2;
+  overflow: hidden;
 }
 
-/* Alevli arka plan animasyonu */
-@keyframes flames {
-  0%{background-position:0 0;}
-  100%{background-position:1000px 0;}
+/* Arka plan hareketli duman efekti */
+@keyframes smoke {
+  from { background-position: 0 0; }
+  to { background-position: 2000px 0; }
 }
-.bg{
-  position:fixed;
-  width:100%;height:100%;
-  background:url('https://i.imgur.com/T7r4rDq.png');
-  background-size:cover;
-  filter:brightness(0.4) contrast(1.3);
-  animation:flames 60s linear infinite;
-  z-index:-1;
-}
-
-/* Alev parçacıkları */
-.fire-particle{
-  position:fixed;
-  width:4px;height:40px;
-  background:linear-gradient(to top,#ff2200,#ffaa00,transparent);
-  opacity:0.6;
-  animation:rise 3s linear infinite;
-}
-@keyframes rise{
-  0%{transform:translateY(100vh) scale(0.5);}
-  100%{transform:translateY(-10vh) scale(1);}
+.bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://i.imgur.com/btKUPbK.jpg') center/cover no-repeat;
+  filter: brightness(0.3) contrast(1.4);
+  animation: smoke 80s linear infinite;
+  z-index: -1;
 }
 
-/* Metin alanı */
-.main{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:70%;
-  text-align:center;
+/* Yan panel: Metal Duvarı */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100%; width: 270px;
+  background: rgba(0, 0, 0, 0.75);
+  border-right: 2px solid #ff0000;
+  overflow-y: auto;
+  padding: 20px;
 }
-.main h1{
-  color:#ff3333;
-  font-size:2.4rem;
-  text-shadow:0 0 25px #ff0000;
+.sidebar h2 {
+  color: #ff3333;
+  text-align: center;
+  margin-bottom: 15px;
 }
-.main p{
-  margin-top:25px;
-  font-size:1.1rem;
-  line-height:1.8;
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  margin: 7px 0;
+  color: #ffcc99;
+  transition: color .3s;
+  font-size: 1.05rem;
+}
+.sidebar li:hover {
+  color: #fff;
 }
 
-/* Alt yazı efekti */
-.subtitle{
-  position:fixed;
-  bottom:30px;
-  width:100%;
-  text-align:center;
-  color:#ffaaaa;
-  font-size:1.2rem;
-  animation:fade 4s ease-in-out infinite alternate;
+/* Ana içerik alanı */
+.main {
+  margin-left: 290px;
+  padding: 60px 60px 100px;
+  max-height: 100vh;
+  overflow-y: auto;
+  text-align: justify;
 }
-@keyframes fade{
-  from{opacity:0.4;}
-  to{opacity:1;}
+.main h1 {
+  font-size: 2.4rem;
+  color: #ff2222;
+  text-shadow: 0 0 25px #ff0000;
+  margin-bottom: 25px;
 }
+.main p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #ff3333; border-radius: 5px; }
+::-webkit-scrollbar-track { background: #1a0000; }
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
 
-<script>
-// Rastgele alev partikülleri
-for(let i=0;i<100;i++){
-  const f=document.createElement('div');
-  f.className='fire-particle';
-  f.style.left=Math.random()*100+'vw';
-  f.style.animationDelay=Math.random()*5+'s';
-  f.style.height=(30+Math.random()*80)+'px';
-  document.body.appendChild(f);
-}
-</script>
+<div class="sidebar">
+  <h2>🔥 Metal Duvarı 🔥</h2>
+  <ul>
+    <li>Metallica</li>
+    <li>Slayer</li>
+    <li>Iron Maiden</li>
+    <li>Megadeth</li>
+    <li>Testament</li>
+    <li>Pantera</li>
+    <li>Sepultura</li>
+    <li>Exodus</li>
+    <li>Kreator</li>
+    <li>Sodom</li>
+    <li>Overkill</li>
+    <li>Death</li>
+    <li>Obituary</li>
+    <li>Power Trip</li>
+    <li>Orbit Culture</li>
+    <li>Children of Bodom</li>
+    <li>Carcass</li>
+    <li>Anthrax</li>
+    <li>Lamb of God</li>
+    <li>Gojira</li>
+    <li>Machine Head</li>
+    <li>Trivium</li>
+    <li>Heaven Shall Burn</li>
+    <li>Arch Enemy</li>
+    <li>Dark Tranquillity</li>
+    <li>Soilwork</li>
+    <li>Enforced</li>
+    <li>Vektor</li>
+    <li>Havok</li>
+    <li>Death Angel</li>
+    <li>Black Sabbath</li>
+    <li>Obscura</li>
+    <li>Jinjer</li>
+  </ul>
+</div>
 
 <div class="main">
-  <h1>🔥 Karanlığın Yankısı 🔥</h1>
+  <h1>⚡ Siyah Altın: Başlangıç ⚡</h1>
   <p>
-    Metal susmaz.<br>
-    O sadece yankı bekler…  
-    Her rif, Mehmet’in içindeki öfkenin yankısıdır artık.  
-    Çığlık değil bu, doğrudan bir vaazdır:  
-    “Kurtuluş, gürültünün içindedir.”
+    Her şey sessizlikle başladı.  
+    Gitar teli henüz titreşmemişti, trampet tokmağı havada asılıydı.  
+    Ama o sessizlik, Mehmet’in içinde çoktan bir fırtına doğurmuştu.
+  </p>
+  <p>
+    Metal onun için müzik değildi; bir dil, bir inançtı.  
+    Toplumun susturduğu her duygunun, boğazına oturmuş her kelimenin sesi…  
+    Her solo, öfkenin şekil almış hâliydi.  
+    Her rif, kanla yazılmış bir manifesto.
+  </p>
+  <p>
+    Mehmet Kırtak, metalde kendini buldu.  
+    Slayer çaldığında damarları yankılandı.  
+    Testament’ın “Over the Wall” introsu geldiğinde, ruhu titredi.  
+    Orbit Culture’ın “Saw” rifinde, öfkesini kontrol etmeyi öğrendi.  
+    Pantera, ona duruşu öğretti.  
+    Megadeth, düşünmeyi.  
+    Metallica, hayatta kalmayı.
+  </p>
+  <p>
+    Çünkü metal bir sığınak değil, meydan okumadır.  
+    O sahneye çıktığında alevlerin içinden doğan tanrılar gibidir müzisyenler.  
+    Ve seyirci, o ateşte yeniden doğar.  
+    Mehmet, işte bu ateşin çocuğuydu.  
+    Siyahın içindeki altını görebilenlerden.
+  </p>
+  <p>
+    O bilir: Gürültüde bile bir düzen vardır.  
+    Chaos içinde harmoni.  
+    Ve bazen, kalbin en sessiz atışı bile bir davulun yankısı kadar yüksek gelir.
   </p>
 
-  <p>
-    Slayer’ın kan damlayan notalarıyla aydınlanan bir karanlık…  
-    Sepultura’nın “Roots” feryadı, toprak gibi gerçek.  
-    Power Trip’in göğsü parçalayan davullarıyla ruhun yeniden dövülür.  
-    Her grup, bir yara izi.  
-    Her şarkı, bir diriliş sahnesi.
-  </p>
-
-  <p>
-    “Orbit Culture” girer — o manyetik duvarın ardındaki akıl karışıklığı…  
-    Testament yükselir — “Disciples of the Watch” bağırır.  
-    Iron Maiden sahneye çıkar — “The Trooper” yankılanır.  
-    Metallica son darbeyi indirir — “Damage, Inc.”  
-    Ve o an, Mehmet’in gözleri parıldar:  
-    “Karanlık benden korksun artık.”
+  <p style="text-align:center;margin-top:40px;color:#ff4444;">
+    “Metal ruhu susturamazsın. Çünkü o, zaten sessizliğin çığlığıdır.”<br>
+    — Siyah Altın I
   </p>
 </div>
 
-<div class="subtitle">“Bir telin üstünde bile dünya devrilebilir.”</div>
-
 <script>
-// Otomatik geçiş (6 saniye)
-setTimeout(()=>{window.location.href='mehmet-kirtak-03.html';},12000);
+// 10 saniye sonra ikinci bölüme geç
+setTimeout(()=>{window.location.href='mehmet-kirtak-02.html';},10000);
 </script>
 
 </body>
