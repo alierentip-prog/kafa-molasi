@@ -9,36 +9,39 @@
       overflow: hidden;
       height: 100%;
       background: #000;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
     }
 
-    #overlay {
+    #overlayText {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,1));
-      pointer-events: none;
-    }
-
-    #fade {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 1.5rem;
       opacity: 0;
-      transition: opacity 3s ease;
+      transition: opacity 2s ease;
+      text-shadow: 0 0 10px #ff9, 0 0 30px #f60;
+    }
+
+    #fadeWhite {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      transition: opacity 2.5s ease;
     }
   </style>
 </head>
 <body>
-  <div id="overlay"></div>
-  <div id="fade"></div>
+  <div id="overlayText">Lütfen PC modunda oynayın</div>
+  <div id="fadeWhite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-
   <script>
     let scene = new THREE.Scene();
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -46,81 +49,101 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Işıklar
-    const ambientLight = new THREE.AmbientLight(0x302010, 0.4);
-    scene.add(ambientLight);
+    // Işık
+    const light = new THREE.PointLight(0xffb266, 2, 25);
+    light.position.set(0, 1.8, 2);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0x2a1a0a, 0.4));
 
-    const torchLight = new THREE.PointLight(0xffb266, 2, 20);
-    torchLight.position.set(0, 1.5, 2);
-    scene.add(torchLight);
+    // Dokular
+    const loader = new THREE.TextureLoader();
+    const wallTex = loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
+    wallTex.wrapS = wallTex.wrapT = THREE.RepeatWrapping;
+    wallTex.repeat.set(6, 6);
+    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex });
 
-    // Zemin ve duvarlar (block tarzı)
-    const textureLoader = new THREE.TextureLoader();
-    const stoneTexture = textureLoader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
-    stoneTexture.wrapS = stoneTexture.wrapT = THREE.RepeatWrapping;
-    stoneTexture.repeat.set(10, 10);
+    // Koridor
+    const corridor = [];
+    for (let i = 0; i < 20; i++) {
+      let wallL = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 0.5), wallMat);
+      wallL.position.set(-5, 1, -i * 6);
+      scene.add(wallL);
+      corridor.push(wallL);
 
-    const floorGeometry = new THREE.BoxGeometry(20, 0.1, 100);
-    const wallGeometry = new THREE.BoxGeometry(20, 10, 0.5);
-    const material = new THREE.MeshStandardMaterial({ map: stoneTexture });
+      let wallR = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 0.5), wallMat);
+      wallR.position.set(5, 1, -i * 6);
+      scene.add(wallR);
+      corridor.push(wallR);
 
-    const floor = new THREE.Mesh(floorGeometry, material);
-    floor.position.y = -2;
-    scene.add(floor);
-
-    const leftWall = new THREE.Mesh(wallGeometry, material);
-    leftWall.position.set(-10, 3, 0);
-    scene.add(leftWall);
-
-    const rightWall = new THREE.Mesh(wallGeometry, material);
-    rightWall.position.set(10, 3, 0);
-    scene.add(rightWall);
-
-    const ceiling = new THREE.Mesh(floorGeometry, material);
-    ceiling.position.set(0, 8, 0);
-    scene.add(ceiling);
-
-    // Partikül efekti (toz)
-    const particles = new THREE.BufferGeometry();
-    const particleCount = 300;
-    const posArray = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 40;
+      let floor = new THREE.Mesh(new THREE.BoxGeometry(10, 0.2, 6), new THREE.MeshStandardMaterial({ color: 0x1a1a1a }));
+      floor.position.set(0, -2, -i * 6);
+      scene.add(floor);
+      corridor.push(floor);
     }
-    particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    const particleMaterial = new THREE.PointsMaterial({ color: 0xffd9b3, size: 0.1 });
-    const particleMesh = new THREE.Points(particles, particleMaterial);
-    scene.add(particleMesh);
+    // Kamera
+    camera.position.set(0, 1.5, 5);
 
-    // Kamera başlangıcı
-    camera.position.set(0, 1.5, 10);
+    // Altyazı dizisi
+    const texts = [
+      "Bu labirente kendi isteğinle girdin...",
+      "Her köşede bir ses yankılanır...",
+      "Kaçış yok.",
+      "Sadece kendini bulmak var..."
+    ];
+    let textIndex = 0;
+    let overlay = document.getElementById("overlayText");
+
+    function showNextText() {
+      if (textIndex < texts.length) {
+        overlay.textContent = texts[textIndex];
+        overlay.style.opacity = 1;
+        setTimeout(() => {
+          overlay.style.opacity = 0;
+          textIndex++;
+          setTimeout(showNextText, 1500);
+        }, 2500);
+      }
+    }
+
+    setTimeout(showNextText, 3000);
 
     let progress = 0;
+    let running = false;
+    let finished = false;
 
     function animate() {
       requestAnimationFrame(animate);
+      progress += 0.015;
 
-      progress += 0.02;
-      camera.position.z -= 0.05; // ileri doğru yavaşça ilerle
-      camera.rotation.y = Math.sin(progress / 5) * 0.05; // küçük salınım
-      torchLight.position.z = camera.position.z - 1;
+      if (!running) camera.position.z -= 0.05;
+      light.position.z = camera.position.z - 1;
 
-      particleMesh.rotation.y += 0.001;
-      particleMesh.rotation.x += 0.0005;
+      // Kamera ani dönme efekti
+      if (progress > 8 && !running) {
+        running = true;
+        overlay.textContent = "Bir ses mi duydun?..";
+        overlay.style.opacity = 1;
+        setTimeout(() => { overlay.style.opacity = 0; }, 2000);
+      }
 
-      torchLight.intensity = 1.8 + Math.sin(progress * 4) * 0.2; // titreşim efekti
+      if (running && camera.position.z > -70) {
+        camera.rotation.y = Math.sin(progress * 2) * 0.15;
+        camera.position.z -= 0.15; // koşu efekti
+      }
+
+      if (camera.position.z < -70 && !finished) {
+        finished = true;
+        document.getElementById("fadeWhite").style.opacity = 1;
+        setTimeout(() => { window.location.href = "labirent-02.html"; }, 3000);
+      }
 
       renderer.render(scene, camera);
-
-      if (camera.position.z < -90) {
-        document.getElementById("fade").style.opacity = 1;
-      }
     }
 
     animate();
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
