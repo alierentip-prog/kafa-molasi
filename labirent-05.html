@@ -3,166 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilinç Odası – Gerçek Sahne</title>
+<title>Labirent 05 | Bilinçaltı</title>
 <style>
-  html, body { margin:0; height:100%; overflow:hidden; background:#000; font-family:'Poppins', sans-serif; }
-  #subtitle {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    text-align: center;
-    color: rgba(255,255,255,0.9);
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
-    text-shadow: 0 0 15px #ffb070;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-  }
-  canvas { display: block; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0d0b0b 40%, #000);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Altyazılar */
+#subtitles {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #f5e3b3;
+  text-shadow: 0 0 12px rgba(255,220,140,0.8);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* Kapı efekti */
+#door {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 240px;
+  height: 400px;
+  background: url('https://i.imgur.com/zY6uEIo.jpeg') center/cover no-repeat;
+  border: 3px solid rgba(80,50,20,0.9);
+  box-shadow: 0 0 40px rgba(255,200,120,0.4);
+  opacity: 0;
+  border-radius: 8px;
+  transition: all 2.5s ease;
+}
+
+/* Işık patlaması */
+#flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  transition: opacity 3s ease;
+}
 </style>
 </head>
 <body>
-<div id="subtitle"></div>
+
+<canvas id="scene"></canvas>
+<div id="subtitles"></div>
+<div id="door"></div>
+<div id="flash"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-
 <script>
-// === SAHNE KURULUMU ===
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true;
-document.body.appendChild(renderer.domElement);
+// === Three.js sahne ayarları ===
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+let renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("scene"), antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-// === IŞIKLAR ===
-const ambient = new THREE.AmbientLight(0x302010, 0.3);
-scene.add(ambient);
-const torchLight = new THREE.PointLight(0xffa050, 2, 25);
-torchLight.position.set(0,4,0);
-torchLight.castShadow = true;
-scene.add(torchLight);
+// === Işıklar ===
+const ambientLight = new THREE.AmbientLight(0x403020, 0.8);
+const torchLight = new THREE.PointLight(0xffa95c, 1.4, 15);
+torchLight.position.set(0, 2, 2);
+scene.add(ambientLight, torchLight);
 
-// === DOKULAR ===
-const loader = new THREE.TextureLoader();
-const tex = {
-  wood: loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/wood_planks_oak.png"),
-  stone: loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/stone_bricks.png"),
-  book: loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/bookshelf.png"),
-  door: loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/door_oak.png")
-};
-for(let t in tex){ tex[t].wrapS = tex[t].wrapT = THREE.RepeatWrapping; }
+// === Zemine ve duvarlara doku ===
+const wallTexture = new THREE.TextureLoader().load("https://i.imgur.com/GJjwcKv.jpeg");
+wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(4, 2);
 
-// === MALZEMELER ===
-const woodMat = new THREE.MeshStandardMaterial({map:tex.wood});
-const stoneMat = new THREE.MeshStandardMaterial({map:tex.stone});
-const bookMat = new THREE.MeshStandardMaterial({map:tex.book});
+const floorTexture = new THREE.TextureLoader().load("https://i.imgur.com/tUj8yJ3.jpeg");
+floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(6, 6);
 
-// === ZEMİN & DUVARLAR ===
-const floor = new THREE.Mesh(new THREE.BoxGeometry(30,1,30), stoneMat);
-floor.position.y = -2;
-floor.receiveShadow = true;
+const wallMaterial = new THREE.MeshStandardMaterial({ map: wallTexture });
+const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
+
+let floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), floorMaterial);
+floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
-const ceiling = new THREE.Mesh(new THREE.BoxGeometry(30,1,30), woodMat);
-ceiling.position.y = 6;
-scene.add(ceiling);
 
-const wallData = [
-  {x:0,y:2,z:-15,geo:[30,8,1]},
-  {x:0,y:2,z:15,geo:[30,8,1]},
-  {x:-15,y:2,z:0,geo:[1,8,30]},
-  {x:15,y:2,z:0,geo:[1,8,30]}
-];
-wallData.forEach(p=>{
-  const wall = new THREE.Mesh(new THREE.BoxGeometry(...p.geo), woodMat);
-  wall.position.set(p.x,p.y,p.z);
-  wall.castShadow = true;
-  wall.receiveShadow = true;
+// === Duvarlar ===
+function makeWall(x, z, w, h, d) {
+  let wall = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMaterial);
+  wall.position.set(x, h/2, z);
   scene.add(wall);
-});
-
-// === KİTAPLIKLAR ===
-for(let i=-10;i<=10;i+=5){
-  const shelf = new THREE.Mesh(new THREE.BoxGeometry(4,5,1), bookMat);
-  shelf.position.set(i,0,-14.5);
-  scene.add(shelf);
 }
+makeWall(0, -10, 20, 4, 1);
+makeWall(0, 10, 20, 4, 1);
+makeWall(-10, 0, 1, 4, 20);
+makeWall(10, 0, 1, 4, 20);
+makeWall(0, -2, 6, 4, 1);
+makeWall(6, 2, 8, 4, 1);
+makeWall(-6, 4, 8, 4, 1);
+makeWall(0, 8, 6, 4, 1);
 
-// === KAPI ===
-const door = new THREE.Mesh(new THREE.BoxGeometry(3,6,0.5), new THREE.MeshStandardMaterial({map:tex.door}));
-door.position.set(0,0,14.75);
-door.castShadow = true;
-scene.add(door);
+// === Kamera başlangıç konumu ===
+camera.position.set(0, 1.8, 9);
 
-// === MEŞALELER ===
-for(let i=-10;i<=10;i+=10){
-  const torch = new THREE.PointLight(0xffa040, 2, 10);
-  torch.position.set(i,3,-14);
-  scene.add(torch);
-}
+// === Sis efekti ===
+scene.fog = new THREE.FogExp2(0x0c0a09, 0.07);
 
-// === KAMERA BAŞLANGIÇ ===
-camera.position.set(0,1.6,10);
-let clock = new THREE.Clock();
-let doorOpening = false;
-
-// === ALT YAZILAR ===
-const subtitles = [
-  "Bir şey... seni çağırıyor.",
-  "Kitapların arasında yankılanan bir nefes gibi...",
-  "Duvarlar geçmişi fısıldıyor.",
-  "Bir adım daha at. Korkma.",
-  "Kapı... seni bekliyor."
-];
-let currentSubtitle = 0;
-const subtitleEl = document.getElementById("subtitle");
-
-function showSubtitle(text) {
-  subtitleEl.textContent = text;
-  subtitleEl.style.opacity = 1;
-  setTimeout(() => { subtitleEl.style.opacity = 0; }, 4000);
-}
-setTimeout(()=>showSubtitle(subtitles[currentSubtitle++]), 2000);
-setInterval(()=>{
-  if(currentSubtitle < subtitles.length){
-    showSubtitle(subtitles[currentSubtitle++]);
-  } else if(!doorOpening){
-    doorOpening = true;
-    openDoor();
-  }
-}, 7000);
-
-// === KAPI AÇILMA ANİMASYONU ===
-let doorAngle = 0;
-function openDoor(){
-  const openInterval = setInterval(()=>{
-    door.rotation.y -= 0.05;
-    doorAngle += 0.05;
-    if(doorAngle > Math.PI/2){
-      clearInterval(openInterval);
-      setTimeout(()=>window.location.href="labirent-06.html", 3000);
-    }
-  },50);
-  showSubtitle("Kapı açılıyor...");
-}
-
-// === ANİMASYON ===
-function animate(){
+// === Yavaş yürüyüş animasyonu ===
+let t = 0;
+function animate() {
   requestAnimationFrame(animate);
-  const t = clock.getElapsedTime();
-  torchLight.intensity = 1.8 + Math.sin(t*5)*0.3;
-  camera.position.z -= 0.015;
-  if(camera.position.z < -13) camera.position.z = 10;
-  camera.lookAt(0,1.5,-14);
-  renderer.render(scene,camera);
+  t += 0.004;
+  camera.position.z = 9 - t * 4;
+  camera.position.x = Math.sin(t) * 2;
+  camera.lookAt(0, 1, 0);
+  renderer.render(scene, camera);
 }
 animate();
 
-window.addEventListener("resize",()=>{
-  camera.aspect = innerWidth/innerHeight;
+// === Altyazılar ===
+const subtitles = [
+  "Duvarlarda hiyeroglifler yanıyor...",
+  "Her sembol bir anıyı fısıldıyor.",
+  "Ayak seslerin yankılanıyor...",
+  "Bir kapı var ileride... ağır... tahta...",
+  "Yaklaştıkça kalbin hızlanıyor.",
+  "Kapı seni çağırıyor..."
+];
+const subDiv = document.getElementById("subtitles");
+
+let i = 0;
+function showSub() {
+  if (i < subtitles.length) {
+    subDiv.textContent = subtitles[i];
+    subDiv.style.opacity = 1;
+    setTimeout(() => {
+      subDiv.style.opacity = 0;
+      i++;
+      setTimeout(showSub, 2000);
+    }, 4000);
+  } else {
+    document.getElementById("door").style.opacity = 1;
+    document.getElementById("door").style.transform = "translate(-50%, -50%) scale(1)";
+    setTimeout(() => {
+      document.getElementById("flash").style.opacity = 1;
+      setTimeout(() => { window.location.href = "labirent-06.html"; }, 4000);
+    }, 7000);
+  }
+}
+setTimeout(showSub, 2000);
+
+// === Pencere yeniden boyutlandığında ===
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth,innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 });
 </script>
+
 </body>
 </html>
