@@ -8,7 +8,7 @@
 html,body{margin:0;height:100%;overflow:hidden;background:#000;}
 #subtitle{
   position:absolute;bottom:8%;width:100%;text-align:center;
-  color:#f2e6d2;font-family:"Poppins",sans-serif;font-size:1.1rem;
+  color:#f2e6d2;font-family:"Poppins",sans-serif;font-size:1.15rem;
   opacity:0;transition:opacity 2s ease;
   text-shadow:0 0 18px rgba(255,220,150,0.8);
 }
@@ -24,67 +24,95 @@ html,body{margin:0;height:100%;overflow:hidden;background:#000;}
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script>
-const scene=new THREE.Scene();
-scene.fog=new THREE.FogExp2(0x000000,0.03);
-const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
-const renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(innerWidth,innerHeight);
+/* === SAHNE KURULUMU === */
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x000000, 0.035);
+
+const camera = new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// === DOKULAR ===
-const loader=new THREE.TextureLoader();
-const stone=loader.load("https://i.imgur.com/mN6ThvY.jpeg");
-stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
-stone.repeat.set(1,1);
-const wallMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
-const floorMat=new THREE.MeshStandardMaterial({color:0x202020});
-
-// === IŞIKLAR ===
-const torch=new THREE.PointLight(0xffb060,1.8,15);
-torch.position.set(0,2,0);
+/* === IŞIKLAR === */
+const torch = new THREE.PointLight(0xffa060, 2.2, 20);
+torch.castShadow = true;
 scene.add(torch);
-scene.add(new THREE.AmbientLight(0x404030,0.4));
+scene.add(new THREE.AmbientLight(0x202010,0.5));
 
-// === TÜNEL ===
-const blocks=[];
-for(let z=0;z<300;z+=4){
-  const left=new THREE.Mesh(new THREE.BoxGeometry(1,4,4),wallMat);
-  left.position.set(-4,0,-z);
-  scene.add(left);
-  const right=new THREE.Mesh(new THREE.BoxGeometry(1,4,4),wallMat);
-  right.position.set(4,0,-z);
-  scene.add(right);
-  const top=new THREE.Mesh(new THREE.BoxGeometry(8,1,4),wallMat);
-  top.position.set(0,2,-z);
-  scene.add(top);
-  const bottom=new THREE.Mesh(new THREE.BoxGeometry(8,1,4),floorMat);
-  bottom.position.set(0,-2,-z);
-  scene.add(bottom);
-  blocks.push(left,right,top,bottom);
+/* === DOKULAR === */
+const loader = new THREE.TextureLoader();
+const stone = loader.load("https://i.imgur.com/mN6ThvY.jpeg");
+stone.wrapS = stone.wrapT = THREE.RepeatWrapping;
+stone.repeat.set(1,1);
+const wallMat = new THREE.MeshStandardMaterial({map:stone,roughness:1,metalness:0.1});
+const floorMat = new THREE.MeshStandardMaterial({color:0x151515,roughness:0.8});
+
+/* === TÜNEL SEGMENTLERİ === */
+const SEGMENT_LEN = 40;
+const PATH = [
+  {turn:"forward", len:25},
+  {turn:"right", len:20},
+  {turn:"forward", len:25},
+  {turn:"left", len:20},
+  {turn:"forward", len:30},
+  {turn:"right", len:15},
+  {turn:"forward", len:20}
+];
+
+let zOffset = 0;
+for(let p=0;p<PATH.length;p++){
+  const seg = PATH[p];
+  const dir = seg.turn;
+  for(let i=0;i<seg.len;i++){
+    const xShift = dir==="left" ? -i*0.3 : dir==="right" ? i*0.3 : 0;
+    const left = new THREE.Mesh(new THREE.BoxGeometry(1,4,4), wallMat);
+    left.position.set(-4+xShift,0,-zOffset);
+    scene.add(left);
+    const right = new THREE.Mesh(new THREE.BoxGeometry(1,4,4), wallMat);
+    right.position.set(4+xShift,0,-zOffset);
+    scene.add(right);
+    const top = new THREE.Mesh(new THREE.BoxGeometry(8,1,4), wallMat);
+    top.position.set(xShift,2,-zOffset);
+    scene.add(top);
+    const bottom = new THREE.Mesh(new THREE.BoxGeometry(8,1,4), floorMat);
+    bottom.position.set(xShift,-2,-zOffset);
+    scene.add(bottom);
+    zOffset += 4;
+  }
 }
 
-// === DUVAR YAZILARI ===
-const words=["GERÇEKLİK","YANSIMA","BEN KİMİM?","BİLİNÇ","KORKU","SUSKUNLUK","UYANIŞ","ZAMAN","GÖLGE","RUH"];
-const texts=[];
-const fontLoader=new THREE.FontLoader();
-fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",font=>{
-  for(let i=0;i<words.length;i++){
-    const geo=new THREE.TextGeometry(words[i],{font,size:0.4,height:0.05});
-    const mat=new THREE.MeshStandardMaterial({color:0xffe08a,emissive:0x302010,emissiveIntensity:0.8});
-    const mesh=new THREE.Mesh(geo,mat);
-    mesh.position.set((i%2===0?-3.5:2.5),0.5,-i*15);
-    mesh.rotation.y=i%2===0?Math.PI/2:-Math.PI/2;
-    scene.add(mesh);
-    texts.push(mesh);
-  }
-});
+/* === DUVAR YAZILARI === */
+const words=["GERÇEKLİK","YANSIMA","BEN KİMİM?","BİLİNÇ","KORKU","SUSKUNLUK","UYANIŞ","ZAMAN","GÖLGE","RUH","UNUTUŞ","UYAN"];
+function makeTextCanvas(text){
+  const canvas=document.createElement('canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=512; canvas.height=128;
+  ctx.fillStyle='black'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.font='bold 60px Poppins';
+  ctx.fillStyle='orange';
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText(text,canvas.width/2,canvas.height/2);
+  return new THREE.CanvasTexture(canvas);
+}
+for(let i=0;i<words.length;i++){
+  const tex=makeTextCanvas(words[i]);
+  const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true});
+  const plane=new THREE.Mesh(new THREE.PlaneGeometry(3,0.7),mat);
+  const side=(i%2===0?-3.3:3.3);
+  plane.position.set(side,0.5,-i*20);
+  plane.rotation.y=i%2===0?Math.PI/2:-Math.PI/2;
+  scene.add(plane);
+}
 
-// === ALT YAZILAR ===
+/* === ALT YAZILAR === */
 const subtitles=[
-  "Koridor artık sonsuz görünmüyor.",
-  "Duvarlarda kelimeler... kendi kendine parlıyor.",
-  "Her dönüşte başka bir kelime, başka bir his.",
-  "Yer çatırdıyor..."
+  "Koridor... sonsuz bir döngü gibi.",
+  "Duvarlar seni tanıyor. Her kelime seni izliyor.",
+  "Adımların yankısı bile seni yargılıyor.",
+  "Bir ışık mı o... yoksa bir yanılsama mı?",
+  "Zemin çatlıyor..."
 ];
 const subtitle=document.getElementById("subtitle");
 const fadeWhite=document.getElementById("fadeWhite");
@@ -93,70 +121,48 @@ function showNext(){
   if(idx<subtitles.length){
     subtitle.textContent=subtitles[idx];
     subtitle.style.opacity=1;
-    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,1800);},3500);
-  }else{
-    collapseGround();
-  }
+    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,2200);},4000);
+  }else collapseGround();
 }
 setTimeout(showNext,2500);
 
-// === KAMERA HAREKETLERİ ===
-camera.position.set(0,0,6);
-let pathIndex=0;
-const turns=[
-  {dir:"forward",len:30},
-  {dir:"right",len:15},
-  {dir:"forward",len:25},
-  {dir:"left",len:15},
-  {dir:"forward",len:40}
-];
-let step=0;
-let quake=false;
-let quakeTime=0;
-
-function moveCamera(){
-  if(pathIndex>=turns.length)return;
-  const seg=turns[pathIndex];
-  if(seg.dir==="forward")camera.position.z-=0.1;
-  else if(seg.dir==="right")camera.rotation.y-=0.02;
-  else if(seg.dir==="left")camera.rotation.y+=0.02;
-  step++;
-  if(step>seg.len){
-    step=0;
-    pathIndex++;
-  }
-}
-
+/* === KAMERA VE HAREKET === */
+camera.position.set(0,0,5);
+let t=0, quake=false, quakeTime=0;
 function animate(){
   requestAnimationFrame(animate);
-  moveCamera();
-  torch.position.z=camera.position.z-1;
-
-  texts.forEach((t,i)=>{
-    if(Math.abs(t.position.z-camera.position.z)<10){
-      t.material.emissiveIntensity=1.2;
-    }else t.material.emissiveIntensity=0.4;
-  });
-
+  t+=0.015;
+  camera.position.z -= 0.08;
+  camera.position.x = Math.sin(t*2)*0.3; // sağa sola hafif salınım
+  torch.position.z = camera.position.z - 2;
+  torch.position.x = camera.position.x;
+  torch.position.y = 1 + Math.sin(t*3)*0.2;
   if(quake){
-    quakeTime+=0.03;
-    camera.rotation.x=Math.sin(quakeTime*30)*0.03;
-    camera.rotation.y=Math.sin(quakeTime*25)*0.03;
-    if(quakeTime>5){
+    quakeTime += 0.03;
+    camera.rotation.x = Math.sin(quakeTime*40)*0.04;
+    camera.rotation.y = Math.sin(quakeTime*30)*0.03;
+    if(quakeTime > 5){
       fadeWhite.style.opacity=1;
       setTimeout(()=>window.location.href="labirent-05.html",3000);
     }
   }
-
   renderer.render(scene,camera);
 }
 animate();
 
+/* === ÇÖKÜŞ === */
 function collapseGround(){
   quake=true;
   subtitle.textContent="Zemin... kayıyor!";
   subtitle.style.opacity=1;
 }
+
+/* === PENCERE YENİDEN BOYUTLANDI === */
+addEventListener("resize",()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
 </script>
 </body>
 </html>
