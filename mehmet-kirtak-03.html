@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siyah Altın III | Çöküşün Ritmi</title>
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Metal Mania',cursive;
+  background:radial-gradient(circle at center,#000,#200000,#000);
+  color:#f5e7d9;
+  overflow:hidden;
+}
+
+/* Kırmızı yanıp sönme */
+@keyframes pulse {
+  0%,100%{background-color:rgba(255,0,0,0.05);}
+  50%{background-color:rgba(255,0,0,0.25);}
+}
+.overlay{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  animation:pulse 3s infinite;
+  z-index:-1;
+}
+
+/* Titreşim efekti */
+@keyframes shake {
+  0%,100%{transform:translate(0,0);}
+  25%{transform:translate(3px,-2px);}
+  50%{transform:translate(-2px,2px);}
+  75%{transform:translate(2px,-3px);}
+}
+.shake{
+  animation:shake 0.15s infinite;
+}
+
+/* Duvar yazıları */
+.wall{
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  line-height:1.8;
+}
+.wall h1{
+  color:#ff3333;
+  font-size:2.3rem;
+  text-shadow:0 0 25px #ff0000;
+  margin-bottom:10px;
+}
+.wall p{
+  font-size:1.1rem;
+  max-width:80%;
+  margin-bottom:12px;
+}
+
+/* Hiyeroglifimsi metin */
+.glyph{
+  color:#bfa68a;
+  font-size:1.4rem;
+  letter-spacing:6px;
+  opacity:0.6;
+  animation:fade 6s ease-in-out infinite alternate;
+}
+@keyframes fade{
+  from{opacity:0.3;}
+  to{opacity:1;}
+}
+
+/* Alt yazı */
+.caption{
+  position:fixed;
+  bottom:25px;
+  width:100%;
+  text-align:center;
+  font-size:1.2rem;
+  color:#ffaaaa;
+  animation:fade 4s ease-in-out infinite alternate;
+}
+
+/* Beyaz patlama */
+.flash{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:#fff;
+  opacity:0;
+  transition:opacity 2s ease-in-out;
+  z-index:999;
+}
+</style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="wall">
+  <h1>⚡ Çöküşün Ritmi ⚡</h1>
+  <p>Duvarlar nefes alıyor gibi… ritim duvarlardan yankılanıyor.  
+  Mehmet’in adımlarıyla zeminin çatlakları aynı anda titriyor.</p>
+
+  <p>Bir ses… sanki uzaklardan “South of Heaven” çalıyor.  
+  Gitarın her teli, yeraltında bir damarı koparıyor.</p>
+
+  <p class="glyph">⛓ 𐌼𐌴𐌸𐌰𐌻 𐍃𐌿𐍃𐍄 𐌰𐍂𐌲𐌰𐌻</p>
+
+  <p>Testament’ın yankısı duvarlara kazınıyor:  
+  <br>“No Faith No Color No Creed.”  
+  <br>Ve sonra zemin çatlıyor.  
+  Mehmet koşuyor ama koştuğu yer artık yok.</p>
+
+  <p class="glyph">⚙ 𐍂𐌿𐌷𐌰 𐌸𐌹𐍃 𐌺𐌰𐍂𐌰𐌽</p>
+
+  <p>“Düşüyorsun Mehmet…”  
+  <br>İç sesi yankılanıyor:  
+  “Ama bu düşüş, seni yeniden doğuracak.”</p>
+</div>
+
+<div class="caption">Zemin titriyor... duvarlar çöküyor... ışık yaklaşıyor...</div>
+
+<div class="flash" id="flash"></div>
+
+<script>
+setTimeout(()=>document.body.classList.add('shake'),8000);
+setTimeout(()=>{
+  document.getElementById('flash').style.opacity='1';
+  setTimeout(()=>window.location.href='mehmet-kirtak-04.html',3000);
+},11000);
+</script>
+
+</body>
+</html>
