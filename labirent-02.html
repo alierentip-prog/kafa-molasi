@@ -3,153 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labirent 02 | Seçim Anı</title>
+<title>Labirent 02 | Yeraltı Üssü</title>
 <style>
-html,body{margin:0;height:100%;overflow:hidden;background:black;}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;}
 #subtitle{
-  position:absolute;bottom:10%;width:100%;text-align:center;
-  color:#e8e0d0;font-family:"Poppins",sans-serif;
-  font-size:1.2rem;opacity:0;transition:opacity 2s ease;
-  text-shadow:0 0 18px rgba(255,200,120,0.8);
-}
-.choice {
-  position:absolute;bottom:25%;width:100%;text-align:center;
-  opacity:0;transition:opacity 1.5s ease;
-}
-button {
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.3);
-  color:#f5e6d0;font-family:"Poppins",sans-serif;
-  font-size:1rem;padding:10px 20px;border-radius:10px;
-  margin:0 10px;cursor:pointer;backdrop-filter:blur(3px);
-  transition:background 0.3s ease;
-}
-button:hover {background:rgba(255,255,255,0.3);}
-#fadeWhite{
-  position:absolute;top:0;left:0;width:100%;height:100%;
-  background:white;opacity:0;transition:opacity 3s ease;
+  position:absolute;bottom:8%;width:100%;text-align:center;
+  color:#f5d7b3;font-family:"Poppins",sans-serif;
+  font-size:1.1rem;opacity:0;transition:opacity 2s ease;
+  text-shadow:0 0 12px rgba(255,210,130,0.8);
 }
 </style>
 </head>
 <body>
 <div id="subtitle"></div>
-<div id="fadeWhite"></div>
-<div class="choice" id="choices">
-  <button id="leftBtn">🌫️ Sola Git</button>
-  <button id="rightBtn">🔥 Sağa Git</button>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/FontLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/geometries/TextGeometry.js"></script>
+
 <script>
 // === SAHNE ===
-const scene=new THREE.Scene();
-scene.fog=new THREE.FogExp2(0x000000,0.04);
-const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
-const renderer=new THREE.WebGLRenderer({antialias:true});
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+scene.fog = new THREE.Fog(0x000000,5,45);
+
+// === KAMERA & RENDER ===
+const camera = new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+camera.position.set(0,1,12);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(innerWidth,innerHeight);
+renderer.shadowMap.enabled=true;
 document.body.appendChild(renderer.domElement);
 
-// === DOKULAR ===
-const loader=new THREE.TextureLoader();
-const stone=loader.load("https://i.imgur.com/X7WJ5dq.jpeg");
-stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
-const floorTex=loader.load("https://i.imgur.com/aBkx8qM.jpeg");
-floorTex.wrapS=floorTex.wrapT=THREE.RepeatWrapping;
-const wallMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
-const floorMat=new THREE.MeshStandardMaterial({map:floorTex,roughness:1});
+// === IŞIKLANDIRMA ===
+const ambient = new THREE.AmbientLight(0x705840,0.6);
+scene.add(ambient);
 
-// === IŞIK ===
-const torch=new THREE.PointLight(0xffa050,2,12);
-torch.position.set(0,2,0);
+const torch = new THREE.PointLight(0xffbb66,2,12);
+torch.castShadow=true;
+torch.position.set(0,2,8);
 scene.add(torch);
-scene.add(new THREE.AmbientLight(0x202010,0.4));
 
-// === DUVARLAR ===
-for(let z=0;z<100;z+=4){
-  const left=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
-  left.position.set(-4,0,-z);
-  scene.add(left);
-  const right=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
-  right.position.set(4,0,-z);
-  scene.add(right);
-  const floor=new THREE.Mesh(new THREE.BoxGeometry(8,0.2,4),floorMat);
-  floor.position.set(0,-2,-z);
+// === MALZEMELER ===
+const stoneTex = new THREE.MeshStandardMaterial({color:0x443a32,roughness:1,metalness:0.1});
+const woodTex = new THREE.MeshStandardMaterial({color:0x6a4e2f,roughness:0.8,metalness:0.2});
+const glowMat = new THREE.MeshBasicMaterial({color:0xffa64d});
+
+// === ZEMİN ve DUVARLAR ===
+for(let z=0;z<100;z+=5){
+  // zemin
+  let floor = new THREE.Mesh(new THREE.BoxGeometry(10,0.4,5),stoneTex);
+  floor.position.set(0,-3,-z);
   scene.add(floor);
+  // tavan
+  let ceil = new THREE.Mesh(new THREE.BoxGeometry(10,0.4,5),woodTex);
+  ceil.position.set(0,3,-z);
+  scene.add(ceil);
+  // duvarlar
+  let left = new THREE.Mesh(new THREE.BoxGeometry(0.5,6,5),stoneTex);
+  left.position.set(-5,0,-z);
+  let right = left.clone();
+  right.position.x=5;
+  scene.add(left,right);
+  // fener ışıkları
+  if(z%10===0){
+    let bulb = new THREE.Mesh(new THREE.SphereGeometry(0.15,12,12),glowMat);
+    bulb.position.set(0,2.5,-z);
+    scene.add(bulb);
+  }
 }
 
-// === YOL AYRIMI ===
-const rightLight=new THREE.PointLight(0xff8020,3,8);
-rightLight.position.set(6,2,-90);
-scene.add(rightLight);
-const leftLight=new THREE.PointLight(0x80c0ff,3,8);
-leftLight.position.set(-6,2,-90);
-scene.add(leftLight);
+// === YAZILAR ===
+const loader = new THREE.FontLoader();
+loader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",font=>{
+  const texts=[
+    {yazi:"Burası güvenli mi?",z:-10},
+    {yazi:"Duvarlar nefes alıyor.",z:-25},
+    {yazi:"Kapının ardında kim var?",z:-45},
+    {yazi:"Kendini kaybetme...",z:-65},
+    {yazi:"Sesler... yaklaşıyor.",z:-85}
+  ];
+  texts.forEach(t=>{
+    const geo=new THREE.TextGeometry(t.yazi,{font,size:0.6,height:0.05});
+    const mat=new THREE.MeshStandardMaterial({color:0xffcc77,emissive:0xffa040,emissiveIntensity:0.6});
+    const mesh=new THREE.Mesh(geo,mat);
+    mesh.position.set(-4.5,1,t.z);
+    mesh.rotation.y=Math.PI/2;
+    scene.add(mesh);
+  });
+});
 
-// === KAMERA ===
-camera.position.set(0,1,5);
-
-// === ALTYAZILAR ===
-const subs=[
-  "Adımların yankılanıyor...",
-  "Hava ağır, duvarlar daha soğuk.",
-  "Burası... karar yerin."
+// === ALT YAZILAR ===
+const subtitles=[
+  "Tahta kokusu ağır... ama tanıdık.",
+  "Duvarlarda titreşen bir sıcaklık var.",
+  "Bir adım daha atıyorsun, yankı büyüyor.",
+  "Sanki biri seni izliyor...",
+  "Ama nefes almaya devam ediyorsun."
 ];
 const subtitle=document.getElementById("subtitle");
-const fadeWhite=document.getElementById("fadeWhite");
-const choices=document.getElementById("choices");
-
-let idx=0;
-function showNext(){
-  if(idx<subs.length){
-    subtitle.textContent=subs[idx];
+let i=0;
+function nextSub(){
+  if(i<subtitles.length){
+    subtitle.textContent=subtitles[i];
     subtitle.style.opacity=1;
-    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,1800);},3500);
+    setTimeout(()=>{subtitle.style.opacity=0;i++;setTimeout(nextSub,2500);},4000);
   } else {
-    choices.style.opacity=1;
+    setTimeout(()=>{window.location.href='labirent-03.html';},4000);
   }
 }
-setTimeout(showNext,2000);
+setTimeout(nextSub,2000);
 
-// === HAREKET ===
-let t=0, direction="forward", turning=false;
+// === ANİMASYON ===
 function animate(){
   requestAnimationFrame(animate);
-  t+=0.015;
-
-  torch.intensity=2+Math.sin(t*5)*0.3;
+  camera.position.z-=0.05;
   torch.position.z=camera.position.z-1;
-
-  if(direction==="forward" && !turning && camera.position.z>-80)
-    camera.position.z-=0.05;
-
-  if(turning){
-    camera.rotation.y+=direction==="right"?-0.02:0.02;
-    camera.position.z-=0.15;
-    if(Math.abs(camera.rotation.y) > Math.PI/2){
-      fadeWhite.style.opacity=1;
-      setTimeout(()=>window.location.href="labirent-03.html",3000);
-    }
-  }
-
   renderer.render(scene,camera);
 }
 animate();
-
-// === SEÇİMLER ===
-document.getElementById("rightBtn").addEventListener("click",()=>{
-  direction="right";
-  turning=true;
-  choices.style.opacity=0;
-  subtitle.textContent="Işık seni çağırıyor...";
-  subtitle.style.opacity=1;
-});
-document.getElementById("leftBtn").addEventListener("click",()=>{
-  direction="left";
-  turning=true;
-  choices.style.opacity=0;
-  subtitle.textContent="Sis içine karışıyor...";
-  subtitle.style.opacity=1;
-});
 
 addEventListener("resize",()=>{
   camera.aspect=innerWidth/innerHeight;
