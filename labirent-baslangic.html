@@ -2,15 +2,13 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bilinçaltı: 3D Film</title>
+  <title>Labirent Başlangıç | Bilinçaltı</title>
   <style>
     body, html {
       margin: 0;
-      height: 100%;
       overflow: hidden;
+      height: 100%;
       background: #000;
-      font-family: "Poppins", sans-serif;
     }
 
     #overlay {
@@ -19,166 +17,110 @@
       left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #f5f3ef;
-      text-shadow: 0 0 10px rgba(255,255,255,0.2);
-      z-index: 10;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,1));
       pointer-events: none;
-      transition: opacity 2s ease;
     }
 
-    #overlay h1 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
+    #fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
       opacity: 0;
-      transition: opacity 2s ease;
-    }
-
-    #overlay button {
-      pointer-events: all;
-      opacity: 0;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 10px 25px;
-      border-radius: 25px;
-      color: #f5f3ef;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    #overlay button:hover {
-      background: rgba(255,255,255,0.25);
+      transition: opacity 3s ease;
     }
   </style>
 </head>
 <body>
-  <div id="overlay">
-    <h1>Bilinçaltının derinliklerine hoş geldin...</h1>
-    <button id="continueBtn">Devam Et</button>
-  </div>
+  <div id="overlay"></div>
+  <div id="fade"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 
   <script>
-    // === SAHNE, KAMERA, RENDERER ===
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.04);
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    let renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // === IŞIKLAR ===
-    const ambient = new THREE.AmbientLight(0x888888);
-    scene.add(ambient);
+    // Işıklar
+    const ambientLight = new THREE.AmbientLight(0x302010, 0.4);
+    scene.add(ambientLight);
 
-    const torch1 = new THREE.PointLight(0xffaa55, 2, 20);
-    torch1.position.set(5, 3, -5);
-    scene.add(torch1);
+    const torchLight = new THREE.PointLight(0xffb266, 2, 20);
+    torchLight.position.set(0, 1.5, 2);
+    scene.add(torchLight);
 
-    const torch2 = new THREE.PointLight(0xff7722, 1.8, 20);
-    torch2.position.set(-5, 3, 5);
-    scene.add(torch2);
+    // Zemin ve duvarlar (block tarzı)
+    const textureLoader = new THREE.TextureLoader();
+    const stoneTexture = textureLoader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
+    stoneTexture.wrapS = stoneTexture.wrapT = THREE.RepeatWrapping;
+    stoneTexture.repeat.set(10, 10);
 
-    // === TOZ PARTİKÜLLERİ ===
-    const particles = new THREE.Group();
-    const geo = new THREE.SphereGeometry(0.05, 6, 6);
-    const mat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    for(let i=0;i<600;i++){
-      const p = new THREE.Mesh(geo, mat.clone());
-      p.position.set((Math.random()-0.5)*50, Math.random()*10, (Math.random()-0.5)*50);
-      p.material.transparent = true;
-      p.material.opacity = Math.random()*0.4;
-      particles.add(p);
-    }
-    scene.add(particles);
+    const floorGeometry = new THREE.BoxGeometry(20, 0.1, 100);
+    const wallGeometry = new THREE.BoxGeometry(20, 10, 0.5);
+    const material = new THREE.MeshStandardMaterial({ map: stoneTexture });
 
-    // === DUVARLAR VE ZEMİN ===
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9, metalness: 0.1 });
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 1, metalness: 0 });
-
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(50,50), floorMat);
-    floor.rotation.x = -Math.PI/2;
+    const floor = new THREE.Mesh(floorGeometry, material);
+    floor.position.y = -2;
     scene.add(floor);
 
-    const walls = [
-      new THREE.Mesh(new THREE.BoxGeometry(50,10,0.5), wallMat),
-      new THREE.Mesh(new THREE.BoxGeometry(50,10,0.5), wallMat),
-      new THREE.Mesh(new THREE.BoxGeometry(0.5,10,50), wallMat),
-      new THREE.Mesh(new THREE.BoxGeometry(0.5,10,50), wallMat),
-    ];
-    walls[0].position.z = -25;
-    walls[1].position.z = 25;
-    walls[2].position.x = -25;
-    walls[3].position.x = 25;
-    walls.forEach(w=>scene.add(w));
+    const leftWall = new THREE.Mesh(wallGeometry, material);
+    leftWall.position.set(-10, 3, 0);
+    scene.add(leftWall);
 
-    // === KAMERA VE KONTROLLER ===
-    camera.position.set(0, 3, 10);
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enablePan = false;
-    controls.enableZoom = false;
-    controls.maxPolarAngle = Math.PI/2.1;
+    const rightWall = new THREE.Mesh(wallGeometry, material);
+    rightWall.position.set(10, 3, 0);
+    scene.add(rightWall);
 
-    // === MEŞALE TİTREŞİMİ ===
-    let t = 0;
-    function animateTorch(){
-      torch1.intensity = 1.5 + Math.sin(t*8)*0.2;
-      torch2.intensity = 1.8 + Math.cos(t*10)*0.3;
+    const ceiling = new THREE.Mesh(floorGeometry, material);
+    ceiling.position.set(0, 8, 0);
+    scene.add(ceiling);
+
+    // Partikül efekti (toz)
+    const particles = new THREE.BufferGeometry();
+    const particleCount = 300;
+    const posArray = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 40;
     }
+    particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    // === PARTİKÜL HAREKETİ ===
-    function moveParticles(){
-      particles.children.forEach(p=>{
-        p.position.y += Math.sin((p.position.x+p.position.z+t)*0.3)*0.005;
-        if(p.position.y > 10) p.position.y = 0;
-      });
-    }
+    const particleMaterial = new THREE.PointsMaterial({ color: 0xffd9b3, size: 0.1 });
+    const particleMesh = new THREE.Points(particles, particleMaterial);
+    scene.add(particleMesh);
 
-    // === PERDELER (YENİ SAHNELER) ===
-    let stage = 1;
-    const overlay = document.getElementById('overlay');
-    const h1 = overlay.querySelector('h1');
-    const btn = document.getElementById('continueBtn');
+    // Kamera başlangıcı
+    camera.position.set(0, 1.5, 10);
 
-    setTimeout(()=>h1.style.opacity=1,1000);
-    setTimeout(()=>btn.style.opacity=1,4000);
+    let progress = 0;
 
-    btn.addEventListener('click', ()=>{
-      stage++;
-      h1.style.opacity = 0;
-      btn.style.opacity = 0;
-      setTimeout(()=>{
-        if(stage===2){
-          h1.textContent = "Yolun duvarlarında eski sözler yankılanıyor...";
-        } else if(stage===3){
-          h1.textContent = "Her adım, kendi içinden geçiştir...";
-        } else if(stage===4){
-          h1.textContent = "Karanlık bitmez; sadece sen ışık olursun.";
-        } else {
-          h1.textContent = "Sessizlik. Son perde.";
-        }
-        h1.style.opacity = 1;
-        if(stage<5) btn.style.opacity = 1;
-      },2000);
-    });
-
-    // === ANİMASYON DÖNGÜSÜ ===
-    function animate(){
-      t += 0.01;
-      animateTorch();
-      moveParticles();
-      renderer.render(scene, camera);
+    function animate() {
       requestAnimationFrame(animate);
+
+      progress += 0.02;
+      camera.position.z -= 0.05; // ileri doğru yavaşça ilerle
+      camera.rotation.y = Math.sin(progress / 5) * 0.05; // küçük salınım
+      torchLight.position.z = camera.position.z - 1;
+
+      particleMesh.rotation.y += 0.001;
+      particleMesh.rotation.x += 0.0005;
+
+      torchLight.intensity = 1.8 + Math.sin(progress * 4) * 0.2; // titreşim efekti
+
+      renderer.render(scene, camera);
+
+      if (camera.position.z < -90) {
+        document.getElementById("fade").style.opacity = 1;
+      }
     }
+
     animate();
 
-    // === YENİDEN BOYUTLANDIRMA ===
-    window.addEventListener('resize', ()=>{
+    window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
