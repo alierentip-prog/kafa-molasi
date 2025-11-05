@@ -8,9 +8,8 @@
 html,body{margin:0;height:100%;overflow:hidden;background:#000;}
 #subtitle{
   position:absolute;bottom:8%;width:100%;text-align:center;
-  color:#f8e9d6;font-family:"Poppins",sans-serif;font-size:1.15rem;
-  opacity:0;transition:opacity 2s ease;
-  text-shadow:0 0 18px rgba(255,230,180,0.8);
+  color:#f8e9d6;font-family:"Poppins",sans-serif;font-size:1.1rem;
+  opacity:0;transition:opacity 2s ease;text-shadow:0 0 18px rgba(255,230,180,0.8);
 }
 #fadeBlack{
   position:absolute;top:0;left:0;width:100%;height:100%;
@@ -25,7 +24,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#000;}
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script>
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x2b1c0f, 0.03);
+scene.fog = new THREE.FogExp2(0x1a0f07, 0.035);
 
 const camera = new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({antialias:true});
@@ -33,23 +32,25 @@ renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// IŞIKLAR
-const warm = new THREE.PointLight(0xffc88a,2,25);
+// Işık
+const warm = new THREE.PointLight(0xffbb66,2,25);
 warm.position.set(0,4,3);
 scene.add(warm);
 scene.add(new THREE.AmbientLight(0x3a2a1b,0.6));
 
-// DOKULAR
+// DOKULAR (stabil kaynaklar)
 const loader=new THREE.TextureLoader();
-const wood = loader.load("https://i.imgur.com/kViQz4k.jpeg");
-wood.wrapS=wood.wrapT=THREE.RepeatWrapping;
-const stone = loader.load("https://i.imgur.com/mN6ThvY.jpeg");
-stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
-const bookshelf = loader.load("https://i.imgur.com/2Yp8M7S.jpeg"); // kitap dokusu
+const wood = loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/wood_planks_oak.png");
+const stone = loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/stone_bricks.png");
+const bookshelf = loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/bookshelf.png");
+const doorTex = loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/door_wood.png");
+const carpetTex = loader.load("https://cdn.jsdelivr.net/gh/KaizIQ/textures/minecraft/carpet_red.png");
 
 const woodMat=new THREE.MeshStandardMaterial({map:wood,roughness:0.8});
-const stoneMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
+const stoneMat=new THREE.MeshStandardMaterial({map:stone,roughness:0.9});
 const shelfMat=new THREE.MeshStandardMaterial({map:bookshelf});
+const doorMat=new THREE.MeshStandardMaterial({map:doorTex});
+const carpetMat=new THREE.MeshStandardMaterial({map:carpetTex,side:THREE.DoubleSide});
 
 // ODA GEOMETRİSİ
 const floor=new THREE.Mesh(new THREE.BoxGeometry(15,1,15),stoneMat);
@@ -58,38 +59,29 @@ scene.add(floor);
 const ceiling=new THREE.Mesh(new THREE.BoxGeometry(15,1,15),woodMat);
 ceiling.position.set(0,3,0);
 scene.add(ceiling);
-
-const backWall=new THREE.Mesh(new THREE.BoxGeometry(15,5,1),woodMat);
-backWall.position.set(0,0,-7);
-scene.add(backWall);
-const frontWall=new THREE.Mesh(new THREE.BoxGeometry(15,5,1),woodMat);
-frontWall.position.set(0,0,7);
-scene.add(frontWall);
-const leftWall=new THREE.Mesh(new THREE.BoxGeometry(1,5,15),woodMat);
-leftWall.position.set(-7,0,0);
-scene.add(leftWall);
-const rightWall=new THREE.Mesh(new THREE.BoxGeometry(1,5,15),woodMat);
-rightWall.position.set(7,0,0);
-scene.add(rightWall);
+const walls=[
+  {x:0,y:0,z:-7,geo:[15,5,1]}, {x:0,y:0,z:7,geo:[15,5,1]},
+  {x:-7,y:0,z:0,geo:[1,5,15]}, {x:7,y:0,z:0,geo:[1,5,15]}
+];
+for(const w of walls){
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(...w.geo),woodMat);
+  mesh.position.set(w.x,w.y,w.z);scene.add(mesh);
+}
 
 // KÜTÜPHANE RAFI
 for(let i=-4;i<=4;i+=4){
-  const shelf=new THREE.Mesh(new THREE.BoxGeometry(6,3,0.8),shelfMat);
-  shelf.position.set(i,0,-6.5);
+  const shelf=new THREE.Mesh(new THREE.BoxGeometry(6,3,0.6),shelfMat);
+  shelf.position.set(i,0,-6.4);
   scene.add(shelf);
 }
 
 // HALI
-const carpetTex=loader.load("https://i.imgur.com/Ez2Qayb.jpeg");
-carpetTex.wrapS=carpetTex.wrapT=THREE.RepeatWrapping;
-const carpet=new THREE.Mesh(new THREE.PlaneGeometry(6,3),new THREE.MeshStandardMaterial({map:carpetTex,side:THREE.DoubleSide}));
+const carpet=new THREE.Mesh(new THREE.PlaneGeometry(6,3),carpetMat);
 carpet.rotation.x=-Math.PI/2;
 carpet.position.set(0,-1.49,0);
 scene.add(carpet);
 
 // KAPI
-const doorTex=loader.load("https://i.imgur.com/nSt1Mjq.jpeg");
-const doorMat=new THREE.MeshStandardMaterial({map:doorTex});
 const door=new THREE.Mesh(new THREE.BoxGeometry(2,3,0.2),doorMat);
 door.position.set(0,0,6.4);
 scene.add(door);
@@ -114,7 +106,7 @@ function showNext(){
 }
 setTimeout(showNext,2500);
 
-// KAMERA
+// Kamera
 camera.position.set(0,0,0);
 let t=0;
 function animate(){
