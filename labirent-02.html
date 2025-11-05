@@ -3,166 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilinçaltı: 2. Perde</title>
+<title>Labirent 02 | Seçim Anı</title>
 <style>
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-  background: #000;
-  font-family: "Poppins", sans-serif;
+html,body{margin:0;height:100%;overflow:hidden;background:black;}
+#subtitle{
+  position:absolute;bottom:10%;width:100%;text-align:center;
+  color:#e8e0d0;font-family:"Poppins",sans-serif;
+  font-size:1.2rem;opacity:0;transition:opacity 2s ease;
+  text-shadow:0 0 18px rgba(255,200,120,0.8);
 }
-#overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  color: #f2ece6;
-  z-index: 5;
-  text-shadow: 0 0 15px rgba(255,255,255,0.2);
-  pointer-events: none;
-  transition: opacity 2s ease;
+.choice {
+  position:absolute;bottom:25%;width:100%;text-align:center;
+  opacity:0;transition:opacity 1.5s ease;
 }
-#overlay h1 {
-  font-size: 1.5rem;
-  opacity: 0;
-  text-align: center;
-  transition: opacity 2s ease;
-  max-width: 80%;
+button {
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.3);
+  color:#f5e6d0;font-family:"Poppins",sans-serif;
+  font-size:1rem;padding:10px 20px;border-radius:10px;
+  margin:0 10px;cursor:pointer;backdrop-filter:blur(3px);
+  transition:background 0.3s ease;
 }
-#overlay button {
-  pointer-events: all;
-  opacity: 0;
-  margin-top: 30px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 10px 25px;
-  border-radius: 25px;
-  color: #f3efe9;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-#overlay button:hover {
-  background: rgba(255,255,255,0.18);
+button:hover {background:rgba(255,255,255,0.3);}
+#fadeWhite{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:white;opacity:0;transition:opacity 3s ease;
 }
 </style>
 </head>
 <body>
-
-<div id="overlay">
-  <h1>Duvarlarda yankılanan sesleri duyabiliyor musun?..</h1>
-  <button id="nextBtn">Devam Et</button>
+<div id="subtitle"></div>
+<div id="fadeWhite"></div>
+<div class="choice" id="choices">
+  <button id="leftBtn">🌫️ Sola Git</button>
+  <button id="rightBtn">🔥 Sağa Git</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script>
-// === SAHNE VE KAMERA ===
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x000000, 0.03);
-const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(innerWidth, innerHeight);
+// === SAHNE ===
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x000000,0.04);
+const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// === IŞIKLAR ===
-const ambient = new THREE.AmbientLight(0x555555);
-scene.add(ambient);
+// === DOKULAR ===
+const loader=new THREE.TextureLoader();
+const stone=loader.load("https://i.imgur.com/X7WJ5dq.jpeg");
+stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
+const floorTex=loader.load("https://i.imgur.com/aBkx8qM.jpeg");
+floorTex.wrapS=floorTex.wrapT=THREE.RepeatWrapping;
+const wallMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
+const floorMat=new THREE.MeshStandardMaterial({map:floorTex,roughness:1});
 
-const torch = new THREE.PointLight(0xffaa44, 2, 15);
-torch.position.set(0,3,2);
+// === IŞIK ===
+const torch=new THREE.PointLight(0xffa050,2,12);
+torch.position.set(0,2,0);
 scene.add(torch);
+scene.add(new THREE.AmbientLight(0x202010,0.4));
 
-// === TOZ PARTİKÜLLERİ ===
-const particleGroup = new THREE.Group();
-const particleGeo = new THREE.SphereGeometry(0.03,6,6);
-for(let i=0;i<500;i++){
-  const mat = new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:Math.random()*0.3});
-  const p = new THREE.Mesh(particleGeo, mat);
-  p.position.set((Math.random()-0.5)*20, Math.random()*8, (Math.random()-0.5)*20);
-  particleGroup.add(p);
+// === DUVARLAR ===
+for(let z=0;z<100;z+=4){
+  const left=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  left.position.set(-4,0,-z);
+  scene.add(left);
+  const right=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  right.position.set(4,0,-z);
+  scene.add(right);
+  const floor=new THREE.Mesh(new THREE.BoxGeometry(8,0.2,4),floorMat);
+  floor.position.set(0,-2,-z);
+  scene.add(floor);
 }
-scene.add(particleGroup);
 
-// === TÜNEL YAPISI ===
-const tunnelMat = new THREE.MeshStandardMaterial({color:0x111111, roughness:0.9, metalness:0.2});
-const tunnelGeo = new THREE.CylinderGeometry(6,6,50,32,true);
-const tunnel = new THREE.Mesh(tunnelGeo, tunnelMat);
-tunnel.rotation.z = Math.PI/2;
-scene.add(tunnel);
+// === YOL AYRIMI ===
+const rightLight=new THREE.PointLight(0xff8020,3,8);
+rightLight.position.set(6,2,-90);
+scene.add(rightLight);
+const leftLight=new THREE.PointLight(0x80c0ff,3,8);
+leftLight.position.set(-6,2,-90);
+scene.add(leftLight);
 
-// === DUVAR YAZILARI (ışıklı) ===
-const loader = new THREE.TextureLoader();
-const canvasTxt = document.createElement('canvas');
-const ctx = canvasTxt.getContext('2d');
-canvasTxt.width = 1024; canvasTxt.height = 256;
-ctx.fillStyle = "black"; ctx.fillRect(0,0,1024,256);
-ctx.font = "60px Poppins";
-ctx.fillStyle = "rgba(255,255,255,0.9)";
-ctx.fillText("KENDİNDEN KAÇMA", 180,150);
-const textTex = new THREE.CanvasTexture(canvasTxt);
-const textMat = new THREE.MeshBasicMaterial({map:textTex, transparent:true});
-const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(12,3), textMat);
-textPlane.position.set(0,2,-6);
-scene.add(textPlane);
+// === KAMERA ===
+camera.position.set(0,1,5);
 
-// === KAMERA POZİSYONU ===
-camera.position.set(-18,2,0);
-let time = 0;
+// === ALTYAZILAR ===
+const subs=[
+  "Adımların yankılanıyor...",
+  "Hava ağır, duvarlar daha soğuk.",
+  "Burası... karar yerin."
+];
+const subtitle=document.getElementById("subtitle");
+const fadeWhite=document.getElementById("fadeWhite");
+const choices=document.getElementById("choices");
 
-// === ANİMASYON ===
+let idx=0;
+function showNext(){
+  if(idx<subs.length){
+    subtitle.textContent=subs[idx];
+    subtitle.style.opacity=1;
+    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,1800);},3500);
+  } else {
+    choices.style.opacity=1;
+  }
+}
+setTimeout(showNext,2000);
+
+// === HAREKET ===
+let t=0, direction="forward", turning=false;
 function animate(){
-  time += 0.005;
-  // Tünel dönüşü
-  tunnel.rotation.y += 0.001;
-  torch.intensity = 1.5 + Math.sin(time*15)*0.3;
+  requestAnimationFrame(animate);
+  t+=0.015;
 
-  // Toz partikülleri dalgalansın
-  particleGroup.children.forEach(p=>{
-    p.position.y += Math.sin(p.position.x*0.5 + time)*0.005;
-    if(p.position.y>8)p.position.y=0;
-  });
+  torch.intensity=2+Math.sin(t*5)*0.3;
+  torch.position.z=camera.position.z-1;
 
-  // Kamera hareketi (ilerleme)
-  camera.position.x += 0.02;
-  camera.lookAt(0,2,0);
+  if(direction==="forward" && !turning && camera.position.z>-80)
+    camera.position.z-=0.05;
+
+  if(turning){
+    camera.rotation.y+=direction==="right"?-0.02:0.02;
+    camera.position.z-=0.15;
+    if(Math.abs(camera.rotation.y) > Math.PI/2){
+      fadeWhite.style.opacity=1;
+      setTimeout(()=>window.location.href="labirent-03.html",3000);
+    }
+  }
 
   renderer.render(scene,camera);
-  requestAnimationFrame(animate);
 }
 animate();
 
-// === PERDE YAZILARI ===
-const overlay = document.getElementById('overlay');
-const h1 = overlay.querySelector('h1');
-const btn = document.getElementById('nextBtn');
-setTimeout(()=>h1.style.opacity=1,1000);
-setTimeout(()=>btn.style.opacity=1,4000);
-
-let stage = 1;
-btn.addEventListener('click', ()=>{
-  stage++;
-  h1.style.opacity = 0;
-  btn.style.opacity = 0;
-  setTimeout(()=>{
-    if(stage===2){
-      h1.textContent = "Her şey tanıdık geliyor, değil mi?";
-    } else if(stage===3){
-      h1.textContent = "Bu tünelin sonu, kendi başlangıcın.";
-    } else {
-      h1.textContent = "Sessizlik yankılanıyor... perde kapanıyor.";
-    }
-    h1.style.opacity = 1;
-    if(stage<4) btn.style.opacity = 1;
-  },2000);
+// === SEÇİMLER ===
+document.getElementById("rightBtn").addEventListener("click",()=>{
+  direction="right";
+  turning=true;
+  choices.style.opacity=0;
+  subtitle.textContent="Işık seni çağırıyor...";
+  subtitle.style.opacity=1;
+});
+document.getElementById("leftBtn").addEventListener("click",()=>{
+  direction="left";
+  turning=true;
+  choices.style.opacity=0;
+  subtitle.textContent="Sis içine karışıyor...";
+  subtitle.style.opacity=1;
 });
 
-window.addEventListener('resize', ()=>{
-  camera.aspect = innerWidth/innerHeight;
+addEventListener("resize",()=>{
+  camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
+  renderer.setSize(innerWidth,innerHeight);
 });
 </script>
 </body>
