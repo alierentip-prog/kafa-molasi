@@ -3,144 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilinçaltı: Başlangıç</title>
+<title>Bilinçaltı: Derin Versiyon</title>
 <style>
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background: radial-gradient(circle at center, #0d0d0d 0%, #000 80%);
-  height: 100vh;
-  width: 100vw;
-  color: #e0d8cf;
-  font-family: 'Poppins', sans-serif;
-}
-
-#scene {
-  position: relative;
-  width: 100%;
   height: 100%;
   overflow: hidden;
-}
-
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 50%;
-  animation: float 8s infinite ease-in-out;
-}
-@keyframes float {
-  0% { transform: translateY(0) scale(1); opacity: 0.2; }
-  50% { transform: translateY(-80px) scale(1.3); opacity: 0.8; }
-  100% { transform: translateY(0) scale(1); opacity: 0.2; }
-}
-
-#light {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-  pointer-events: none;
-  transition: transform 0.05s ease;
-  mix-blend-mode: screen;
-}
-
-.fade-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.3rem;
-  opacity: 0;
-  transition: opacity 2s ease;
-  text-align: center;
-  width: 80%;
-  line-height: 1.6;
-}
-
-#continue {
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 12px 28px;
-  border-radius: 30px;
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
   color: #e0d8cf;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 2s ease, background 0.3s;
 }
-#continue:hover {
-  background: rgba(255,255,255,0.25);
+canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.text {
+  font-size: 1.4rem;
+  text-align: center;
+  max-width: 80%;
+  opacity: 0;
+  transition: opacity 3s ease;
+  line-height: 1.7;
+  text-shadow: 0 0 18px rgba(255,255,255,0.15);
+}
+button {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 12px 32px;
+  border-radius: 30px;
+  font-size: 1rem;
+  color: #f3f0ea;
+  cursor: pointer;
+  margin-top: 40px;
+  opacity: 0;
+  transition: opacity 2s ease, background 0.3s ease;
+}
+button:hover {
+  background: rgba(255,255,255,0.18);
 }
 </style>
 </head>
 <body>
-<div id="scene">
-  <div id="light"></div>
-  <div id="text" class="fade-text"></div>
+<canvas id="bg"></canvas>
+<div id="overlay">
+  <div id="text" class="text"></div>
   <button id="continue">Devam Et</button>
 </div>
 
 <script>
-// Fare ışığı
-const light = document.getElementById('light');
-document.addEventListener('mousemove', (e) => {
-  light.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+let time = 0;
+
+window.addEventListener('resize', () => {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
 });
 
-// Partiküller
-const scene = document.getElementById('scene');
-for(let i=0; i<120; i++){
-  const p = document.createElement('div');
-  p.classList.add('particle');
-  p.style.left = Math.random()*100 + '%';
-  p.style.top = Math.random()*100 + '%';
-  p.style.animationDelay = `${Math.random()*8}s`;
-  p.style.opacity = Math.random()*0.7;
-  scene.appendChild(p);
-}
+let pointer = {x: w/2, y: h/2};
+document.addEventListener('mousemove', e => {
+  pointer.x = e.clientX;
+  pointer.y = e.clientY;
+});
 
-// Yazılar
+const blobs = Array(8).fill().map(()=>({
+  x: Math.random()*w,
+  y: Math.random()*h,
+  r: 80 + Math.random()*120,
+  dx: (Math.random()-0.5)*0.6,
+  dy: (Math.random()-0.5)*0.6,
+  c: `rgba(${120+Math.random()*100}, ${80+Math.random()*80}, ${200+Math.random()*55}, 0.08)`
+}));
+
+function draw(){
+  time += 0.005;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0,0,w,h);
+
+  // Zemin jöle efekti
+  ctx.save();
+  ctx.translate(pointer.x*0.02, pointer.y*0.02);
+  for(let i=0;i<blobs.length;i++){
+    let b = blobs[i];
+    b.x += b.dx;
+    b.y += b.dy;
+    if(b.x < -200) b.x = w+200;
+    if(b.x > w+200) b.x = -200;
+    if(b.y < -200) b.y = h+200;
+    if(b.y > h+200) b.y = -200;
+    let gradient = ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);
+    gradient.addColorStop(0,b.c);
+    gradient.addColorStop(1,'transparent');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+    ctx.fill();
+  }
+  ctx.restore();
+
+  // Hafif ışık halkası
+  const lx = pointer.x, ly = pointer.y;
+  const g = ctx.createRadialGradient(lx,ly,0,lx,ly,400);
+  g.addColorStop(0,'rgba(255,255,255,0.15)');
+  g.addColorStop(1,'transparent');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(lx,ly,400,0,Math.PI*2);
+  ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+// Yazılar sırasıyla belirsin
 const texts = [
-  "Zihnin kapıları yavaşça aralanıyor...",
-  "Karanlık, seni tanımak için bekliyor.",
-  "Her düşünce bir yankıdır, duvarlardan döner.",
-  "Sessizlik... belki de en yüksek sestir.",
-  "Korkma. Burada yalnızsın, ama güvendesin.",
-  "Her şey bir hayal. Ama hangisi seninki?",
-  "Gerçek, uyanmakla başlamaz; fark etmekle başlar.",
-  "Zaman eriyor. Sadece sen ve nefesin kaldı.",
-  "Bilinçaltı konuşuyor... dinliyor musun?",
-  "Ve şimdi... derinlere inme zamanı."
+  "Bilinçaltının kapısı sessizlikle açılır...",
+  "Her gölge, seni sen yapar.",
+  "Kendinden kaçarken yine kendine varırsın.",
+  "Zihnin yüzeyi durulduğunda, derinlik konuşur.",
+  "Bu karanlık, senin içindeki ışıktır.",
+  "Ve şimdi... nefes al. Düşünme. Sadece hisset."
 ];
 
-let index = 0;
 const textEl = document.getElementById('text');
-const nextText = () => {
-  if (index < texts.length) {
+const btn = document.getElementById('continue');
+let i = 0;
+
+function showText(){
+  if(i < texts.length){
     textEl.style.opacity = 0;
     setTimeout(()=>{
-      textEl.innerText = texts[index];
+      textEl.innerText = texts[i];
       textEl.style.opacity = 1;
-      index++;
-      setTimeout(nextText, 6000);
+      i++;
+      setTimeout(showText, 6000);
     }, 2000);
   } else {
-    document.getElementById('continue').style.opacity = 1;
+    btn.style.opacity = 1;
   }
-};
-setTimeout(nextText, 3000);
+}
+setTimeout(showText, 2000);
 
-// Devam butonu
-document.getElementById('continue').addEventListener('click', () => {
+btn.addEventListener('click', ()=>{
   window.location.href = "bilincin-yankisi.html";
 });
 </script>
