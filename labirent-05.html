@@ -10,35 +10,43 @@
     padding: 0;
     height: 100%;
     overflow: hidden;
-    background: #050308;
     font-family: "Poppins", system-ui, -apple-system, sans-serif;
-    color: #fdf6e3;
+    background: #000;
+    color: #fff;
   }
 
-  canvas {
+  body::before {
+    content: "";
     position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+    background: url("https://i.imgur.com/Ll8fno1.jpeg") center/cover no-repeat;
+    filter: brightness(0.6);
+    z-index: 0;
+  }
+
+  #overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.1), rgba(0,0,0,0.85));
     z-index: 1;
   }
 
   #subtitle {
     position: fixed;
-    bottom: 11%;
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 80%;
     text-align: center;
-    font-size: 1.02rem;
+    max-width: 80%;
+    font-size: 1.05rem;
     line-height: 1.5;
-    color: #fdf6e3;
-    text-shadow: 0 0 12px rgba(255, 220, 170, 0.9);
+    color: #fffbe9;
+    text-shadow: 0 0 10px rgba(255, 210, 130, 0.8);
     opacity: 0;
     transition: opacity 2s ease;
-    z-index: 3;
+    z-index: 2;
   }
+
   #subtitle.visible {
     opacity: 1;
   }
@@ -48,21 +56,22 @@
     top: 8%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(248, 250, 252, 0.7);
-    z-index: 3;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    z-index: 2;
   }
 
   #whiteout {
     position: fixed;
     inset: 0;
-    background: #ffffff;
+    background: white;
     opacity: 0;
-    z-index: 4;
-    pointer-events: none;
     transition: opacity 3s ease;
+    z-index: 3;
+    pointer-events: none;
   }
 
   #finalText {
@@ -71,239 +80,57 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
+    color: #111;
     text-align: center;
-    color: #111827;
     opacity: 0;
-    z-index: 5;
-    pointer-events: none;
-    transition: opacity 2.5s ease 0.5s;
+    z-index: 4;
+    transition: opacity 3s ease;
   }
 </style>
 </head>
 <body>
 
-<canvas id="scene"></canvas>
+<div id="overlay"></div>
 <div id="hint">BİLİNÇ KÜTÜPHANESİ – SADECE İZLE</div>
 <div id="subtitle"></div>
 <div id="whiteout"></div>
-<div id="finalText">“Bazı kapılar, sadece içeri girmeye cesaret edenlere açılır.”</div>
+<div id="finalText">“Her raf bir düşünce, her kitap bir hatıradır.”</div>
 
 <script>
-const canvas = document.getElementById("scene");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-// --------- PARAMETRELER ---------
-let t = 0;
-let cameraZ = 0;
-// HIZI BURADAN AYARLAYABİLİRSİN (çok yavaş olsun diye 0.015 yaptım)
-const SPEED = 0.015;
-
-const segments = [];
-const segmentCount = 60;
-const segmentSpacing = 4.0;   // raflar arası mesafe (ne kadar büyük, o kadar seyrek)
-
-// toz parçacıkları
-const particles = [];
-const PARTICLE_COUNT = 120;
-
-// duvar yazıları (çok hafif, rafların üstünde gözükecek)
-const wallTexts = [
-  "Düşünceler, raflara sığmayacak kadar kalabalık.",
-  "Unut dediğin, zihnin başka bir rafına kaldırılıyor sadece.",
-  "Hiç açmadığın kitaplar, hiç başlamadığın ihtimallerdir.",
-  "Bazen en ağır kitap, kendi kendine anlattığın hikâyedir.",
-  "Sessizlik, en gürültülü cümlelerini saklar."
-];
-
-// altyazılar
 const subtitles = [
-  "Rafların arasında yürürken, sanki her kitap seninle ilgili bir şey fısıldıyor.",
-  "Hiç açmadığın sayfaların bile, içinde seninle ilgili bir ihtimal var.",
-  "Yorulduğunda bile, zihnin hâlâ yeni cümleler yazmaya devam ediyor.",
-  "Belki de asıl soru şu: Bu kütüphaneyi gerçekten terk etmek istiyor musun?"
+  "Kütüphane sessizdi... ama o sessizlik, binlerce sesin yankısıydı.",
+  "Sayfalar çevrilmeden bile, hikâyeler seni bekliyordu.",
+  "Bazen bir cümle, bir insanın bütün hayatını değiştirebilir.",
+  "Gerçek, sessizliğin içinde saklı olabilir."
 ];
 
-let subtitleIndex = 0;
 const subtitleEl = document.getElementById("subtitle");
-let subtitleTimer = 0;
-let sceneFinished = false;
 const whiteout = document.getElementById("whiteout");
 const finalText = document.getElementById("finalText");
 
-// --------- SEGMENT / PARÇACIK OLUŞTURMA ---------
-function makeSegment(i) {
-  return {
-    z: i * segmentSpacing,
-    // -1: sol duvar, +1: sağ duvar
-    side: i % 2 === 0 ? -1 : 1,
-    text: wallTexts[i % wallTexts.length]
-  };
-}
-
-for (let i = 0; i < segmentCount; i++) {
-  segments.push(makeSegment(i));
-}
-
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-  particles.push({
-    x: Math.random(),
-    y: Math.random(),
-    z: Math.random() * 40,
-    size: 0.8 + Math.random()*2.2,
-    speed: 0.02 + Math.random()*0.03
-  });
-}
-
-// --------- ALTYAZI FONKSİYONU ---------
+let index = 0;
 function showNextSubtitle() {
-  if (subtitleIndex >= subtitles.length || sceneFinished) return;
-  subtitleEl.textContent = subtitles[subtitleIndex];
-  subtitleEl.classList.add("visible");
-  setTimeout(() => {
-    subtitleEl.classList.remove("visible");
-  }, 5500);
-  subtitleIndex++;
-}
-
-setTimeout(showNextSubtitle, 2000);
-setInterval(showNextSubtitle, 9000);
-
-// --------- ÇİZİM ---------
-function draw() {
-  const w = canvas.width;
-  const h = canvas.height;
-  t += 0.016;
-  cameraZ += SPEED;
-
-  // arka plan gradient
-  const bg = ctx.createRadialGradient(
-    w/2, h*0.25, h*0.05,
-    w/2, h/2, h
-  );
-  bg.addColorStop(0, "#22140d");
-  bg.addColorStop(0.5, "#08040a");
-  bg.addColorStop(1, "#020008");
-  ctx.fillStyle = bg;
-  ctx.fillRect(0,0,w,h);
-
-  // toz parçacıkları
-  for (const p of particles) {
-    p.z -= p.speed * 0.25;
-    if (p.z < 0) p.z += 40;
-    const depth = p.z + cameraZ;
-    const k = 1 / (0.4 + depth * 0.06);
-    const px = w/2 + (p.x - 0.5) * w * k * 1.6;
-    const py = h*0.6 + (p.y - 0.5) * h * k * 1.2;
-
-    ctx.fillStyle = "rgba(255, 230, 200, 0.4)";
-    ctx.beginPath();
-    ctx.arc(px, py, p.size * k * 10, 0, Math.PI*2);
-    ctx.fill();
-  }
-
-  // zemin çizgileri (perspektif)
-  ctx.strokeStyle = "rgba(255, 210, 170, 0.12)";
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 12; i++) {
-    const ratio = i / 12;
-    const y = h*0.65 + ratio*h*0.28;
-    ctx.beginPath();
-    ctx.moveTo(w*0.23, y);
-    ctx.lineTo(w*0.77, y);
-    ctx.stroke();
-  }
-  ctx.beginPath();
-  ctx.moveTo(w*0.23, h*0.62);
-  ctx.lineTo(w*0.5, h*0.96);
-  ctx.lineTo(w*0.77, h*0.62);
-  ctx.stroke();
-
-  // raf segmentleri (sol/sağ duvar)
-  for (const s of segments) {
-    const depth = s.z - cameraZ;
-    if (depth < 0) {
-      s.z += segmentCount * segmentSpacing;
-    }
-    const d = s.z - cameraZ;
-    const k = 1 / (0.6 + d*0.09);
-
-    const wallWidth = w * 0.28 * k;
-    const wallHeight = h * 0.85 * k;
-    const cx = s.side < 0 ? w*0.18 : w*0.82;
-    const x = cx - wallWidth/2;
-    const y = h*0.25 - wallHeight/2;
-
-    const wood = ctx.createLinearGradient(x, y, x + wallWidth, y + wallHeight);
-    wood.addColorStop(0, "rgba(122, 72, 33, 0.96)");
-    wood.addColorStop(0.5, "rgba(155, 96, 43, 0.96)");
-    wood.addColorStop(1, "rgba(110, 64, 30, 0.96)");
-
-    ctx.fillStyle = wood;
-    ctx.fillRect(x, y, wallWidth, wallHeight);
-
-    ctx.strokeStyle = "rgba(30, 18, 11, 0.9)";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, wallWidth, wallHeight);
-
-    // yatay raf çizgileri
-    ctx.strokeStyle = "rgba(255, 215, 170, 0.16)";
-    ctx.lineWidth = 1;
-    const rows = 7;
-    for (let r = 1; r < rows; r++) {
-      const ry = y + wallHeight * (r/rows);
-      ctx.beginPath();
-      ctx.moveTo(x + wallWidth*0.08, ry);
-      ctx.lineTo(x + wallWidth*0.92, ry);
-      ctx.stroke();
-    }
-
-    // kitap blokları
-    const cols = 5;
-    for (let c = 0; c < cols; c++) {
-      for (let r = 0; r < rows-1; r++) {
-        const bx = x + wallWidth*0.12 + c * (wallWidth*0.14);
-        const by = y + wallHeight*0.08 + r * (wallHeight*0.13);
-        const bw = wallWidth*0.05;
-        const bh = wallHeight*0.09;
-
-        const hue = 20 + (c*17 + r*9) % 50;
-        ctx.fillStyle = `hsla(${hue}, 45%, 40%, 0.95)`;
-        ctx.fillRect(bx, by, bw, bh);
-      }
-    }
-
-    // duvar yazısı (çok hafif)
-    ctx.fillStyle = "rgba(250, 240, 220, 0.4)";
-    ctx.font = `${12 * k * 8}px Poppins, sans-serif`;
-    ctx.textAlign = s.side < 0 ? "left" : "right";
-    const tx = s.side < 0 ? x + wallWidth*0.1 : x + wallWidth*0.9;
-    const ty = y + wallHeight*0.14;
-    ctx.fillText(s.text, tx, ty);
-  }
-
-  // zaman dolunca kapı + beyazlık
-  if (!sceneFinished && cameraZ > 80) { // ne kadar uzun sürsün istiyorsan burayı arttır
-    sceneFinished = true;
-    subtitleEl.classList.remove("visible");
+  if (index >= subtitles.length) {
+    // geçiş
     setTimeout(() => {
       whiteout.style.opacity = "1";
       setTimeout(() => {
         finalText.style.opacity = "1";
-      }, 1500);
-    }, 800);
+      }, 2500);
+    }, 1000);
+    return;
   }
-
-  requestAnimationFrame(draw);
+  subtitleEl.textContent = subtitles[index];
+  subtitleEl.classList.add("visible");
+  setTimeout(() => {
+    subtitleEl.classList.remove("visible");
+  }, 5000);
+  index++;
 }
-draw();
+
+setTimeout(showNextSubtitle, 2000);
+setInterval(showNextSubtitle, 8000);
 </script>
 
 </body>
