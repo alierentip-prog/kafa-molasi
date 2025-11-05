@@ -3,19 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labirent 03 | Bilinç Odası – Duvar Yazıları</title>
+<title>Labirent 03 | Bilincin Yankısı</title>
 <style>
 html,body{margin:0;height:100%;overflow:hidden;background:black;}
 #subtitle{
   position:absolute;bottom:8%;width:100%;text-align:center;
   color:#f3e8d8;font-family:"Poppins",sans-serif;
   font-size:1.2rem;opacity:0;transition:opacity 2s ease;
-  text-shadow:0 0 25px rgba(255,200,120,0.8);
+  text-shadow:0 0 20px rgba(255,200,120,0.8);
+}
+#fadeWhite{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:white;opacity:0;transition:opacity 3s ease;
 }
 </style>
 </head>
 <body>
 <div id="subtitle"></div>
+<div id="fadeWhite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/FontLoader.js"></script>
@@ -31,10 +36,10 @@ renderer.setSize(innerWidth,innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // === IŞIKLAR ===
-const torch=new THREE.PointLight(0xffa050,2.5,15);
+const torch=new THREE.PointLight(0xffa050,2.6,15);
 torch.position.set(0,2,0);
 scene.add(torch);
-scene.add(new THREE.AmbientLight(0x303010,0.5));
+scene.add(new THREE.AmbientLight(0x302010,0.5));
 
 // === DOKULAR ===
 const loader=new THREE.TextureLoader();
@@ -46,8 +51,8 @@ floorTex.repeat.set(3,3);
 const wallMat=new THREE.MeshStandardMaterial({map:wallTex,roughness:1});
 const floorMat=new THREE.MeshStandardMaterial({map:floorTex,roughness:0.8});
 
-// === DUVARLAR VE ZEMİN ===
-for(let z=0;z<60;z+=4){
+// === DUVARLAR + ZEMİN ===
+for(let z=0;z<70;z+=4){
   const left=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
   left.position.set(-4,0,-z);
   scene.add(left);
@@ -59,30 +64,33 @@ for(let z=0;z<60;z+=4){
   scene.add(floor);
 }
 
-// === MASA ===
+// === MASA + MEŞALE ===
 const table=new THREE.Mesh(
   new THREE.BoxGeometry(3,0.5,2),
   new THREE.MeshStandardMaterial({color:0x3c2f23,roughness:1})
 );
-table.position.set(0,-1,-55);
+table.position.set(0,-1,-65);
 scene.add(table);
+const flame=new THREE.PointLight(0xff8030,3,10);
+flame.position.set(0,0,-64);
+scene.add(flame);
 
 // === TÜRKÇE DUVAR YAZILARI ===
 const fontLoader=new THREE.FontLoader();
 fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",(font)=>{
   const yazilar=[
-    {yazi:"AKLINI KAYBETME",x:-3.5,y:1.2,z:-10},
-    {yazi:"GERİ DÖNME",x:2.0,y:-0.5,z:-20},
-    {yazi:"IŞIĞI TAKİP ET",x:-3.2,y:0.8,z:-30},
-    {yazi:"BİLİNÇ KAPISI",x:1.8,y:1.5,z:-40},
-    {yazi:"SEN BURADASIN",x:-3.4,y:0.2,z:-50}
+    {yazi:"AKLINI KAYBETME",x:-3.3,y:1.2,z:-10},
+    {yazi:"GERİ DÖNME",x:2.5,y:-0.2,z:-22},
+    {yazi:"IŞIĞI TAKİP ET",x:-3.1,y:1.0,z:-34},
+    {yazi:"BİLİNÇ KAPISI",x:2.3,y:1.3,z:-46},
+    {yazi:"SEN BURADASIN",x:-3.0,y:0.3,z:-58}
   ];
   yazilar.forEach(obj=>{
     const geo=new THREE.TextGeometry(obj.yazi,{
-      font:font,size:0.5,height:0.1,curveSegments:8,
+      font:font,size:0.5,height:0.05,curveSegments:8,
     });
     const mat=new THREE.MeshStandardMaterial({
-      color:0xffcc77,emissive:0xff9933,emissiveIntensity:0.6
+      color:0xffcc77,emissive:0xff9933,emissiveIntensity:0.7,
     });
     const mesh=new THREE.Mesh(geo,mat);
     mesh.position.set(obj.x,obj.y,obj.z);
@@ -91,22 +99,26 @@ fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.
   });
 });
 
-// === YAZI AKIŞI ===
+// === ALTYAZILAR ===
 const subtitles=[
-  "Duvarlardaki kelimeler birbiriyle konuşuyor gibi...",
-  "Bazı harfler ışıkla titriyor, bazıları kayboluyor.",
-  "Küplerin üstündeki yazılar sanki seni tanıyor."
+  "Duvarlardaki kelimeler yavaşça parlıyor...",
+  "Bazıları seni çağırıyor, bazıları susturuyor.",
+  "Kendini bulmak için önce kaybolmak gerekir."
 ];
 const subtitle=document.getElementById("subtitle");
-let idx=0;
-function nextSub(){
-  if(idx<subtitles.length){
-    subtitle.textContent=subtitles[idx];
+const fadeWhite=document.getElementById("fadeWhite");
+let i=0;
+function nextLine(){
+  if(i<subtitles.length){
+    subtitle.textContent=subtitles[i];
     subtitle.style.opacity=1;
-    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(nextSub,2500);},4000);
+    setTimeout(()=>{subtitle.style.opacity=0;i++;setTimeout(nextLine,2500);},4000);
+  }else{
+    fadeWhite.style.opacity=1;
+    setTimeout(()=>window.location.href="labirent-04.html",3000);
   }
 }
-setTimeout(nextSub,2000);
+setTimeout(nextLine,2000);
 
 // === KAMERA ===
 camera.position.set(0,1,5);
@@ -115,8 +127,8 @@ function animate(){
   requestAnimationFrame(animate);
   t+=0.015;
   torch.position.z=camera.position.z-1;
-  if(camera.position.z>-50) camera.position.z-=0.05;
-  torch.intensity=2.5+Math.sin(t*8)*0.4;
+  if(camera.position.z>-60) camera.position.z-=0.05;
+  flame.intensity=2.5+Math.sin(t*8)*0.4;
   renderer.render(scene,camera);
 }
 animate();
