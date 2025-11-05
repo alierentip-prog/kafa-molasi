@@ -1,171 +1,188 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilinçaltı: Derin Versiyon</title>
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: "Poppins", sans-serif;
-  background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-  color: #e0d8cf;
-}
-canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-#overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.text {
-  font-size: 1.4rem;
-  text-align: center;
-  max-width: 80%;
-  opacity: 0;
-  transition: opacity 3s ease;
-  line-height: 1.7;
-  text-shadow: 0 0 18px rgba(255,255,255,0.15);
-}
-button {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 12px 32px;
-  border-radius: 30px;
-  font-size: 1rem;
-  color: #f3f0ea;
-  cursor: pointer;
-  margin-top: 40px;
-  opacity: 0;
-  transition: opacity 2s ease, background 0.3s ease;
-}
-button:hover {
-  background: rgba(255,255,255,0.18);
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilinçaltı: 3D Film</title>
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: "Poppins", sans-serif;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #f5f3ef;
+      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 2s ease;
+    }
+
+    #overlay h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    #overlay button {
+      pointer-events: all;
+      opacity: 0;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 25px;
+      border-radius: 25px;
+      color: #f5f3ef;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    #overlay button:hover {
+      background: rgba(255,255,255,0.25);
+    }
+  </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
-<div id="overlay">
-  <div id="text" class="text"></div>
-  <button id="continue">Devam Et</button>
-</div>
+  <div id="overlay">
+    <h1>Bilinçaltının derinliklerine hoş geldin...</h1>
+    <button id="continueBtn">Devam Et</button>
+  </div>
 
-<script>
-const canvas = document.getElementById('bg');
-const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-let time = 0;
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
 
-window.addEventListener('resize', () => {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-});
+  <script>
+    // === SAHNE, KAMERA, RENDERER ===
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.04);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-let pointer = {x: w/2, y: h/2};
-document.addEventListener('mousemove', e => {
-  pointer.x = e.clientX;
-  pointer.y = e.clientY;
-});
+    // === IŞIKLAR ===
+    const ambient = new THREE.AmbientLight(0x888888);
+    scene.add(ambient);
 
-const blobs = Array(8).fill().map(()=>({
-  x: Math.random()*w,
-  y: Math.random()*h,
-  r: 80 + Math.random()*120,
-  dx: (Math.random()-0.5)*0.6,
-  dy: (Math.random()-0.5)*0.6,
-  c: `rgba(${120+Math.random()*100}, ${80+Math.random()*80}, ${200+Math.random()*55}, 0.08)`
-}));
+    const torch1 = new THREE.PointLight(0xffaa55, 2, 20);
+    torch1.position.set(5, 3, -5);
+    scene.add(torch1);
 
-function draw(){
-  time += 0.005;
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0,0,w,h);
+    const torch2 = new THREE.PointLight(0xff7722, 1.8, 20);
+    torch2.position.set(-5, 3, 5);
+    scene.add(torch2);
 
-  // Zemin jöle efekti
-  ctx.save();
-  ctx.translate(pointer.x*0.02, pointer.y*0.02);
-  for(let i=0;i<blobs.length;i++){
-    let b = blobs[i];
-    b.x += b.dx;
-    b.y += b.dy;
-    if(b.x < -200) b.x = w+200;
-    if(b.x > w+200) b.x = -200;
-    if(b.y < -200) b.y = h+200;
-    if(b.y > h+200) b.y = -200;
-    let gradient = ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);
-    gradient.addColorStop(0,b.c);
-    gradient.addColorStop(1,'transparent');
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-    ctx.fill();
-  }
-  ctx.restore();
+    // === TOZ PARTİKÜLLERİ ===
+    const particles = new THREE.Group();
+    const geo = new THREE.SphereGeometry(0.05, 6, 6);
+    const mat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    for(let i=0;i<600;i++){
+      const p = new THREE.Mesh(geo, mat.clone());
+      p.position.set((Math.random()-0.5)*50, Math.random()*10, (Math.random()-0.5)*50);
+      p.material.transparent = true;
+      p.material.opacity = Math.random()*0.4;
+      particles.add(p);
+    }
+    scene.add(particles);
 
-  // Hafif ışık halkası
-  const lx = pointer.x, ly = pointer.y;
-  const g = ctx.createRadialGradient(lx,ly,0,lx,ly,400);
-  g.addColorStop(0,'rgba(255,255,255,0.15)');
-  g.addColorStop(1,'transparent');
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.arc(lx,ly,400,0,Math.PI*2);
-  ctx.fill();
+    // === DUVARLAR VE ZEMİN ===
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9, metalness: 0.1 });
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 1, metalness: 0 });
 
-  requestAnimationFrame(draw);
-}
-draw();
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(50,50), floorMat);
+    floor.rotation.x = -Math.PI/2;
+    scene.add(floor);
 
-// Yazılar sırasıyla belirsin
-const texts = [
-  "Bilinçaltının kapısı sessizlikle açılır...",
-  "Her gölge, seni sen yapar.",
-  "Kendinden kaçarken yine kendine varırsın.",
-  "Zihnin yüzeyi durulduğunda, derinlik konuşur.",
-  "Bu karanlık, senin içindeki ışıktır.",
-  "Ve şimdi... nefes al. Düşünme. Sadece hisset."
-];
+    const walls = [
+      new THREE.Mesh(new THREE.BoxGeometry(50,10,0.5), wallMat),
+      new THREE.Mesh(new THREE.BoxGeometry(50,10,0.5), wallMat),
+      new THREE.Mesh(new THREE.BoxGeometry(0.5,10,50), wallMat),
+      new THREE.Mesh(new THREE.BoxGeometry(0.5,10,50), wallMat),
+    ];
+    walls[0].position.z = -25;
+    walls[1].position.z = 25;
+    walls[2].position.x = -25;
+    walls[3].position.x = 25;
+    walls.forEach(w=>scene.add(w));
 
-const textEl = document.getElementById('text');
-const btn = document.getElementById('continue');
-let i = 0;
+    // === KAMERA VE KONTROLLER ===
+    camera.position.set(0, 3, 10);
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enablePan = false;
+    controls.enableZoom = false;
+    controls.maxPolarAngle = Math.PI/2.1;
 
-function showText(){
-  if(i < texts.length){
-    textEl.style.opacity = 0;
-    setTimeout(()=>{
-      textEl.innerText = texts[i];
-      textEl.style.opacity = 1;
-      i++;
-      setTimeout(showText, 6000);
-    }, 2000);
-  } else {
-    btn.style.opacity = 1;
-  }
-}
-setTimeout(showText, 2000);
+    // === MEŞALE TİTREŞİMİ ===
+    let t = 0;
+    function animateTorch(){
+      torch1.intensity = 1.5 + Math.sin(t*8)*0.2;
+      torch2.intensity = 1.8 + Math.cos(t*10)*0.3;
+    }
 
-btn.addEventListener('click', ()=>{
-  window.location.href = "bilincin-yankisi.html";
-});
-</script>
+    // === PARTİKÜL HAREKETİ ===
+    function moveParticles(){
+      particles.children.forEach(p=>{
+        p.position.y += Math.sin((p.position.x+p.position.z+t)*0.3)*0.005;
+        if(p.position.y > 10) p.position.y = 0;
+      });
+    }
+
+    // === PERDELER (YENİ SAHNELER) ===
+    let stage = 1;
+    const overlay = document.getElementById('overlay');
+    const h1 = overlay.querySelector('h1');
+    const btn = document.getElementById('continueBtn');
+
+    setTimeout(()=>h1.style.opacity=1,1000);
+    setTimeout(()=>btn.style.opacity=1,4000);
+
+    btn.addEventListener('click', ()=>{
+      stage++;
+      h1.style.opacity = 0;
+      btn.style.opacity = 0;
+      setTimeout(()=>{
+        if(stage===2){
+          h1.textContent = "Yolun duvarlarında eski sözler yankılanıyor...";
+        } else if(stage===3){
+          h1.textContent = "Her adım, kendi içinden geçiştir...";
+        } else if(stage===4){
+          h1.textContent = "Karanlık bitmez; sadece sen ışık olursun.";
+        } else {
+          h1.textContent = "Sessizlik. Son perde.";
+        }
+        h1.style.opacity = 1;
+        if(stage<5) btn.style.opacity = 1;
+      },2000);
+    });
+
+    // === ANİMASYON DÖNGÜSÜ ===
+    function animate(){
+      t += 0.01;
+      animateTorch();
+      moveParticles();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // === YENİDEN BOYUTLANDIRMA ===
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
