@@ -3,35 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Labirent: Başlangıç | Bilinçaltı</title>
+<title>Minecraft Labirenti | Başlangıç</title>
 <style>
-html,body {
-  margin:0;
-  height:100%;
-  overflow:hidden;
-  background:black;
-  font-family:"Poppins",sans-serif;
-  color:#f5e6d0;
+html,body{margin:0;height:100%;overflow:hidden;background:#000;}
+#subtitle{
+  position:absolute;bottom:10%;width:100%;text-align:center;
+  color:#e8e0d0;font-family:"Poppins",sans-serif;
+  font-size:1.2rem;opacity:0;transition:opacity 2s ease;
+  text-shadow:0 0 18px rgba(255,200,120,0.8);
 }
-#subtitle {
-  position:absolute;
-  bottom:10%;
-  width:100%;
-  text-align:center;
-  font-size:1.3rem;
-  opacity:0;
-  transition:opacity 2s ease;
-  text-shadow:0 0 20px rgba(255,180,100,0.7);
+#fadeWhite{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:white;opacity:0;transition:opacity 3s ease;
 }
-#fadeWhite {
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:white;
-  opacity:0;
-  transition:opacity 3s ease;
-}
-canvas{display:block;}
 </style>
 </head>
 <body>
@@ -40,114 +24,102 @@ canvas{display:block;}
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script>
-// === SAHNE OLUŞTUR ===
+// === SAHNE ===
 const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+scene.fog=new THREE.FogExp2(0x000000,0.04);
+const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
 const renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setSize(innerWidth,innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// === IŞIKLAR ===
-const torch=new THREE.PointLight(0xffa050,2.5,15);
-torch.position.set(0,1.5,0);
-scene.add(torch);
-scene.add(new THREE.AmbientLight(0x120a05,0.3));
-
-// === SİS & PARTİKÜLLER ===
-scene.fog=new THREE.FogExp2(0x000000,0.035);
-const particleGeo=new THREE.BufferGeometry();
-const particleCount=250;
-const positions=[];
-for(let i=0;i<particleCount;i++){
-  positions.push((Math.random()-0.5)*20,(Math.random()-0.2)*8,(Math.random()-1)*200);
-}
-particleGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
-const particleMat=new THREE.PointsMaterial({color:0xffe0b0,size:0.05,transparent:true,opacity:0.6});
-const particles=new THREE.Points(particleGeo,particleMat);
-scene.add(particles);
-
-// === DUVARLAR & ZEMİN ===
+// === DOKULAR ===
 const loader=new THREE.TextureLoader();
-const wallTex=loader.load("https://threejsfundamentals.org/threejs/resources/images/wall.jpg");
-wallTex.wrapS=wallTex.wrapT=THREE.RepeatWrapping;
-wallTex.repeat.set(6,6);
-const wallMat=new THREE.MeshStandardMaterial({map:wallTex,roughness:0.8,metalness:0.1});
-const floorMat=new THREE.MeshStandardMaterial({color:0x0c0c0c});
+const stone=loader.load("https://i.imgur.com/X7WJ5dq.jpeg"); // taş
+stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
+stone.repeat.set(1,1);
 
-for(let z=0;z<180;z+=6){
-  const leftWall=new THREE.Mesh(new THREE.BoxGeometry(10,6,0.4),wallMat);
-  leftWall.position.set(-5,0,-z);
-  scene.add(leftWall);
-  const rightWall=new THREE.Mesh(new THREE.BoxGeometry(10,6,0.4),wallMat);
-  rightWall.position.set(5,0,-z);
-  scene.add(rightWall);
-  const floor=new THREE.Mesh(new THREE.BoxGeometry(10,0.2,6),floorMat);
-  floor.position.set(0,-3,-z);
+const floorTex=loader.load("https://i.imgur.com/aBkx8qM.jpeg"); // zemin
+floorTex.wrapS=floorTex.wrapT=THREE.RepeatWrapping;
+floorTex.repeat.set(6,6);
+
+const wallMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
+const floorMat=new THREE.MeshStandardMaterial({map:floorTex,roughness:1});
+
+// === IŞIKLAR ===
+const torch=new THREE.PointLight(0xffa050,2,10);
+torch.position.set(0,2,0);
+scene.add(torch);
+scene.add(new THREE.AmbientLight(0x202010,0.4));
+
+// === LABİRENT BLOKLARI ===
+for(let z=0;z<200;z+=4){
+  const wallLeft=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  wallLeft.position.set(-4,0,-z);
+  scene.add(wallLeft);
+
+  const wallRight=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  wallRight.position.set(4,0,-z);
+  scene.add(wallRight);
+
+  const floor=new THREE.Mesh(new THREE.BoxGeometry(8,0.2,4),floorMat);
+  floor.position.set(0,-2,-z);
   scene.add(floor);
 }
 
-// === KAMERA ===
-camera.position.set(0,0.5,3);
+// === KAMERA YOLU ===
+camera.position.set(0,1,5);
+let t=0;
+let run=false;
 
-// === ALTYAZILAR ===
-const subs=[
-  "Karanlık... sadece gözlerini değil, zihnini de sarıyor.",
-  "Bir ses... yankı mı, yoksa hatırladığın bir nefes mi?",
-  "Bu koridor, adımlarının hikayesini biliyor.",
-  "Koşma... Zaten senden kaçamazsın.",
-  "Bilinçaltının kapısı şimdi açılıyor."
+// === YAZILAR ===
+const subtitles=[
+  "Küplerden yapılmış bu labirent, garip şekilde canlı hissediliyor...",
+  "Bir köşe daha... taşların arasından rüzgar geçiyor.",
+  "Bir ses yankılandı... kimin sesi bu?",
+  "Koş! Duvar kapanıyor!",
+  "Işık... çok parlak..."
 ];
 const subtitle=document.getElementById("subtitle");
-let s=0;
-
-function showNextSub(){
-  if(s<subs.length){
-    subtitle.textContent=subs[s];
+const fadeWhite=document.getElementById("fadeWhite");
+let idx=0;
+function showNext(){
+  if(idx<subtitles.length){
+    subtitle.textContent=subtitles[idx];
     subtitle.style.opacity=1;
-    setTimeout(()=>{subtitle.style.opacity=0;s++;setTimeout(showNextSub,2500);},4000);
-  } else {
-    fadeToWhite();
+    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,1800);},3500);
+  }else{
+    fadeWhite.style.opacity=1;
+    setTimeout(()=>window.location.href="labirent-02.html",3000);
   }
 }
-setTimeout(showNextSub,2000);
+setTimeout(showNext,2000);
 
-// === GEÇİŞ ===
-const fadeWhite=document.getElementById("fadeWhite");
-function fadeToWhite(){
-  fadeWhite.style.opacity=1;
-  setTimeout(()=>window.location.href="labirent-02.html",3500);
-}
-
-// === HAREKETLER ===
-let t=0,run=false;
+// === ANİMASYON ===
 function animate(){
   requestAnimationFrame(animate);
   t+=0.015;
-  particles.rotation.y+=0.0005;
 
-  // Meşale titremesi
-  torch.intensity=2.5+Math.sin(t*8)*0.2;
-  torch.position.x=Math.sin(t*2)*0.3;
+  torch.intensity=2+Math.sin(t*5)*0.3;
   torch.position.z=camera.position.z-1;
 
-  // Yavaş yürüyüş
-  if(t<10) camera.position.z-=0.04;
-  // Koşu modu
-  if(t>10) run=true;
+  // Yürüyüş
+  if(t<9) camera.position.z-=0.05;
+  // Koşu
+  if(t>9){run=true;}
   if(run){
-    camera.position.z-=0.18;
-    camera.rotation.y=Math.sin(t*3)*0.05;
-    camera.rotation.x=Math.sin(t*6)*0.02;
+    camera.position.z-=0.2;
+    camera.rotation.y=Math.sin(t*2)*0.07;
+    camera.rotation.x=Math.sin(t*5)*0.03;
   }
 
   renderer.render(scene,camera);
 }
 animate();
 
-window.addEventListener("resize",()=>{
-  camera.aspect=window.innerWidth/window.innerHeight;
+addEventListener("resize",()=>{
+  camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,window.innerHeight);
+  renderer.setSize(innerWidth,innerHeight);
 });
 </script>
 </body>
