@@ -2,140 +2,162 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Labirent Başlangıç | Bilinçaltı</title>
+  <title>Labirent: Başlangıç | Bilinçaltı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body, html {
       margin: 0;
       overflow: hidden;
       height: 100%;
-      background: #000;
-      color: #fff;
+      background: black;
       font-family: "Poppins", sans-serif;
     }
 
-    #overlayText {
+    #subtitle {
       position: absolute;
-      top: 50%;
+      bottom: 12%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
+      color: rgba(255, 230, 200, 0.9);
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       opacity: 0;
       transition: opacity 2s ease;
-      text-shadow: 0 0 10px #ff9, 0 0 30px #f60;
+      text-shadow: 0 0 18px rgba(255, 160, 80, 0.5);
     }
 
     #fadeWhite {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: white;
       opacity: 0;
-      transition: opacity 2.5s ease;
+      transition: opacity 3s ease;
+      pointer-events: none;
+    }
+
+    #startText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 1.4rem;
+      text-align: center;
+      opacity: 1;
+      animation: fadeout 4s ease forwards;
+    }
+
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div id="overlayText">Lütfen PC modunda oynayın</div>
+  <div id="startText">💻 Lütfen PC modunda oynayın</div>
+  <div id="subtitle"></div>
   <div id="fadeWhite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
   <script>
-    let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    let renderer = new THREE.WebGLRenderer({ antialias: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Işık
-    const light = new THREE.PointLight(0xffb266, 2, 25);
-    light.position.set(0, 1.8, 2);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0x2a1a0a, 0.4));
+    // Işıklar
+    const torchLight = new THREE.PointLight(0xffa050, 2.5, 18);
+    torchLight.position.set(0, 1.8, 1);
+    scene.add(torchLight);
+    scene.add(new THREE.AmbientLight(0x20150a, 0.3));
 
     // Dokular
     const loader = new THREE.TextureLoader();
-    const wallTex = loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
-    wallTex.wrapS = wallTex.wrapT = THREE.RepeatWrapping;
-    wallTex.repeat.set(6, 6);
-    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex });
+    const wallTexture = loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
+    wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
+    wallTexture.repeat.set(8, 8);
 
-    // Koridor
-    const corridor = [];
-    for (let i = 0; i < 20; i++) {
-      let wallL = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 0.5), wallMat);
-      wallL.position.set(-5, 1, -i * 6);
+    const wallMat = new THREE.MeshStandardMaterial({ map: wallTexture });
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
+
+    // Koridor yapısı
+    for (let i = 0; i < 25; i++) {
+      const wallL = new THREE.Mesh(new THREE.BoxGeometry(8, 6, 0.5), wallMat);
+      wallL.position.set(-4, 1, -i * 6);
       scene.add(wallL);
-      corridor.push(wallL);
 
-      let wallR = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 0.5), wallMat);
-      wallR.position.set(5, 1, -i * 6);
+      const wallR = new THREE.Mesh(new THREE.BoxGeometry(8, 6, 0.5), wallMat);
+      wallR.position.set(4, 1, -i * 6);
       scene.add(wallR);
-      corridor.push(wallR);
 
-      let floor = new THREE.Mesh(new THREE.BoxGeometry(10, 0.2, 6), new THREE.MeshStandardMaterial({ color: 0x1a1a1a }));
+      const floor = new THREE.Mesh(new THREE.BoxGeometry(8, 0.2, 6), floorMat);
       floor.position.set(0, -2, -i * 6);
       scene.add(floor);
-      corridor.push(floor);
     }
+
+    // Sis efekti
+    scene.fog = new THREE.FogExp2(0x000000, 0.035);
 
     // Kamera
     camera.position.set(0, 1.5, 5);
 
-    // Altyazı dizisi
-    const texts = [
+    // Altyazı listesi
+    const subtitles = [
       "Bu labirente kendi isteğinle girdin...",
-      "Her köşede bir ses yankılanır...",
-      "Kaçış yok.",
-      "Sadece kendini bulmak var..."
+      "Her köşede bir yankı, her yankıda bir yüzleşme...",
+      "Koşma. Zaten kendinden kaçamazsın.",
+      "2. perdeye geçiliyor..."
     ];
-    let textIndex = 0;
-    let overlay = document.getElementById("overlayText");
 
-    function showNextText() {
-      if (textIndex < texts.length) {
-        overlay.textContent = texts[textIndex];
-        overlay.style.opacity = 1;
+    const subtitleEl = document.getElementById("subtitle");
+    let subIndex = 0;
+    let subTimer = 0;
+    let subDelay = [3000, 6000, 11000, 16000]; // altyazı süreleri
+
+    setTimeout(() => showSubtitle(), 4000);
+
+    function showSubtitle() {
+      if (subIndex < subtitles.length) {
+        subtitleEl.textContent = subtitles[subIndex];
+        subtitleEl.style.opacity = 1;
+        setTimeout(() => { subtitleEl.style.opacity = 0; subIndex++; showSubtitle(); }, 4000);
+      } else {
+        // Fade to white, geçiş
         setTimeout(() => {
-          overlay.style.opacity = 0;
-          textIndex++;
-          setTimeout(showNextText, 1500);
-        }, 2500);
+          document.getElementById("fadeWhite").style.opacity = 1;
+          setTimeout(() => {
+            window.location.href = "labirent-02.html";
+          }, 3000);
+        }, 1000);
       }
     }
 
-    setTimeout(showNextText, 3000);
-
+    // Hareket değişkenleri
     let progress = 0;
-    let running = false;
-    let finished = false;
+    let run = false;
+    let turn = false;
 
     function animate() {
       requestAnimationFrame(animate);
       progress += 0.015;
 
-      if (!running) camera.position.z -= 0.05;
-      light.position.z = camera.position.z - 1;
+      // Meşale hareketi
+      torchLight.intensity = 2.3 + Math.sin(progress * 4) * 0.3;
+      torchLight.position.z = camera.position.z - 0.8;
 
-      // Kamera ani dönme efekti
-      if (progress > 8 && !running) {
-        running = true;
-        overlay.textContent = "Bir ses mi duydun?..";
-        overlay.style.opacity = 1;
-        setTimeout(() => { overlay.style.opacity = 0; }, 2000);
-      }
+      // Kamera yürüyüş
+      if (progress < 7) camera.position.z -= 0.04;
+      if (progress > 7 && !turn) { turn = true; }
+      if (turn && progress < 13) camera.rotation.y += 0.002;
 
-      if (running && camera.position.z > -70) {
-        camera.rotation.y = Math.sin(progress * 2) * 0.15;
-        camera.position.z -= 0.15; // koşu efekti
-      }
-
-      if (camera.position.z < -70 && !finished) {
-        finished = true;
-        document.getElementById("fadeWhite").style.opacity = 1;
-        setTimeout(() => { window.location.href = "labirent-02.html"; }, 3000);
+      // Kamera koşu
+      if (progress > 13 && !run) run = true;
+      if (run) {
+        camera.position.z -= 0.15;
+        camera.rotation.y = Math.sin(progress * 3) * 0.1;
       }
 
       renderer.render(scene, camera);
