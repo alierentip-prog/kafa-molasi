@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labirent – Taşların Uyanışı</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#000;}
+#subtitle{
+  position:absolute;bottom:8%;width:100%;text-align:center;
+  color:#f1e8d2;font-family:"Poppins",sans-serif;font-size:1.1rem;
+  opacity:0;transition:opacity 2s ease;
+  text-shadow:0 0 18px rgba(255,220,150,0.8);
+}
+#fadeWhite{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:white;opacity:0;transition:opacity 3s ease;
+}
+</style>
+</head>
+<body>
+<div id="subtitle"></div>
+<div id="fadeWhite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script>
+// === SAHNE ===
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x000000,0.035);
+const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// === DOKULAR ===
+const loader=new THREE.TextureLoader();
+const stone=loader.load("https://i.imgur.com/X7WJ5dq.jpeg");
+stone.wrapS=stone.wrapT=THREE.RepeatWrapping;
+stone.repeat.set(1,1);
+const wallMat=new THREE.MeshStandardMaterial({map:stone,roughness:1});
+const floorMat=new THREE.MeshStandardMaterial({color:0x151515});
+
+// === IŞIKLAR ===
+const mainLight=new THREE.PointLight(0xffd28a,2,15);
+mainLight.position.set(0,2,0);
+scene.add(mainLight);
+scene.add(new THREE.AmbientLight(0x202010,0.4));
+
+// === KORİDOR ===
+for(let z=0;z<140;z+=4){
+  const left=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  left.position.set(-4,0,-z);
+  scene.add(left);
+  const right=new THREE.Mesh(new THREE.BoxGeometry(4,4,1),wallMat);
+  right.position.set(4,0,-z);
+  scene.add(right);
+  const floor=new THREE.Mesh(new THREE.BoxGeometry(8,0.2,4),floorMat);
+  floor.position.set(0,-2,-z);
+  scene.add(floor);
+}
+
+// === HİYEROGLİF KÜPLER ===
+const glyphChars="⟡⌖☥𓂀𓆣𓃭𓃰𓇋𓈖𓏏𓊽";
+const cubes=[];
+const glyphMaterial=new THREE.MeshStandardMaterial({color:0xffe7a8,emissive:0x7b5f30,emissiveIntensity:0.5});
+for(let i=-2;i<=2;i++){
+  for(let j=0;j<25;j++){
+    const cube=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.6,0.6),glyphMaterial.clone());
+    cube.position.set(i*2,3,-j*4);
+    cube.userData.symbol=glyphChars[Math.floor(Math.random()*glyphChars.length)];
+    scene.add(cube);
+    cubes.push(cube);
+  }
+}
+
+// === ALT YAZILAR ===
+const subtitles=[
+  "Duvarlarda şekiller kıpırdıyor...",
+  "Taşlar... yer değiştiriyorlar.",
+  "Bir şey seni izliyor, yukarıdan.",
+  "Zemin titredi... nefesini tut."
+];
+const subtitle=document.getElementById("subtitle");
+const fadeWhite=document.getElementById("fadeWhite");
+let idx=0;
+function showNext(){
+  if(idx<subtitles.length){
+    subtitle.textContent=subtitles[idx];
+    subtitle.style.opacity=1;
+    setTimeout(()=>{subtitle.style.opacity=0;idx++;setTimeout(showNext,1800);},3500);
+  }else{
+    // deprem animasyonu
+    triggerQuake();
+  }
+}
+setTimeout(showNext,2000);
+
+// === KAMERA ===
+camera.position.set(0,1,5);
+let t=0;
+let quake=false;
+let quakeTime=0;
+
+// === ANİMASYON ===
+function animate(){
+  requestAnimationFrame(animate);
+  t+=0.015;
+  camera.position.z-=0.06;
+  mainLight.position.z=camera.position.z-1;
+
+  // küpler hareket ediyor
+  cubes.forEach((cube,i)=>{
+    cube.rotation.y+=0.02;
+    if(Math.random()<0.003 && !quake){
+      cube.position.y=3+Math.sin(t*4+i)*0.2;
+    }
+  });
+
+  // deprem efekti
+  if(quake){
+    quakeTime+=0.03;
+    camera.rotation.x=Math.sin(quakeTime*30)*0.03;
+    camera.rotation.y=Math.sin(quakeTime*25)*0.03;
+    if(quakeTime>5){
+      fadeWhite.style.opacity=1;
+      setTimeout(()=>window.location.href="labirent-04.html",3000);
+    }
+  }
+
+  renderer.render(scene,camera);
+}
+animate();
+
+// === DEPREM ===
+function triggerQuake(){
+  subtitle.textContent="!!! ...Duvardan bir gürültü geliyor...";
+  subtitle.style.opacity=1;
+  setTimeout(()=>{quake=true;},2000);
+}
+
+addEventListener("resize",()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+</script>
+</body>
+</html>
