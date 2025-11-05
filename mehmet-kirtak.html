@@ -9,59 +9,119 @@
 body {
   margin: 0;
   padding: 0;
+  background: #000;
   font-family: 'Metal Mania', cursive;
-  background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
-  color: #f5c542;
   overflow: hidden;
+  color: #fff;
+}
+
+/* Giriş ekranı */
+#intro {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.6rem;
+  color: #cfcfcf;
+  opacity: 1;
+  z-index: 5;
+  animation: fadeOut 6s forwards 6s;
+}
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+#intro span {
+  opacity: 0;
+  animation: fadeText 3s ease-in-out 1s forwards;
+}
+@keyframes fadeText {
+  to { opacity: 1; }
+}
+
+/* Flaş efekti */
+#flash {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: white;
+  opacity: 0;
+  z-index: 4;
+  animation: flash 0.5s ease-in-out 5.5s forwards;
+}
+@keyframes flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Ana sahne */
+#scene {
+  position: relative;
+  width: 100%;
   height: 100vh;
+  background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* Duman efekti */
-@keyframes smoke {
-  0% {background-position: 0 0;}
-  100% {background-position: 1000px 0;}
-}
-body::before {
+#scene::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: url('https://i.imgur.com/BtIui6v.png');
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background: url('https://i.imgur.com/BtIui6v.png') repeat;
   background-size: cover;
   opacity: 0.25;
-  animation: smoke 30s linear infinite;
-  z-index: 0;
+  animation: smoke 60s linear infinite;
+}
+@keyframes smoke {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(-500px, -500px) scale(1.2); }
 }
 
+/* Yazılar */
 h1 {
   font-size: 3rem;
   color: #ff1a1a;
-  text-shadow: 0 0 25px #ff0000, 0 0 50px #ff6600;
-  animation: fadeIn 3s ease forwards;
-  z-index: 2;
+  text-shadow: 0 0 30px #ff0000, 0 0 60px #ff6600;
+  opacity: 0;
+  animation: appear 2s ease-out 7s forwards;
+}
+h2 {
+  font-size: 1.5rem;
+  color: #f5c542;
+  margin-top: 20px;
+  opacity: 0;
+  animation: appear 2s ease-out 9s forwards;
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* Metin bloğu */
 p {
-  font-size: 1.2rem;
-  color: #f5deb3;
+  max-width: 700px;
   text-align: center;
-  max-width: 800px;
+  color: #f5deb3;
+  font-size: 1.1rem;
   line-height: 1.8;
-  margin: 20px auto;
-  z-index: 2;
-  animation: fadeIn 5s ease forwards;
+  opacity: 0;
+  animation: fadeTextIn 3s ease-out 10s forwards;
+}
+@keyframes fadeTextIn {
+  to { opacity: 1; }
 }
 
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(15px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
+/* Dönüş butonu */
 .button {
-  margin-top: 40px;
+  margin-top: 50px;
   background: linear-gradient(90deg, #8b0000, #c00);
   color: #fff;
   padding: 12px 24px;
@@ -71,9 +131,9 @@ p {
   font-size: 1rem;
   box-shadow: 0 0 20px rgba(255,0,0,0.5);
   transition: transform 0.2s, box-shadow 0.2s;
-  z-index: 2;
+  opacity: 0;
+  animation: appear 2s ease-out 12s forwards;
 }
-
 .button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 35px rgba(255,100,50,0.8);
@@ -82,20 +142,26 @@ p {
 </head>
 <body>
 
+<!-- Giriş -->
+<div id="intro">
+  <span>“Sessizlik... sadece fırtınadan önce olur.”</span>
+</div>
+
+<!-- Flaş -->
+<div id="flash"></div>
+
+<!-- Ana sahne -->
+<div id="scene">
   <h1>⚡ MEHMET KIRTTAK ⚡</h1>
-  <p>“Karanlık sessizliği yutarken metal yankılanır.”<br>
-  <i>Born from Silence, forged in Chaos.</i></p>
-
-  <p>Küller arasında yankılanan bir isim:<br>
+  <h2>Born from Silence, forged in Chaos</h2>
+  <p>Küller arasında yankılanan bir isim.<br>
   Riff’ler damar gibi akar, davul kalp gibi çarpar.<br>
-  When the world fades, the sound remains.<br><br>
-  Gürültü bir silahsa, sen onun tetiğisin.<br>
+  Gürültü bir silahsa, sen onun tetiğisin.<br><br>
   Her notada bir çığlık, her sessizlikte bir patlama saklı.<br>
-  Bu sayfa senin tapınağın — metal tanrılarının yankılandığı yer.</p>
-
-  <p><b>“Sessizlikten doğan sesler bazen en gürültülü olanlardır.”</b></p>
-
+  Bu sayfa senin tapınağın — metal tanrılarının yankılandığı yer.<br><br>
+  “Sessizlikten doğan sesler bazen en gürültülü olanlardır.”</p>
   <a href="index.html" class="button">🏠 Menüye Dön</a>
+</div>
 
 </body>
 </html>
