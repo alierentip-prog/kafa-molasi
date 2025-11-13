@@ -218,8 +218,10 @@
     let index = 0;
 
     function showPromise() {
+      // alt açıklamayı biraz silikleştir, söz kutusunu aç
       helperTextEl.style.opacity = "0.7";
       promiseBox.style.display = "block";
+      // ana metni boş bırakabiliriz veya son şakayı üstte bırakırız
     }
 
     function showMessage(i) {
@@ -235,67 +237,15 @@
       }, durations[i]);
     }
 
+    // sayfa yüklenince sırayla yazıları oynat
     window.addEventListener("load", () => {
       showMessage(0);
     });
 
+    // söz verince menüye geç
     promiseBtn.addEventListener("click", () => {
       window.location.href = "menu.html"; // ana menü dosyanın adı
     });
   </script>
-
-  <!-- Arka plan müziği (başta çalmıyor, sadece hazır bekliyor) -->
-  <audio id="bgMusic" loop>
-    <source src="music/kafa Molası Müzik.mp3" type="audio/mpeg">
-    Tarayıcın ses etiketini desteklemiyor.
-  </audio>
-
-  <!-- Müzik izni butonu -->
-  <button id="musicToggle">
-    🎵 Müzik Aç
-  </button>
-
-  <script>
-    const audio = document.getElementById("bgMusic");
-    const btn   = document.getElementById("musicToggle");
-
-    btn.style.position = "fixed";
-    btn.style.right    = "16px";
-    btn.style.bottom   = "16px";
-    btn.style.padding  = "8px 14px";
-    btn.style.borderRadius = "999px";
-    btn.style.border   = "none";
-    btn.style.cursor   = "pointer";
-    btn.style.fontFamily = "Poppins, system-ui, sans-serif";
-    btn.style.fontSize = "0.85rem";
-    btn.style.fontWeight = "600";
-    btn.style.background = "linear-gradient(135deg,#4ade80,#22c55e)";
-    btn.style.color    = "#022c22";
-    btn.style.boxShadow = "0 8px 18px rgba(34,197,94,0.45)";
-
-    let isPlaying = false;
-
-    btn.addEventListener("click", async () => {
-      try {
-        if (!isPlaying) {
-          await audio.play();
-          isPlaying = true;
-          btn.textContent = "🔇 Müzik Kapat";
-          btn.style.background = "linear-gradient(135deg,#fecaca,#f97373)";
-          btn.style.color = "#7f1d1d";
-        } else {
-          audio.pause();
-          isPlaying = false;
-          btn.textContent = "🎵 Müzik Aç";
-          btn.style.background = "linear-gradient(135deg,#4ade80,#22c55e)";
-          btn.style.color = "#022c22";
-        }
-      } catch (err) {
-        console.log("Müzik başlatılamadı:", err);
-        alert("Tarayıcı müziği başlatmaya izin vermedi, bir daha dene canım. 🥺");
-      }
-    });
-  </script>
-
 </body>
 </html>
